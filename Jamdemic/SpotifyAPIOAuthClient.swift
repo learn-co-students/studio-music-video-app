@@ -28,7 +28,7 @@ struct SpotifyAPIOAuthClient {
      - parameters: 
         - url: URL received in the callback after authorization. Should include the code to make an access token request.
     */
-    static func startSpotifyAccessTokenRequest(withURL url: NSURL) {
+     static func startSpotifyAccessTokenRequest(withURL url: NSURL) {
         print("starting request..")
         
         // Setting up all the info we need to make the post request..
@@ -38,8 +38,7 @@ struct SpotifyAPIOAuthClient {
         // Encoding the clientID:Secret string into base 64 as specified by the spotify docs.
         // more info: https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow
         let combinedString = Secrets.clientID + ":" + Secrets.clientSecret
-        let utf8String = combinedString.dataUsingEncoding(NSUTF8StringEncoding)
-        guard let encodedString = utf8String?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) else { fatalError("Unable to encode string") }
+        guard let combinedEncodedString = combinedString.base64EncodedString else { fatalError("unable to encode string") }
         
         let parameters = [
             "grant_type" : "authorization_code",
@@ -49,7 +48,7 @@ struct SpotifyAPIOAuthClient {
         
         // Authorization: Basic <base64 encoded client_id:client_secret>
         let headers = [
-            "Authorization" : "Basic \(encodedString)"
+            "Authorization" : "Basic \(combinedEncodedString)"
         ]
     
         
@@ -72,6 +71,7 @@ struct SpotifyAPIOAuthClient {
         ]
         guard let combinedEncodedString = (Secrets.clientID + ":" + Secrets.clientSecret).base64EncodedString else {
             print("unable to base64 encode string")
+            completed(nil)
             return
         }
         let headers = [
