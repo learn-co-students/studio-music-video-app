@@ -40,6 +40,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    /**
+     Uncomment the below method to generate an access token for the first time
+    */
+//    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+//        
+//        guard let sourceBundleID = options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String else { return false }
+//        
+//        NSNotificationCenter.defaultCenter().postNotificationName("codeReceived", object: url)
+//        return sourceBundleID == "com.apple.SafariViewService"
+//    }
 
 
 }

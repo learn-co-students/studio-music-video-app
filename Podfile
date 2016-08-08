@@ -7,6 +7,7 @@ target 'Jamdemic' do
 
   pod 'Alamofire', '~> 3.4'
   pod 'SnapKit', '~> 0.15.0'
+  pod 'SwiftyJSON'
 
   # Pods for Jamdemic
 
