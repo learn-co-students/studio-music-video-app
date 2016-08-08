@@ -63,9 +63,9 @@ struct SpotifyAPIOAuthClient {
     /**
      Refreshes an expired access token by sending a **POST** request to https://accounts.spotify.com/api/token along with a valid refresh token
     */
-    static func refreshSpotifyAccessToken() {
+    static func refreshSpotifyAccessToken(completed: (String?) -> ()) {
         
-        // Ideally the refresh token will be updated on Firebase and will not be hardcoded into the Secrets file, so this is temporary for now
+        // Ideally the access token will be updated on Firebase and will not be hardcoded into the Secrets file, so this is temporary for now
         let parameters = [
             "grant_type" : "refresh_token",
             "refresh_token" : Secrets.spotifyRefreshToken
@@ -79,13 +79,18 @@ struct SpotifyAPIOAuthClient {
         ]
         
         Alamofire.request(.POST, SpotifyAPIOAuthClient.URLRouter.token, parameters: parameters, encoding: .URL, headers: headers).responseJSON { (response) in
-            print(response)
+            print("New access token info: \(response.result.value)")
+            
+            if let value = response.result.value {
+                let json = JSON(value)
+                completed(json["access_token"].string)
+            }
+            else {
+                print("Unable to unwrap value from JSON response")
+                completed(nil)
+            }
         }
-        
     }
-    
-    
-    
 }
 
 
