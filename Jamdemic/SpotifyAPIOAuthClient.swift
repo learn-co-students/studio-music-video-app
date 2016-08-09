@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Firebase
 
 struct SpotifyAPIOAuthClient {
     
@@ -28,7 +29,7 @@ struct SpotifyAPIOAuthClient {
      - parameters: 
         - url: URL received in the callback after authorization. Should include the code to make an access token request.
     */
-     static func startSpotifyAccessTokenRequest(withURL url: NSURL) {
+     private static func startSpotifyAccessTokenRequest(withURL url: NSURL) {
         print("starting request..")
         
         // Setting up all the info we need to make the post request..
@@ -83,12 +84,52 @@ struct SpotifyAPIOAuthClient {
             
             if let value = response.result.value {
                 let json = JSON(value)
-                completed(json["access_token"].string)
+                
+                guard let token = json["access_token"].string else {
+                    fatalError("Unable to unwrap access token")
+                }
+                
+                SpotifyAPIOAuthClient.saveTokenToFirebase(token)
+                
+                completed(token)
             }
             else {
                 print("Unable to unwrap value from JSON response")
                 completed(nil)
             }
+        }
+    }
+    
+    /** Saves the specified token to Firebase */
+    private static func saveTokenToFirebase(token: String) {
+        let databaseReference = FIRDatabase.database().referenceWithPath("/private_tokens").child("spotify_access_token")
+        databaseReference.setValue(token) { (error, reference) in
+            if error == nil {
+                print("successfully saved token to Firebase at reference: \(reference)")
+            }
+            else {
+                print("Error saving token to Firebase: \(error?.localizedDescription)")
+            }
+        }
+    }
+    
+    /**
+     Loads the current Spotify access token from the Firebase Database.
+     
+     This should be your first point of access token retrieval. If the current access token returned in the completion block
+     has expired use the refreshSpotifyAccessToken method for a new token.
+     
+     - parameters:
+        - completion: A completion block that passes back the access token stored on Firebase
+    */
+    static func loadAccessToken(completion: (String?)->() ) {
+        let tokenReference = FIRDatabase.database().referenceWithPath("/private_tokens/spotify_access_token")
+        tokenReference.observeEventType(.Value) { (snapshot: FIRDataSnapshot) in
+            let token = snapshot.value?["spotify_access_token"] as? String
+            print("Retrived token from Firebase: \(token)")
+            // Observers need to be removed, otherwise they continue to sync data
+            tokenReference.removeAllObservers()
+            completion(token)
         }
     }
 }
