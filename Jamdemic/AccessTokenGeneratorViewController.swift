@@ -31,8 +31,8 @@ class AccessTokenGeneratorViewController: UIViewController {
     
     func handleCallback(notification: NSNotification) {
         self.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
-        guard let url = notification.object as? NSURL else { fatalError("unable to unwrap notification object") }
-        // Start request for token using the code
-        SpotifyAPIOAuthClient.startSpotifyAccessTokenRequest(withURL: url)
+//        guard let url = notification.object as? NSURL else { fatalError("unable to unwrap notification object") }
+        // Start request for token using the code. This is set to private for normal use so no one accidentally calls it.
+//        SpotifyAPIOAuthClient.startSpotifyAccessTokenRequest(withURL: url)
     }
 }
