@@ -8,6 +8,11 @@ target 'Jamdemic' do
   pod 'Alamofire', '~> 3.4'
   pod 'SnapKit', '~> 0.15.0'
   pod 'SwiftyJSON'
+  pod 'Firebase'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+
+
 
   # Pods for Jamdemic
 
