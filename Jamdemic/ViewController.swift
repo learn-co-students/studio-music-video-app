@@ -13,7 +13,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("HELLLLLOOO!!!")
+        SpotifyAPIOAuthClient.refreshSpotifyAccessToken { (token) in
+            print(token)
+        }
     }
 
 }
