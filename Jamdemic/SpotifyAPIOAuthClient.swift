@@ -115,7 +115,7 @@ struct SpotifyAPIOAuthClient {
     /**
      Loads the current Spotify access token from the Firebase Database.
      
-     This should be your first point of access token retrieval. If the current access token returned in the completion block
+     If the current access token returned in the completion block
      has expired use the refreshSpotifyAccessToken method for a new token.
      
      - parameters:
