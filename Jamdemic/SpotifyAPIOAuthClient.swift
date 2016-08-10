@@ -65,7 +65,6 @@ struct SpotifyAPIOAuthClient {
      */
     static func refreshSpotifyAccessToken(completed: (String?) -> ()) {
         
-        // Ideally the access token will be updated on Firebase and will not be hardcoded into the Secrets file, so this is temporary for now
         let parameters = [
             "grant_type" : "refresh_token",
             "refresh_token" : Secrets.spotifyRefreshToken
@@ -130,6 +129,42 @@ struct SpotifyAPIOAuthClient {
             // Observers need to be removed, otherwise they continue to sync data
             tokenReference.removeAllObservers()
             completion(token)
+        }
+    }
+    
+
+    /**
+     Verifies the validity of the current access token hosted on Firebase
+     
+     - note: Use this function before making any API Calls to Spotify to ensure you have a valid access token.
+    */
+    static func verifyAccessToken(completion: (String)->()) {
+        
+        SpotifyAPIOAuthClient.loadSpotifyAccessToken { (token) in
+            
+            guard let token = token else { fatalError("Unable to unwrap access token") }
+            // Small api hit to test the validity. This will search for "categores" with a limit of 1
+            let parameters = ["limit": 1]
+            let headers = ["Authorization" : "Bearer \(token)"]
+            let baseURL = "https://api.spotify.com/v1/browse/categories"
+    
+            Alamofire.request(.GET, baseURL, parameters: parameters, encoding: .URL, headers: headers).validate().responseJSON(completionHandler: { (response) in
+                switch response.result {
+                case .Success:
+                    print("Validation Successful")
+                    completion(token)
+                case .Failure(let error):
+                    //TODO: Check for the acutal error that specifies an expired access token
+                    print("Unable to validate token, calling refresh...")
+                    print(error)
+                    // Access token is not valid, refresh and try again
+                    SpotifyAPIOAuthClient.refreshSpotifyAccessToken({ (_) in
+                        // Recursivly call verify until a successful token is generated. 
+                        //TODO: Use exponential backoff here m
+                        verifyAccessToken({ verifiedToken in completion(verifiedToken) })
+                    })
+                }
+            })
         }
     }
 }
