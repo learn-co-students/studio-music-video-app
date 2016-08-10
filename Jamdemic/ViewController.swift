@@ -12,12 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        SpotifyAPIOAuthClient.verifyAccessToken { (token) in
-            print("yay I have a token: \(token)")
-        }
-        
-        
+
     }
 
 }
