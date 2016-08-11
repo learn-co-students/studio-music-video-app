@@ -12,28 +12,150 @@ import SwiftyJSON
 
 class GenreViewController: UIViewController {
     
+    // Dictionary that holds the query parameters for Spotify. The is key is "seed_genres". The value is the "genreQueryString" string.
     var genreParameterDictionary : [String : String] = [:]
-    var genreValues = ""
+    
+    // String that holds the genre selections from the user. This string is used as the a parameter value to query the Spotify API.
+    var genreQueryString = ""
+    
+    // Counter to keep track of how many genre buttons a user has selected.
     var genreButtonPressedNumber = 0
     
-    @IBOutlet weak var continueButton: UIButton!
-    
+    @IBOutlet weak var nextButton: UIBarButtonItem!
+
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        changeNagivationFontElements()
         
         self.getAuth()
-        print(genreValues)
+        //print(genreQueryString)
         
-        self.continueButton.enabled = false
-        self.continueButton.highlighted = false
-        self.continueButton.selected = false
-        
+        self.nextButton.enabled = false
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func genreButtonDidTouchUpInside(sender: UIButton) {
+        
+        // If the user chooses atleast one genre, then the can move forward to the ArtistViewController.
+        if self.genreButtonPressedNumber < 1 {
+            
+            self.nextButton.enabled = true
+
+        }
+        
+        // As long as the user chooses at most 5 genres, we add each genre to the genreValues string and that string is added to the genreParameterDictionary's values.
+        if self.genreButtonPressedNumber < 5 {
+            
+            self.genreButtonPressedNumber = self.genreButtonPressedNumber + 1
+            
+            guard let unwrappedGenreTitle = sender.titleLabel?.text else { fatalError("Error unwrapping genre button title.") }
+            
+            switch unwrappedGenreTitle {
+                
+            case "Alternative":
+                self.genreQueryString = "\(self.genreQueryString)alternative,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Rock":
+                self.genreQueryString = "\(self.genreQueryString)rock,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Pop":
+                self.genreQueryString = "\(self.genreQueryString)pop,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Jazz":
+                self.genreQueryString = "\(self.genreQueryString)jazz,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Metal":
+                self.genreQueryString = "\(self.genreQueryString)metal,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Reggae":
+                self.genreQueryString = "\(self.genreQueryString)reggae,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Country":
+                self.genreQueryString = "\(self.genreQueryString)country,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "EDM/Dance":
+                self.genreQueryString = "\(self.genreQueryString)dance,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Hip-Hop":
+                self.genreQueryString = "\(self.genreQueryString)hip-hop,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "K-pop":
+                self.genreQueryString = "\(self.genreQueryString)k-pop,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Christian":
+                self.genreQueryString = "\(self.genreQueryString)gospel,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Funk":
+                self.genreQueryString = "\(self.genreQueryString)funk,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Punk":
+                self.genreQueryString = "\(self.genreQueryString)punk,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Blues":
+                self.genreQueryString = "\(self.genreQueryString)blues,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Classical":
+                self.genreQueryString = "\(self.genreQueryString)classical,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "RnB":
+                self.genreQueryString = "\(self.genreQueryString)r-n-b,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Indie":
+                self.genreQueryString = "\(self.genreQueryString)indie,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            case "Soul":
+                self.genreQueryString = "\(self.genreQueryString)soul,"
+                self.genreParameterDictionary["seed_genres"] = self.genreQueryString
+                print("Your music genre(s) are: \(self.genreParameterDictionary)")
+            
+            default:
+                print("Not a valid genre.")
+            }
+        
+            // If the user chooses more than five genres, they are presented with an alert view and no more genres are added to the genreValues string.
+        } else {
+            
+            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of genres selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            
+            self.presentViewController(notificationAlert, animated: true, completion: nil)
+        }
     }
     
     // Step 1: Your application requests authorization:
@@ -61,192 +183,27 @@ class GenreViewController: UIViewController {
         }
     }
     
-    @IBAction func generatePlaylistButtonDidTouchUpInside(sender: AnyObject) {
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        let baseURLString = "https://api.spotify.com/v1/recommendations?"
-        
-        let authorizationDictionary = ["Authorization": "Bearer BQDHmpL5yp3h5y5W3K3n_IHIr0iR-bH3-wMorZkQqs3tMqkdPohn_Eff3AUUvGDlk4lOzlRhVFUqMFmHpkapAAHcl-D-QqwDjMvoxXTpWFaTSJVXy7XVCgaUfWVhQd4uzIbZqGWAEw"]
-        
-        Alamofire.request(.GET, baseURLString, parameters: self.genreParameterDictionary, encoding: ParameterEncoding.URL, headers: authorizationDictionary).validate().responseJSON { (response) in
+        if segue.identifier == "showArtistSegue" {
             
-            guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
+            let destinationTVC = segue.destinationViewController as! ArtistTableViewController
             
-            if responseValue == 200 {
-                
-                let responseValue = response.result.value
-                
-                guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping JSON response.") }
-                
-                let json = JSON(unwrappedResponseValue)
-                
-                let tracks = json["tracks"].arrayValue
-                
-                for i in tracks {
-                    
-                    let artistsNames = i["artists"][0]["name"].stringValue
-                    let artistSpotifyID = i["artists"][0]["uri"].stringValue
-                    print("\n\nArtist Name: \(artistsNames) - Spotify ID: \(artistSpotifyID)\n\n")
-                    
-                }
-                /*
-                 // Print out all artist names from response:
-                 for artistNames in tracks {
-                 
-                 print(artistNames["artists"][0]["name"].stringValue)
-                 
-                 }
-                 
-                 // Print out all artist spotify ID from response:
-                 for artistSpotifyID in tracks {
-                 
-                 print(artistSpotifyID["artists"][0]["uri"].stringValue)
-                 
-                 }
-                 */
-                
-                /*
-                 // Print our a seperate track:
-                 let artistName = json["tracks"][0]["artists"][0]["name"].stringValue
-                 print(artistName)
-                 
-                 // Print out a seperate artists spotify ID:
-                 let artistSpotifyID = json["tracks"][0]["artists"][0]["uri"].stringValue
-                 print(artistSpotifyID)
-                 
-                 // Print our the entire JSON response:
-                 print(json)
-                 */
-                
-            } else {
-                
-                print("Error Code: \(responseValue)")
-            }
+            // Passes the genreValues string to the ArtistsTableViewController to do the API call to Spotify in the viewDidLoad method.
+            destinationTVC.genreQueryString = self.genreQueryString
         }
     }
     
-    @IBAction func genreButtonDidTouchUpInside(sender: UIButton) {
-        
-        if self.genreButtonPressedNumber < 1 {
-            
-            self.continueButton.enabled = true
-            self.continueButton.highlighted = true
-            self.continueButton.selected = true
-            
-        }
-        
-        if self.genreButtonPressedNumber < 5 {
-            
-            self.genreButtonPressedNumber = self.genreButtonPressedNumber + 1
-            print(self.genreButtonPressedNumber)
-            
-            guard let unwrappedGenreTitle = sender.titleLabel?.text else { fatalError("Error unwrapping button title.") }
-            
-            switch unwrappedGenreTitle {
-                
-            case "Alternative":
-                self.genreValues = "\(self.genreValues)alternative,"
-                //self.genreParameterDictionary["genre"] = unwrappedGenreTitle
-                //print(genreParameterDictionary)
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-            case "Rock":
-                self.genreValues = "\(self.genreValues)rock,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Pop":
-                self.genreValues = "\(self.genreValues)pop,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Jazz":
-                self.genreValues = "\(self.genreValues)jazz,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Metal":
-                self.genreValues = "\(self.genreValues)metal,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Reggae":
-                self.genreValues = "\(self.genreValues)reggae,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Country":
-                self.genreValues = "\(self.genreValues)country,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "EDM/Dance":
-                self.genreValues = "\(self.genreValues)dance,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Hip-Hop":
-                self.genreValues = "\(self.genreValues)hip-hop,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "K-pop":
-                self.genreValues = "\(self.genreValues)k-pop,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Christian":
-                self.genreValues = "\(self.genreValues)gospel,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Funk":
-                self.genreValues = "\(self.genreValues)funk,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Punk":
-                self.genreValues = "\(self.genreValues)punk,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Blues":
-                self.genreValues = "\(self.genreValues)blues,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Classical":
-                self.genreValues = "\(self.genreValues)classical,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "RnB":
-                self.genreValues = "\(self.genreValues)r-n-b,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Indie":
-                self.genreValues = "\(self.genreValues)indie,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            case "Soul":
-                self.genreValues = "\(self.genreValues)soul,"
-                //print(self.genreValues)
-                self.genreParameterDictionary["seed_genres"] = self.genreValues
-                print(genreParameterDictionary)
-            default:
-                print("Not a valid genre.")
-            }
-            
-        } else {
-            
-            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of genres selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            
-            self.presentViewController(notificationAlert, animated: true, completion: nil)
-        }
-    }
+    // MARK: - UI Element changes:
     
-  
-
+    func changeNagivationFontElements() {
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
+        self.nextButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
+        let backButton = UIBarButtonItem(title: "Genres", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
+        navigationItem.backBarButtonItem = backButton
+    }
 }

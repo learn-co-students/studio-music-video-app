@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OrF-xZ-m4G">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GcU-YW-N0w">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -161,36 +161,134 @@
                                     <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="n2v-5Y-hFX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjU-Ul-Qs7">
-                                <rect key="frame" x="23" y="518" width="277" height="30"/>
-                                <color key="backgroundColor" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Generate Playlist">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="generatePlaylistButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="Wd7-Od-E8O"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KW9-mO-5BO">
-                                <rect key="frame" x="235" y="20" width="64" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Continue"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Choose up to 5" id="9e7-Mn-2Dd">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="4aQ-yU-aBP"/>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="uWd-Vd-Pd2">
+                            <connections>
+                                <segue destination="dHm-y5-cXf" kind="show" identifier="showArtistSegue" id="wz1-HD-InU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="continueButton" destination="KW9-mO-5BO" id="DA7-er-Gt0"/>
+                        <outlet property="nextButton" destination="uWd-Vd-Pd2" id="dnB-3C-pMT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xJq-l9-jL9" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1032" y="374"/>
+            <point key="canvasLocation" x="1844" y="374"/>
+        </scene>
+        <!--Choose up to 5-->
+        <scene sceneID="KO1-Y8-GbX">
+            <objects>
+                <tableViewController id="dHm-y5-cXf" customClass="ArtistTableViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WqD-pb-aKg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="artistCell" id="qnT-VQ-47s">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qnT-VQ-47s" id="t8n-Aw-Tat">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dHm-y5-cXf" id="9kU-30-zOB"/>
+                            <outlet property="delegate" destination="dHm-y5-cXf" id="L7v-lL-Aib"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Choose up to 5" id="7b2-4g-739">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="I1B-Fc-awo">
+                            <connections>
+                                <segue destination="g6n-eO-eaP" kind="show" identifier="showMoodSegue" id="qaA-J8-ZLO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="nextButton" destination="I1B-Fc-awo" id="XIE-9m-J4Y"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="10R-JS-Giv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2312" y="374"/>
+        </scene>
+        <!--What is your Mood?-->
+        <scene sceneID="vcf-w3-ayU">
+            <objects>
+                <viewController id="g6n-eO-eaP" customClass="MoodViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rl4-Iw-hfj"/>
+                        <viewControllerLayoutGuide type="bottom" id="hiO-hW-XOL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vUI-nH-x2p">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQl-nj-cIU">
+                                <rect key="frame" x="14" y="98" width="59" height="33"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                <state key="normal" title="Acoustic"/>
+                                <connections>
+                                    <action selector="moodButtonDidTouchUpInside:" destination="g6n-eO-eaP" eventType="touchUpInside" id="juW-pa-CbZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2c1-JT-afU">
+                                <rect key="frame" x="127" y="98" width="66" height="33"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                <state key="normal" title="Liveliness"/>
+                                <connections>
+                                    <action selector="moodButtonDidTouchUpInside:" destination="g6n-eO-eaP" eventType="touchUpInside" id="mrE-Dd-yPB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5T-Zm-ILz">
+                                <rect key="frame" x="253" y="98" width="48" height="33"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                <state key="normal" title="Blissful"/>
+                                <connections>
+                                    <action selector="moodButtonDidTouchUpInside:" destination="g6n-eO-eaP" eventType="touchUpInside" id="eVY-L3-FgX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yH8-e1-WSW">
+                                <rect key="frame" x="102" y="195" width="116" height="30"/>
+                                <state key="normal" title="Generate Playlist"/>
+                                <connections>
+                                    <action selector="generatePlaylist:" destination="g6n-eO-eaP" eventType="touchUpInside" id="AkD-GY-wD0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="What is your Mood?" id="rv7-Fe-Ker"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T2e-s3-V5V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2760" y="374"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="z0F-LC-c6Q">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GcU-YW-N0w" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tvm-Bp-gms">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="OrF-xZ-m4G" kind="relationship" relationship="rootViewController" id="a9p-ga-arU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BUh-hq-dmy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1241" y="390"/>
         </scene>
     </scenes>
 </document>

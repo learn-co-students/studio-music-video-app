@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+struct SpotifyQueryInfo {
+    
+    var seedGenres : [String] = []
+    
+    var seedArtists : [Artist] = []
+    
+}
