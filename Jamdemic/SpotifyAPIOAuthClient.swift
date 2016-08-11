@@ -63,7 +63,7 @@ struct SpotifyAPIOAuthClient {
     /**
      Refreshes an expired access token by sending a **POST** request to https://accounts.spotify.com/api/token along with a valid refresh token
      */
-    static func refreshSpotifyAccessToken(completed: (String?) -> ()) {
+    private static func refreshSpotifyAccessToken(completed: (String?) -> ()) {
         
         let parameters = [
             "grant_type" : "refresh_token",
@@ -121,7 +121,7 @@ struct SpotifyAPIOAuthClient {
      - parameters:
      - completion: A completion block that passes back the access token stored on Firebase
      */
-    static func loadSpotifyAccessToken(completion: (String?)->() ) {
+    private static func loadSpotifyAccessToken(completion: (String?)->() ) {
         let tokenReference = FIRDatabase.database().referenceWithPath("/private_tokens/spotify_access_token")
         tokenReference.observeEventType(.Value) { (snapshot: FIRDataSnapshot) in
             let token = snapshot.value as? String
@@ -135,7 +135,7 @@ struct SpotifyAPIOAuthClient {
     /**
      Verifies the validity of the current access token hosted on Firebase
      
-     - note: Use this function before making any API Calls to Spotify to ensure you have a valid access token.
+     - important: Use this function before making any API calls to Spotify to ensure you have a valid access token.
      */
     static func verifyAccessToken( success: String -> Void, failure: NSError -> Void) {
         
@@ -176,7 +176,13 @@ struct SpotifyAPIOAuthClient {
         })
     }
     
-    static func retry(numberOfTimes: Int, task: (success: String -> Void, failure: NSError -> Void) -> Void, success: String -> Void, failure: NSError -> Void) {
+    /**
+     Performs a task the specified number of times
+     
+     - parameter numberOfTimes: The number of times the task should be tried in the event of failure.
+     - parameter task: A function whose only parameters are two closures -- one for success and one for failure. The success closure accepts a string and returns nothing. The failure closure accepts an NSError object and returns nothing.
+    */
+    private static func retry(numberOfTimes: Int, task: (success: String -> Void, failure: NSError -> Void) -> Void, success: String -> Void, failure: NSError -> Void) {
         task(success: { token in
                 success(token)
             },
