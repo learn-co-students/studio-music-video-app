@@ -13,6 +13,7 @@
 		2C0C9B921D5B6E1C00ACA02D /* ArtistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C9B911D5B6E1C00ACA02D /* ArtistTableViewController.swift */; };
 		2C0C9B941D5B7EB500ACA02D /* SpotifyQueryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */; };
 		2C0C9B961D5B83F200ACA02D /* MoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C9B951D5B83F200ACA02D /* MoodViewController.swift */; };
+		2C4A0C8F1D5CF3B500EA9105 /* SpotifyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */; };
 		A7F8AA641D5A1A4B00EDC18A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */; };
 		C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */; };
 		C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AF1D58D70000CA3323 /* Notifications.swift */; };
@@ -34,6 +35,7 @@
 		2C0C9B911D5B6E1C00ACA02D /* ArtistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistTableViewController.swift; sourceTree = "<group>"; };
 		2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyQueryInfo.swift; sourceTree = "<group>"; };
 		2C0C9B951D5B83F200ACA02D /* MoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoodViewController.swift; sourceTree = "<group>"; };
+		2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAPIClient.swift; sourceTree = "<group>"; };
 		A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFBE045B881113EC55CEC497 /* Pods-Jamdemic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jamdemic.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic.release.xcconfig"; sourceTree = "<group>"; };
 		B3A0DE937D12D59AD0A68825 /* Pods-Jamdemic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jamdemic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				C9EDBEE51D53D08F0033BBAD /* Info.plist */,
 				C9EDBEEB1D53D14F0033BBAD /* Secrets.swift */,
 				C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */,
+				2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */,
 				C94E93AF1D58D70000CA3323 /* Notifications.swift */,
 				C94E93B11D58D7DB00CA3323 /* Extensions.swift */,
 				A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */,
@@ -296,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4A0C8F1D5CF3B500EA9105 /* SpotifyAPIClient.swift in Sources */,
 				C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */,
 				C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */,
 				C9EDBEDC1D53D08F0033BBAD /* ViewController.swift in Sources */,

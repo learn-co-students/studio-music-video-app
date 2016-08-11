@@ -14,4 +14,6 @@ struct SpotifyQueryInfo {
     
     var seedArtists : [Artist] = []
     
+    var userSelectedSeedArtists : [Artist] = []
+    
 }
