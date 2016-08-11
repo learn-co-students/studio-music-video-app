@@ -63,9 +63,8 @@ struct SpotifyAPIOAuthClient {
     /**
      Refreshes an expired access token by sending a **POST** request to https://accounts.spotify.com/api/token along with a valid refresh token
      */
-    static func refreshSpotifyAccessToken(completed: (String?) -> ()) {
+    private static func refreshSpotifyAccessToken(completed: (String?) -> ()) {
         
-        // Ideally the access token will be updated on Firebase and will not be hardcoded into the Secrets file, so this is temporary for now
         let parameters = [
             "grant_type" : "refresh_token",
             "refresh_token" : Secrets.spotifyRefreshToken
@@ -116,13 +115,13 @@ struct SpotifyAPIOAuthClient {
     /**
      Loads the current Spotify access token from the Firebase Database.
      
-     This should be your first point of access token retrieval. If the current access token returned in the completion block
+     If the current access token returned in the completion block
      has expired use the refreshSpotifyAccessToken method for a new token.
      
      - parameters:
      - completion: A completion block that passes back the access token stored on Firebase
      */
-    static func loadSpotifyAccessToken(completion: (String?)->() ) {
+    private static func loadSpotifyAccessToken(completion: (String?)->() ) {
         let tokenReference = FIRDatabase.database().referenceWithPath("/private_tokens/spotify_access_token")
         tokenReference.observeEventType(.Value) { (snapshot: FIRDataSnapshot) in
             let token = snapshot.value as? String
@@ -132,4 +131,72 @@ struct SpotifyAPIOAuthClient {
             completion(token)
         }
     }
+
+    
+    /**
+     Verifies the validity of the current access token hosted on Firebase
+     
+     - important: Use this function before making any API calls to Spotify to ensure you have a valid access token.
+     */
+    static func verifyAccessToken( success: String -> Void, failure: NSError -> Void) {
+        
+        // Block to make a limited request to the Spotify API using the current access token loaded from Firebase
+        let oauthTestTask: (oauthSuccess: String -> Void, oauthfailure: NSError -> Void) -> Void = {oauthSuccess, oauthFailure in
+            SpotifyAPIOAuthClient.loadSpotifyAccessToken({ (token) in
+                guard let token = token else { fatalError("Unable to unwrap access token") }
+                
+                // Set up the parameters to get a list of categories. Limit set to 1 since we want a small request to test the token
+                let parameters = ["limit": 1]
+                let headers = ["Authorization" : "Bearer \(token)"]
+                let baseURL = "https://api.spotify.com/v1/browse/categories"
+                
+                Alamofire.request(.GET, baseURL, parameters: parameters, encoding: .URL, headers: headers).validate().responseJSON(completionHandler: { (response) in
+                    switch response.result {
+                    case .Success:
+                        oauthSuccess(token)
+                    case .Failure(let error):
+                        // TODO: Test for the invalid token error
+                        // Refresh the token and report the failure
+                        SpotifyAPIOAuthClient.refreshSpotifyAccessToken({ (_) in
+                            oauthFailure(error)
+                        })
+                    }
+                })
+            })
+        }
+        
+        SpotifyAPIOAuthClient.retry(
+            3, task: oauthTestTask,
+            success: { token in
+                print("Access token validation successful")
+                success(token)
+            },
+            failure: { error in
+                print("Failed to validate access token. Error: \(error.localizedDescription)")
+                failure(error)
+        })
+    }
+    
+    /**
+     Performs a task the specified number of times
+     
+     - parameter numberOfTimes: The number of times the task should be tried in the event of failure.
+     - parameter task: A function whose only parameters are two closures -- one for success and one for failure. The success closure accepts a string and returns nothing. The failure closure accepts an NSError object and returns nothing.
+    */
+    private static func retry(numberOfTimes: Int, task: (success: String -> Void, failure: NSError -> Void) -> Void, success: String -> Void, failure: NSError -> Void) {
+        task(success: { token in
+                success(token)
+            },
+             failure: { error in
+                // do we have retries left? if yes, call retry again
+                // if not, report error
+                if numberOfTimes > 1 {
+                    self.retry(numberOfTimes - 1, task: task, success: success, failure: failure)
+                } else {
+                    failure(error)
+                }
+        })
+    }
 }
+
+

@@ -54,12 +54,12 @@ class MoodViewController: UIViewController {
 
     @IBAction func generatePlaylist(sender: AnyObject) {
         
-        SpotifyAPIOAuthClient.refreshSpotifyAccessToken { (token) in
-            
-            guard let token = token else { return }
-            
+        SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
             self.spotifyAPICallForMood(withToken: token)
+            }) { (error) in
+                
         }
+        
     }
     
     func spotifyArtistArrayToString() -> String {

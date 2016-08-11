@@ -31,12 +31,12 @@ class ArtistTableViewController: UITableViewController {
         
         print(genreQueryString)
         
-        SpotifyAPIOAuthClient.refreshSpotifyAccessToken { (token) in
-            
-            guard let unwrappedToken = token else { fatalError("Error unwrapping access token.") }
-            
-            self.spotifyAPICallForGenres(withToken: unwrappedToken)
+        SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
+            self.spotifyAPICallForGenres(withToken: token)
+            }) { (error) in
+                
         }
+
     }
     
     func spotifyAPICallForGenres(withToken token: String) {
