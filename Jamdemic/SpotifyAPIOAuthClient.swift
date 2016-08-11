@@ -140,7 +140,7 @@ struct SpotifyAPIOAuthClient {
     static func verifyAccessToken( success: String -> Void, failure: NSError -> Void) {
         
         // Block to make a limited request to the Spotify API using the current access token loaded from Firebase
-        let oauthTestTask: (success: String -> Void, failure: NSError -> Void) -> Void = {success, failure in
+        let oauthTestTask: (oauthSuccess: String -> Void, oauthfailure: NSError -> Void) -> Void = {oauthSuccess, oauthFailure in
             SpotifyAPIOAuthClient.loadSpotifyAccessToken({ (token) in
                 guard let token = token else { fatalError("Unable to unwrap access token") }
                 
@@ -152,12 +152,12 @@ struct SpotifyAPIOAuthClient {
                 Alamofire.request(.GET, baseURL, parameters: parameters, encoding: .URL, headers: headers).validate().responseJSON(completionHandler: { (response) in
                     switch response.result {
                     case .Success:
-                        success(token)
+                        oauthSuccess(token)
                     case .Failure(let error):
                         // TODO: Test for the invalid token error
                         // Refresh the token and report the failure
                         SpotifyAPIOAuthClient.refreshSpotifyAccessToken({ (_) in
-                            failure(error)
+                            oauthFailure(error)
                         })
                     }
                 })
@@ -177,7 +177,9 @@ struct SpotifyAPIOAuthClient {
     }
     
     static func retry(numberOfTimes: Int, task: (success: String -> Void, failure: NSError -> Void) -> Void, success: String -> Void, failure: NSError -> Void) {
-        task(success: {_ in },
+        task(success: { token in
+                success(token)
+            },
              failure: { error in
                 // do we have retries left? if yes, call retry again
                 // if not, report error
