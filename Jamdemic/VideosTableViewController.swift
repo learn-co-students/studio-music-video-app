@@ -16,7 +16,7 @@ class VideosTableViewController: UITableViewController, VideoModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         model.delegate = self
-        model.getVideos()
+        VideoModel().getVideos()
 
         
     }
@@ -30,12 +30,12 @@ class VideosTableViewController: UITableViewController, VideoModelDelegate {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return videosArray.count
+        return 0
     }
     func VideosAreReady() {
        self.videosArray = model.listOfVideos

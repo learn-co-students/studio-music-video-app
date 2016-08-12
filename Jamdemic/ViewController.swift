@@ -12,7 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("testing")
+        
+        let search = SearchModel()
+        search.getSearches(1, searchText: "Sade")
+
     }
 
 }
