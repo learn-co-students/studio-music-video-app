@@ -27,6 +27,8 @@ class SearchModel: NSObject {
     
     var searchArray = [Search]()
     
+    //var type = ["channel", "video"]
+    
     var delegate: SearchModelDelegate!
     
     
