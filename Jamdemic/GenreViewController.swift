@@ -29,8 +29,6 @@ class GenreViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         changeNagivationFontElements()
-        
-        self.getAuth()
         //print(genreQueryString)
         
         self.nextButton.enabled = false
@@ -158,32 +156,7 @@ class GenreViewController: UIViewController {
         }
     }
     
-    // Step 1: Your application requests authorization:
-    func getAuth() {
-        
-        let oauth = "https://accounts.spotify.com/authorize/?"
-        
-        let clientID = "dd263eba46444e3a969ddc3b98acb57b"
-        
-        let responseType = "code"
-        
-        let redirectURI = "my-jamdemic-app%3A%2F%2Fcallback"
-        
-        let urlString = "\(oauth)client_id=\(clientID)&response_type=\(responseType)&redirect_uri\(redirectURI)"
-        
-        Alamofire.request(.GET, urlString).response { (request, response, data, error) in
-            
-            guard let unwrappedResponse = response else { fatalError("Problem with response unwrap.") }
-            
-            if unwrappedResponse.statusCode == 200 {
-                print("Success")
-            } else {
-                print("Error")
-            }
-        }
-    }
-    
-    // MARK: - Navigation
+    // MARK: - Navigation:
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -201,9 +174,13 @@ class GenreViewController: UIViewController {
     func changeNagivationFontElements() {
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
+        
         self.nextButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
+        
         let backButton = UIBarButtonItem(title: "Genres", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+        
         backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
+        
         navigationItem.backBarButtonItem = backButton
     }
 }
