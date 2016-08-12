@@ -91,6 +91,126 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2CBAFE821D5E46B0005E1E7E /* Utility (SpotifyAPI) */ = {
+			isa = PBXGroup;
+			children = (
+				C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */,
+				2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */,
+				C94E93B31D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift */,
+			);
+			name = "Utility (SpotifyAPI)";
+			sourceTree = "<group>";
+		};
+		2CBAFE831D5E4789005E1E7E /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				C94E93AF1D58D70000CA3323 /* Notifications.swift */,
+				A7FEB9601D5E133800DA632E /* Secrets.swift */,
+				C94E93B11D58D7DB00CA3323 /* Extensions.swift */,
+				A7FEB9581D5D922B00DA632E /* Constants.swift */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		2CBAFE841D5E47C3005E1E7E /* Spotify */ = {
+			isa = PBXGroup;
+			children = (
+				2CBAFE861D5E47E7005E1E7E /* Controllers */,
+				2CBAFE851D5E47E0005E1E7E /* Models */,
+			);
+			name = Spotify;
+			sourceTree = "<group>";
+		};
+		2CBAFE851D5E47E0005E1E7E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C9B8F1D5B6BE400ACA02D /* Artist.swift */,
+				2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		2CBAFE861D5E47E7005E1E7E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C9B8B1D5B699400ACA02D /* GenreViewController.swift */,
+				2C0C9B911D5B6E1C00ACA02D /* ArtistTableViewController.swift */,
+				2C0C9B951D5B83F200ACA02D /* MoodViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		2CBAFE871D5E4823005E1E7E /* Sign-in */ = {
+			isa = PBXGroup;
+			children = (
+				A7FEB94F1D5D792900DA632E /* SignInViewController.swift */,
+				A7FEB9541D5D8D1500DA632E /* HomeViewController.swift */,
+				A7FEB9561D5D922B00DA632E /* MeasurementHelper.swift */,
+				A7FEB9571D5D922B00DA632E /* AppState.swift */,
+			);
+			name = "Sign-in";
+			sourceTree = "<group>";
+		};
+		2CBAFE881D5E4853005E1E7E /* Youtube */ = {
+			isa = PBXGroup;
+			children = (
+				2CBAFE8A1D5E4869005E1E7E /* Controller */,
+				2CBAFE891D5E4861005E1E7E /* Model */,
+			);
+			name = Youtube;
+			sourceTree = "<group>";
+		};
+		2CBAFE891D5E4861005E1E7E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				07EB0FF31D5D6EE70091B031 /* VideoModel.swift */,
+				07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */,
+				07F31BD41D5D16F3005EA2B9 /* Search.swift */,
+				07EB0FEF1D5D661B0091B031 /* Videos.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		2CBAFE8A1D5E4869005E1E7E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				07EB0FF11D5D6A2C0091B031 /* SearchTableViewController.swift */,
+				07EB0FF51D5D7D610091B031 /* VideosTableViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		2CBAFE8B1D5E48AB005E1E7E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C9B8D1D5B6A6500ACA02D /* GenreStoryboard.storyboard */,
+				C9EDBEDD1D53D08F0033BBAD /* Main.storyboard */,
+				C9EDBEE21D53D08F0033BBAD /* LaunchScreen.storyboard */,
+				A7FEB94D1D5D23D800DA632E /* GoogleSignIn.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		2CBAFE8C1D5E490F005E1E7E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9EDBED91D53D08F0033BBAD /* AppDelegate.swift */,
+				C9EDBEE01D53D08F0033BBAD /* Assets.xcassets */,
+				C9EDBEE51D53D08F0033BBAD /* Info.plist */,
+				A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */,
+				A7FEB9511D5D8C0D00DA632E /* Jamdemic-Bridging-Header.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CBAFE8D1D5E4923005E1E7E /* For Testing */ = {
+			isa = PBXGroup;
+			children = (
+				C9EDBEDB1D53D08F0033BBAD /* ViewController.swift */,
+			);
+			name = "For Testing";
+			sourceTree = "<group>";
+		};
 		83B7B9D20F848602ED8B6C64 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,38 +241,14 @@
 		C9EDBED81D53D08F0033BBAD /* Jamdemic */ = {
 			isa = PBXGroup;
 			children = (
-				C9EDBED91D53D08F0033BBAD /* AppDelegate.swift */,
-				A7FEB94F1D5D792900DA632E /* SignInViewController.swift */,
-				A7FEB9541D5D8D1500DA632E /* HomeViewController.swift */,
-				2C0C9B8F1D5B6BE400ACA02D /* Artist.swift */,
-				2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */,
-				C9EDBEDB1D53D08F0033BBAD /* ViewController.swift */,
-				2C0C9B8B1D5B699400ACA02D /* GenreViewController.swift */,
-				2C0C9B911D5B6E1C00ACA02D /* ArtistTableViewController.swift */,
-				2C0C9B951D5B83F200ACA02D /* MoodViewController.swift */,
-				2C0C9B8D1D5B6A6500ACA02D /* GenreStoryboard.storyboard */,
-				C9EDBEDD1D53D08F0033BBAD /* Main.storyboard */,
-				C9EDBEE01D53D08F0033BBAD /* Assets.xcassets */,
-				C9EDBEE21D53D08F0033BBAD /* LaunchScreen.storyboard */,
-				C9EDBEE51D53D08F0033BBAD /* Info.plist */,
-				07EB0FF11D5D6A2C0091B031 /* SearchTableViewController.swift */,
-				07EB0FF31D5D6EE70091B031 /* VideoModel.swift */,
-				07EB0FF51D5D7D610091B031 /* VideosTableViewController.swift */,
-				A7FEB9601D5E133800DA632E /* Secrets.swift */,
-				07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */,
-				07F31BD41D5D16F3005EA2B9 /* Search.swift */,
-				07EB0FEF1D5D661B0091B031 /* Videos.swift */,
-				C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */,
-				2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */,
-				C94E93AF1D58D70000CA3323 /* Notifications.swift */,
-				C94E93B11D58D7DB00CA3323 /* Extensions.swift */,
-				A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */,
-				A7FEB9561D5D922B00DA632E /* MeasurementHelper.swift */,
-				A7FEB9571D5D922B00DA632E /* AppState.swift */,
-				A7FEB9581D5D922B00DA632E /* Constants.swift */,
-				C94E93B31D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift */,
-				A7FEB94D1D5D23D800DA632E /* GoogleSignIn.storyboard */,
-				A7FEB9511D5D8C0D00DA632E /* Jamdemic-Bridging-Header.h */,
+				2CBAFE8B1D5E48AB005E1E7E /* Storyboards */,
+				2CBAFE881D5E4853005E1E7E /* Youtube */,
+				2CBAFE871D5E4823005E1E7E /* Sign-in */,
+				2CBAFE841D5E47C3005E1E7E /* Spotify */,
+				2CBAFE831D5E4789005E1E7E /* Constants */,
+				2CBAFE821D5E46B0005E1E7E /* Utility (SpotifyAPI) */,
+				2CBAFE8D1D5E4923005E1E7E /* For Testing */,
+				2CBAFE8C1D5E490F005E1E7E /* Supporting Files */,
 			);
 			path = Jamdemic;
 			sourceTree = "<group>";
