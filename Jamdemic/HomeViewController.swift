@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
         checkCurrentUser()
     }
 
@@ -31,9 +31,17 @@ class HomeViewController: UIViewController {
     func checkCurrentUser() {
         
         if FIRAuth.auth()?.currentUser == nil {
-            // show a login screen
-            performSegueWithIdentifier("showLogin", sender: nil)
+            // take user to login screen
+            performSegueWithIdentifier(Constants.Segues.ShowLogin, sender: nil)
+        } else {
+            // take use to initial logged-in screen
+            performSegueWithIdentifier(Constants.Segues.SignInToInitialView, sender: nil)
         }
+    }
+    
+    
+    @IBAction func didTapSignOut(sender: AnyObject) {
+        try! FIRAuth.auth()!.signOut()
     }
 
 }

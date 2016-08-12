@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Sign In View Controller-->
         <scene sceneID="zb3-OB-xTm">
             <objects>
-                <viewController id="pkU-3H-eMh" sceneMemberID="viewController">
+                <viewController id="pkU-3H-eMh" customClass="SignInViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XKT-rC-gWe"/>
                         <viewControllerLayoutGuide type="bottom" id="GX4-Ts-8YP"/>
@@ -42,6 +42,9 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapCreateAccount:" destination="pkU-3H-eMh" eventType="touchUpInside" id="eDA-On-cev"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQe-U5-k76" customClass="GIDSignInButton">
                                 <rect key="frame" x="156" y="339" width="289" height="64"/>
@@ -64,6 +67,9 @@
                                 <state key="normal" title="Forgot Password">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didRequestPasswordReset:" destination="pkU-3H-eMh" eventType="touchUpInside" id="mgm-cl-bgU"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuf-C2-HzB">
                                 <rect key="frame" x="236" y="425" width="128" height="30"/>
@@ -75,6 +81,9 @@
                                 <state key="normal" title="Sign In">
                                     <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapSignIn:" destination="pkU-3H-eMh" eventType="touchUpInside" id="5fR-J4-Bgn"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lJG-Hg-PcE">
                                 <rect key="frame" x="200" y="172" width="200" height="30"/>
@@ -116,15 +125,70 @@
                             <constraint firstItem="Jk2-88-9ph" firstAttribute="top" secondItem="XKT-rC-gWe" secondAttribute="bottom" constant="84" id="slE-Rh-SoN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="lJG-Hg-PcE" id="3lP-KD-xlX"/>
+                        <outlet property="googleSignInButton" destination="AQe-U5-k76" id="yzw-lf-NIy"/>
+                        <outlet property="passwordTextField" destination="ohK-Pp-PaT" id="TDB-Uu-zJP"/>
+                        <segue destination="Hcq-G3-3SC" kind="show" identifier="signInToInitialView" id="tUU-Ts-ci0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zry-5h-wuW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1217" y="195"/>
         </scene>
-        <!--View Controller-->
+        <!--Initial Logged In View Controller-->
+        <scene sceneID="uzf-ae-Nsm">
+            <objects>
+                <viewController id="Hcq-G3-3SC" customClass="InitialLoggedInViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HGr-Be-d75"/>
+                        <viewControllerLayoutGuide type="bottom" id="tEm-7V-Vax"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bun-3k-Jaw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jamdemic Main Page" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIR-sS-9Zr">
+                                <rect key="frame" x="73" y="177" width="455" height="246"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="246" id="4BG-60-2vB"/>
+                                    <constraint firstAttribute="width" constant="455" id="6Dm-1d-O9e"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVT-UH-pus">
+                                <rect key="frame" x="270" y="436" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="NQs-JE-XHe"/>
+                                    <constraint firstAttribute="width" constant="60" id="pCY-9q-CzD"/>
+                                </constraints>
+                                <state key="normal" title="Sign Out">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapSignOut:" destination="Hcq-G3-3SC" eventType="touchUpInside" id="LG6-Vg-aQY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.54412005529999996" green="0.1852806397" blue="0.88319188400000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="EIR-sS-9Zr" firstAttribute="centerX" secondItem="bun-3k-Jaw" secondAttribute="centerX" id="2n5-EZ-gig"/>
+                            <constraint firstItem="zVT-UH-pus" firstAttribute="top" secondItem="EIR-sS-9Zr" secondAttribute="bottom" constant="13" id="Ebs-Eq-Dwm"/>
+                            <constraint firstItem="zVT-UH-pus" firstAttribute="centerX" secondItem="EIR-sS-9Zr" secondAttribute="centerX" id="T7W-wm-N9b"/>
+                            <constraint firstItem="EIR-sS-9Zr" firstAttribute="centerY" secondItem="bun-3k-Jaw" secondAttribute="centerY" id="ugD-Kh-wXI"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SPE-CI-wgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1976" y="195"/>
+        </scene>
+        <!--Home View Controller-->
         <scene sceneID="fwZ-CY-SB5">
             <objects>
-                <viewController id="Ngi-nc-XDD" sceneMemberID="viewController">
+                <viewController id="Ngi-nc-XDD" customClass="HomeViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PbJ-Ma-Aub"/>
                         <viewControllerLayoutGuide type="bottom" id="Ve5-R8-sg3"/>
@@ -143,9 +207,24 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRF-gS-beH">
+                                <rect key="frame" x="270" y="455" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="2l4-4y-0Mj"/>
+                                    <constraint firstAttribute="height" constant="30" id="c2W-Wq-iH9"/>
+                                </constraints>
+                                <state key="normal" title="Sign Out">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapSignOut:" destination="Ngi-nc-XDD" eventType="touchUpInside" id="e1x-Ck-wrR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.54412005529336438" green="0.18528063970181102" blue="0.88319188399280579" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="SRF-gS-beH" firstAttribute="centerX" secondItem="szY-bY-76W" secondAttribute="centerX" id="QxW-zB-3cq"/>
+                            <constraint firstItem="Ve5-R8-sg3" firstAttribute="top" secondItem="SRF-gS-beH" secondAttribute="bottom" constant="115" id="cd8-2i-AE6"/>
                             <constraint firstItem="szY-bY-76W" firstAttribute="centerY" secondItem="rqV-9O-1Bj" secondAttribute="centerY" id="pn5-2j-Y2Y"/>
                             <constraint firstItem="szY-bY-76W" firstAttribute="centerX" secondItem="rqV-9O-1Bj" secondAttribute="centerX" id="wz6-tF-sRV"/>
                         </constraints>
