@@ -35,6 +35,11 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        emailTextField.text = ""
+        passwordTextField.text = ""
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -90,8 +95,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                 return
             }
             self.setDisplayName(user!)
-            
         })
+        
     }
     
     

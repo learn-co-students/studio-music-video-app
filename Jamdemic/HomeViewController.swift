@@ -35,7 +35,9 @@ class HomeViewController: UIViewController {
             performSegueWithIdentifier(Constants.Segues.ShowLogin, sender: nil)
         } else {
             // take use to initial logged-in screen
-            performSegueWithIdentifier(Constants.Segues.SignInToInitialView, sender: nil)
+//            performSegueWithIdentifier(Constants.Segues.SignInToInitialView, sender: nil)
+            presentViewController((InitialLoggedInViewController as? UIViewController), animated: true, completion: nil)
+            
         }
     }
     

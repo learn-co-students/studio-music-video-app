@@ -27,6 +27,7 @@ class InitialLoggedInViewController: UIViewController {
         
         try! FIRAuth.auth()!.signOut()
         GIDSignIn.sharedInstance().signOut()
+        
         let firebaseAuth = FIRAuth.auth()
         do {
             try firebaseAuth?.signOut()
