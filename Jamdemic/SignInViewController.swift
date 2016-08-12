@@ -30,9 +30,9 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         // TODO(developer) Configure the sign-in button look/feel
         
         // If the user is an authenticated Firebase user, then sign them in
-        if let user = FIRAuth.auth()?.currentUser {
-            self.signedIn(user)
-        }
+//        if let user = FIRAuth.auth()?.currentUser {
+//            self.signedIn(user)
+//        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -40,10 +40,6 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         passwordTextField.text = ""
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
         
@@ -63,7 +59,9 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
             }
             
             print("Successfully signed in")
-            self.setDisplayName(user!)
+            // dismiss this current view controller
+            self.dismissViewControllerAnimated(true, completion: nil)
+//            self.setDisplayName(user!)
         }
     }
     
@@ -79,8 +77,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                 return
             }
             self.setDisplayName(user!)
+            self.dismissViewControllerAnimated(true, completion: nil)
         })
-        
     }
     
     
@@ -95,8 +93,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                 return
             }
             self.setDisplayName(user!)
+            self.dismissViewControllerAnimated(true, completion: nil)
         })
-        
     }
     
     
@@ -121,6 +119,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         presentViewController(prompt, animated: true, completion: nil)
     }
     
+    //TODO: set user data on the RT Database
     func setDisplayName(user: FIRUser?) {
         
         // Info on FIRUserProfileChangeRequest http://bit.ly/2bgRkjX
@@ -132,6 +131,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                 return
             }
             self.signedIn(FIRAuth.auth()?.currentUser)
+            
         }
     }
     
@@ -142,7 +142,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         AppState.sharedInstance.photoUrl = user?.photoURL
         AppState.sharedInstance.signedIn = true
         NSNotificationCenter.defaultCenter().postNotificationName(Constants.NotificationKeys.SignedIn, object: nil, userInfo: nil)
-        performSegueWithIdentifier(Constants.Segues.SignInToInitialView, sender: nil)
+//        performSegueWithIdentifier(Constants.Segues.SignInToInitialView, sender: nil)
     }
     
     

@@ -33,17 +33,23 @@ class HomeViewController: UIViewController {
         if FIRAuth.auth()?.currentUser == nil {
             // take user to login screen
             performSegueWithIdentifier(Constants.Segues.ShowLogin, sender: nil)
-        } else {
-            // take use to initial logged-in screen
-//            performSegueWithIdentifier(Constants.Segues.SignInToInitialView, sender: nil)
-            presentViewController((InitialLoggedInViewController as? UIViewController), animated: true, completion: nil)
-            
         }
+
     }
     
     
     @IBAction func didTapSignOut(sender: AnyObject) {
         try! FIRAuth.auth()!.signOut()
+        checkCurrentUser()
+        GIDSignIn.sharedInstance().signOut()
+        let firebaseAuth = FIRAuth.auth()
+        do {
+            try firebaseAuth?.signOut()
+            AppState.sharedInstance.signedIn = false
+//            self.dismissViewControllerAnimated(true, completion: nil)
+        } catch let signOutError as NSError {
+            print ("Error signing out: \(signOutError)")
+        }
     }
 
 }

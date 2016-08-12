@@ -21,7 +21,6 @@
 		A7FEB9591D5D922B00DA632E /* MeasurementHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB9561D5D922B00DA632E /* MeasurementHelper.swift */; };
 		A7FEB95A1D5D922B00DA632E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB9571D5D922B00DA632E /* AppState.swift */; };
 		A7FEB95B1D5D922B00DA632E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB9581D5D922B00DA632E /* Constants.swift */; };
-		A7FEB95D1D5D988900DA632E /* InitialLoggedInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB95C1D5D988900DA632E /* InitialLoggedInViewController.swift */; };
 		C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */; };
 		C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AF1D58D70000CA3323 /* Notifications.swift */; };
 		C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93B11D58D7DB00CA3323 /* Extensions.swift */; };
@@ -51,7 +50,6 @@
 		A7FEB9561D5D922B00DA632E /* MeasurementHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementHelper.swift; sourceTree = "<group>"; };
 		A7FEB9571D5D922B00DA632E /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A7FEB9581D5D922B00DA632E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A7FEB95C1D5D988900DA632E /* InitialLoggedInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialLoggedInViewController.swift; sourceTree = "<group>"; };
 		AFBE045B881113EC55CEC497 /* Pods-Jamdemic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jamdemic.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic.release.xcconfig"; sourceTree = "<group>"; };
 		B3A0DE937D12D59AD0A68825 /* Pods-Jamdemic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jamdemic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic.debug.xcconfig"; sourceTree = "<group>"; };
 		C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAPIOAuthClient.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 				C9EDBED91D53D08F0033BBAD /* AppDelegate.swift */,
 				A7FEB94F1D5D792900DA632E /* SignInViewController.swift */,
 				A7FEB9541D5D8D1500DA632E /* HomeViewController.swift */,
-				A7FEB95C1D5D988900DA632E /* InitialLoggedInViewController.swift */,
 				2C0C9B8F1D5B6BE400ACA02D /* Artist.swift */,
 				2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */,
 				C9EDBEDB1D53D08F0033BBAD /* ViewController.swift */,
@@ -341,7 +338,6 @@
 				2C0C9B941D5B7EB500ACA02D /* SpotifyQueryInfo.swift in Sources */,
 				C9EDBEDA1D53D08F0033BBAD /* AppDelegate.swift in Sources */,
 				A7FEB95B1D5D922B00DA632E /* Constants.swift in Sources */,
-				A7FEB95D1D5D988900DA632E /* InitialLoggedInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
