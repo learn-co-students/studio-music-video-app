@@ -21,6 +21,8 @@ class MoodViewController: UIViewController {
     
     var userSelectedArtists : [Artist] = []
     
+    var testUserArtistString = ""
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -33,8 +35,26 @@ class MoodViewController: UIViewController {
         
         for artist in userSelectedArtists {
         
-            print("Selected: \(artist.name)\n\n")
+            print("Selected: \(artist.name)\n")
         }
+        
+        self.testUserArtistString = self.spotifyArtistArrayToString()
+    }
+    
+    func spotifyArtistArrayToString() -> String {
+        
+        var eachArtistString = ""
+        
+        for (index, eachArtist) in userSelectedArtists.enumerate() {
+            
+            eachArtistString += "\(eachArtist.spotifyID)"
+            
+            if index != userSelectedArtists.count - 1 {
+                
+                eachArtistString += ","
+            }
+        }
+        return eachArtistString
     }
     
     @IBAction func moodButtonDidTouchUpInside(sender: UIButton) {
@@ -54,73 +74,36 @@ class MoodViewController: UIViewController {
 
     @IBAction func generatePlaylist(sender: AnyObject) {
         
+        // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
-            self.spotifyAPICallForMood(withToken: token)
-            }) { (error) in
+            
+            SpotifyAPIClient.generateArtistsAndSongs(withUserSelectedArtists: self.testUserArtistString, withGenre: self.genreQueryString, withMood: self.moodParameterDictionary, withToken: token, completion: { (json) in
+              
+                guard let unwrappedJSON = json else { fatalError("Error unwrapping JSON object in MoodTableViewController.") }
                 
-        }
-        
-    }
-    
-    func spotifyArtistArrayToString() -> String {
-        
-        var eachArtistString = ""
-        
-        for (index, eachArtist) in userSelectedArtists.enumerate() {
-            
-            eachArtistString += "\(eachArtist.spotifyID)"
-            
-            if index != userSelectedArtists.count - 1 {
+                let tracks = unwrappedJSON["tracks"].arrayValue
                 
-                eachArtistString += ","
-            }
-        }
-        return eachArtistString
-    }
-    
-    func spotifyAPICallForMood(withToken token: String) {
-        
-        let baseURLString = "https://api.spotify.com/v1/recommendations?"
-        
-        let authorizationDictionary = ["Authorization" : "Bearer \(token)"]
-        
-        let artist = spotifyArtistArrayToString()
-        
-        var parameterDictionary: [String : AnyObject] = [
-            "seed_genres":self.genreQueryString,
-            "seed_artist":artist,
-            "limit": 50
-        ]
-        
-        for (key, value) in moodParameterDictionary {
+                for i in tracks {
+                    
+                    let artistsNames = i["artists"][0]["name"].stringValue
+                    
+                    let trackNames = i["name"].stringValue
+                    
+                    self.finalQueryDictionary[artistsNames] = trackNames
+                }
+
+                print("\nThe final query dictionary is: \(self.finalQueryDictionary)\n")
+            })
             
-            parameterDictionary[key] = value
-        }
-        
-        print("\nParameter Dictionary: \(parameterDictionary)\n\n")
-        
-        print("\nMood Dictionary: \(moodParameterDictionary)\n\n")
-        
-        Alamofire.request(.GET, baseURLString, parameters: parameterDictionary, encoding: ParameterEncoding.URL, headers: authorizationDictionary).responseJSON { (response) in
-            
-            guard let unwrappedResponseValue = response.result.value else { fatalError("Error unwrapping response value.") }
-            
-            let json = JSON(unwrappedResponseValue)
-            
-            let tracks = json["tracks"].arrayValue
-            
-            for i in tracks {
+            // If the Spotify API is unavailable, the user is presented with an alert view.
+        }) { (error) in
                 
-                let artistsNames = i["artists"][0]["name"].stringValue
-                
-                let trackNames = i["name"].stringValue
-                
-                self.finalQueryDictionary[artistsNames] = trackNames
-                
-                //print("\n\nArtist from Mood: \(artistsNames) ---- Track from Mood: \(trackNames)\n\n\n")
-            }
-            //print("\nThe full JSON response is: \(json)\n")
-            print("\nThe final query dictionary is: \(self.finalQueryDictionary)\n")
+            print("Error verifying access token.")
+            
+            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, problem loading artists.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            notificationAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+            
+            self.presentViewController(notificationAlert, animated: true, completion: nil)
         }
     }
     
@@ -129,9 +112,13 @@ class MoodViewController: UIViewController {
     func changeNavigationFontElements() {
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
+        
         self.navigationController?.navigationBar.backItem?.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
+        
         let backButton = UIBarButtonItem(title: "Moods", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+        
         backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
+        
         navigationItem.backBarButtonItem = backButton
     }
 }

@@ -11,11 +11,13 @@ import Foundation
 class Artist {
     
     let name : String
+    
     let spotifyID : String
     
     init(name : String, spotifyID : String) {
         
         self.name = name
+        
         self.spotifyID = spotifyID
         
     }
@@ -25,6 +27,4 @@ class Artist {
         print("Artist name: \(self.name) -- SpotifyID: \(self.spotifyID)\n")
         
     }
-    
-    
 }
