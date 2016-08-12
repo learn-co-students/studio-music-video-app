@@ -20,6 +20,7 @@
 		2C0C9B941D5B7EB500ACA02D /* SpotifyQueryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */; };
 		2C0C9B961D5B83F200ACA02D /* MoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C9B951D5B83F200ACA02D /* MoodViewController.swift */; };
 		2C4A0C8F1D5CF3B500EA9105 /* SpotifyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */; };
+		2CBAFE8E1D5E7579005E1E7E /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079B8FE31D5E0DA000369CC0 /* Secrets.swift */; };
 		A7F8AA641D5A1A4B00EDC18A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */; };
 		A7FEB94E1D5D23D800DA632E /* GoogleSignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FEB94D1D5D23D800DA632E /* GoogleSignIn.storyboard */; };
 		A7FEB9501D5D792900DA632E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB94F1D5D792900DA632E /* SignInViewController.swift */; };
@@ -434,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7FEB9501D5D792900DA632E /* SignInViewController.swift in Sources */,
+				2CBAFE8E1D5E7579005E1E7E /* Secrets.swift in Sources */,
 				07EB0FF61D5D7D610091B031 /* VideosTableViewController.swift in Sources */,
 				07F31BD51D5D16F3005EA2B9 /* Search.swift in Sources */,
 				2C4A0C8F1D5CF3B500EA9105 /* SpotifyAPIClient.swift in Sources */,
