@@ -17,7 +17,7 @@ class SearchTableViewController: UITableViewController, SearchModelDelegate {
             super.viewDidLoad()
             
             model.delegate = self
-            //SearchModel().getSearches(0, searchText: "")
+         model.getSearches(1, searchText: "")
             
             
 
