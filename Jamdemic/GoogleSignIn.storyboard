@@ -170,12 +170,23 @@
                                     <action selector="didTapSignOut:" destination="Ngi-nc-XDD" eventType="touchUpInside" id="e1x-Ck-wrR"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yas-1S-KDJ">
+                                <rect key="frame" x="245" y="338" width="110" height="30"/>
+                                <state key="normal" title="Create a Playlist">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="WcY-af-jom" kind="show" id="oO6-sC-QeY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.54412005529336438" green="0.18528063970181102" blue="0.88319188399280579" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Yas-1S-KDJ" firstAttribute="centerX" secondItem="szY-bY-76W" secondAttribute="centerX" id="9DK-ck-J8l"/>
                             <constraint firstItem="SRF-gS-beH" firstAttribute="centerX" secondItem="szY-bY-76W" secondAttribute="centerX" id="QxW-zB-3cq"/>
                             <constraint firstItem="Ve5-R8-sg3" firstAttribute="top" secondItem="SRF-gS-beH" secondAttribute="bottom" constant="115" id="cd8-2i-AE6"/>
                             <constraint firstItem="szY-bY-76W" firstAttribute="centerY" secondItem="rqV-9O-1Bj" secondAttribute="centerY" id="pn5-2j-Y2Y"/>
+                            <constraint firstItem="Yas-1S-KDJ" firstAttribute="top" secondItem="szY-bY-76W" secondAttribute="bottom" constant="8" id="q6V-x7-qBM"/>
                             <constraint firstItem="szY-bY-76W" firstAttribute="centerX" secondItem="rqV-9O-1Bj" secondAttribute="centerX" id="wz6-tF-sRV"/>
                         </constraints>
                     </view>
@@ -186,6 +197,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kaf-rP-CiG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="382" y="272"/>
+        </scene>
+        <!--GenreStoryboard-->
+        <scene sceneID="nEM-OT-XrC">
+            <objects>
+                <viewControllerPlaceholder storyboardName="GenreStoryboard" id="WcY-af-jom" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q1f-Oz-MPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="890.5" y="300"/>
         </scene>
     </scenes>
 </document>
