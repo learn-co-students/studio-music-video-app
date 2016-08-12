@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07CF602D1D5C12F4006C46C5 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF602C1D5C12F4006C46C5 /* Secrets.swift */; };
+		07EB0FF01D5D661B0091B031 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB0FEF1D5D661B0091B031 /* Videos.swift */; };
+		07EB0FF21D5D6A2C0091B031 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB0FF11D5D6A2C0091B031 /* SearchTableViewController.swift */; };
+		07EB0FF41D5D6EE70091B031 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB0FF31D5D6EE70091B031 /* VideoModel.swift */; };
+		07EB0FF61D5D7D610091B031 /* VideosTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB0FF51D5D7D610091B031 /* VideosTableViewController.swift */; };
+		07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */; };
+		07F31BD51D5D16F3005EA2B9 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F31BD41D5D16F3005EA2B9 /* Search.swift */; };
 		2C0C9B8C1D5B699400ACA02D /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C9B8B1D5B699400ACA02D /* GenreViewController.swift */; };
 		2C0C9B8E1D5B6A6500ACA02D /* GenreStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C0C9B8D1D5B6A6500ACA02D /* GenreStoryboard.storyboard */; };
 		2C0C9B901D5B6BE400ACA02D /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C9B8F1D5B6BE400ACA02D /* Artist.swift */; };
@@ -26,10 +33,16 @@
 		C9EDBEDF1D53D08F0033BBAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9EDBEDD1D53D08F0033BBAD /* Main.storyboard */; };
 		C9EDBEE11D53D08F0033BBAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9EDBEE01D53D08F0033BBAD /* Assets.xcassets */; };
 		C9EDBEE41D53D08F0033BBAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9EDBEE21D53D08F0033BBAD /* LaunchScreen.storyboard */; };
-		C9EDBEEC1D53D14F0033BBAD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDBEEB1D53D14F0033BBAD /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07CF602C1D5C12F4006C46C5 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		07EB0FEF1D5D661B0091B031 /* Videos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Videos.swift; sourceTree = "<group>"; };
+		07EB0FF11D5D6A2C0091B031 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		07EB0FF31D5D6EE70091B031 /* VideoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
+		07EB0FF51D5D7D610091B031 /* VideosTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideosTableViewController.swift; sourceTree = "<group>"; };
+		07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		07F31BD41D5D16F3005EA2B9 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		2C0C9B8B1D5B699400ACA02D /* GenreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
 		2C0C9B8D1D5B6A6500ACA02D /* GenreStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GenreStoryboard.storyboard; sourceTree = "<group>"; };
 		2C0C9B8F1D5B6BE400ACA02D /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
@@ -52,7 +65,6 @@
 		C9EDBEE01D53D08F0033BBAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9EDBEE31D53D08F0033BBAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9EDBEE51D53D08F0033BBAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9EDBEEB1D53D14F0033BBAD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		CF4F7CDAAA23EF60705D56B4 /* Pods_Jamdemic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jamdemic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -110,7 +122,13 @@
 				C9EDBEE01D53D08F0033BBAD /* Assets.xcassets */,
 				C9EDBEE21D53D08F0033BBAD /* LaunchScreen.storyboard */,
 				C9EDBEE51D53D08F0033BBAD /* Info.plist */,
-				C9EDBEEB1D53D14F0033BBAD /* Secrets.swift */,
+				07EB0FF11D5D6A2C0091B031 /* SearchTableViewController.swift */,
+				07EB0FF31D5D6EE70091B031 /* VideoModel.swift */,
+				07EB0FF51D5D7D610091B031 /* VideosTableViewController.swift */,
+				07CF602C1D5C12F4006C46C5 /* Secrets.swift */,
+				07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */,
+				07F31BD41D5D16F3005EA2B9 /* Search.swift */,
+				07EB0FEF1D5D661B0091B031 /* Videos.swift */,
 				C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */,
 				2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */,
 				C94E93AF1D58D70000CA3323 /* Notifications.swift */,
@@ -138,6 +156,7 @@
 			buildConfigurationList = C9EDBEE81D53D08F0033BBAD /* Build configuration list for PBXNativeTarget "Jamdemic" */;
 			buildPhases = (
 				9B55E032B81E1C2E126EEE3F /* 📦 Check Pods Manifest.lock */,
+				5A61594ECE25E15E49E5C6FF /* 📦 Check Pods Manifest.lock */,
 				6E3C8231FB42331B28648A2C /* [CP] Check Pods Manifest.lock */,
 				F53FFB970E0378C32C2ABBA1 /* [CP] Check Pods Manifest.lock */,
 				C9EDBED21D53D08F0033BBAD /* Sources */,
@@ -237,6 +256,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5A61594ECE25E15E49E5C6FF /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		6E3C8231FB42331B28648A2C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -319,19 +353,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07EB0FF61D5D7D610091B031 /* VideosTableViewController.swift in Sources */,
+				07F31BD51D5D16F3005EA2B9 /* Search.swift in Sources */,
 				2C4A0C8F1D5CF3B500EA9105 /* SpotifyAPIClient.swift in Sources */,
 				C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */,
 				C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */,
+				07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */,
+				07CF602D1D5C12F4006C46C5 /* Secrets.swift in Sources */,
 				C9EDBEDC1D53D08F0033BBAD /* ViewController.swift in Sources */,
 				2C0C9B901D5B6BE400ACA02D /* Artist.swift in Sources */,
 				C94E93B41D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift in Sources */,
+				07EB0FF41D5D6EE70091B031 /* VideoModel.swift in Sources */,
+				C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */,
+				07EB0FF21D5D6A2C0091B031 /* SearchTableViewController.swift in Sources */,
 				2C0C9B961D5B83F200ACA02D /* MoodViewController.swift in Sources */,
 				2C0C9B8C1D5B699400ACA02D /* GenreViewController.swift in Sources */,
 				2C0C9B921D5B6E1C00ACA02D /* ArtistTableViewController.swift in Sources */,
-				C9EDBEEC1D53D14F0033BBAD /* Secrets.swift in Sources */,
-				C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */,
 				2C0C9B941D5B7EB500ACA02D /* SpotifyQueryInfo.swift in Sources */,
 				C9EDBEDA1D53D08F0033BBAD /* AppDelegate.swift in Sources */,
+				07EB0FF01D5D661B0091B031 /* Videos.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
