@@ -31,36 +31,14 @@ class ArtistTableViewController: UITableViewController {
         
         print(genreQueryString)
         
+        // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
-            self.spotifyAPICallForGenres(withToken: token)
-            }) { (error) in
-                
-        }
-
-    }
-    
-    func spotifyAPICallForGenres(withToken token: String) {
-        
-        let baseURLString = "https://api.spotify.com/v1/recommendations?"
-        
-        // The genreQueryString from the GenreViewController is used as a query paramter to Spotify so we can get a list of artists back.
-        let genreParameterDictionary = ["seed_genres" : self.genreQueryString]
-        
-        let authorizationDictionary = ["Authorization" : "Bearer \(token)"]
-        
-        Alamofire.request(.GET, baseURLString, parameters: genreParameterDictionary, encoding: ParameterEncoding.URL, headers: authorizationDictionary).validate().responseJSON { (response) in
             
-            guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
-            
-            if responseValue == 200 {
+            SpotifyAPIClient.generateArtists(withGenres: self.genreQueryString, withToken: token, completion: { (json) in
                 
-                let responseValue = response.result.value
+                guard let unwrappedJSON = json else { fatalError("Error unwrapping JSON object in ArtistTableViewController.") }
                 
-                guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping JSON response.") }
-                
-                let json = JSON(unwrappedResponseValue)
-                
-                let tracks = json["tracks"].arrayValue
+                let tracks = unwrappedJSON["tracks"].arrayValue
                 
                 for i in tracks {
                     
@@ -82,20 +60,26 @@ class ArtistTableViewController: UITableViewController {
                 }
                 
                 // After populating the table view, jump back on to the mainthread to reload the table view.
-                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                NSOperationQueue.mainQueue().addOperationWithBlock({
                     
                     self.tableView.reloadData()
                     
                 })
-                
-            } else {
-                
-                print("Error Code: \(responseValue)")
-            }
+            })
+
+            // If the Spotify API is unavailable, the user is presented with an alert view.
+        }) { (error) in
+            
+            print("Error verifying access token in ArtistViewController.")
+            
+            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, problem loading artists.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            notificationAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+            
+            self.presentViewController(notificationAlert, animated: true, completion: nil)
         }
     }
     
-    // MARK: - Table view data source
+    // MARK: - Table view data source:
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -110,7 +94,6 @@ class ArtistTableViewController: UITableViewController {
         cell.textLabel?.text = self.artists[indexPath.row].name
         
         return cell
-        
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -137,11 +120,10 @@ class ArtistTableViewController: UITableViewController {
             notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             
             self.presentViewController(notificationAlert, animated: true, completion: nil)
-        
         }
     }
     
-    // MARK: - Navigation
+    // MARK: - Navigation:
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -162,9 +144,13 @@ class ArtistTableViewController: UITableViewController {
     func changeNavigationFontElements() {
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
+        
         self.nextButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
+        
         let backButton = UIBarButtonItem(title: "Artists", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+        
         backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
+        
         navigationItem.backBarButtonItem = backButton
     }
 }
