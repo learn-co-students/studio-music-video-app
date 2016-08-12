@@ -155,6 +155,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9EDBEE81D53D08F0033BBAD /* Build configuration list for PBXNativeTarget "Jamdemic" */;
 			buildPhases = (
+				5A61594ECE25E15E49E5C6FF /* 📦 Check Pods Manifest.lock */,
 				6E3C8231FB42331B28648A2C /* [CP] Check Pods Manifest.lock */,
 				F53FFB970E0378C32C2ABBA1 /* [CP] Check Pods Manifest.lock */,
 				C9EDBED21D53D08F0033BBAD /* Sources */,
@@ -254,6 +255,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5A61594ECE25E15E49E5C6FF /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		6E3C8231FB42331B28648A2C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -337,7 +353,6 @@
 				2C0C9B961D5B83F200ACA02D /* MoodViewController.swift in Sources */,
 				2C0C9B8C1D5B699400ACA02D /* GenreViewController.swift in Sources */,
 				2C0C9B921D5B6E1C00ACA02D /* ArtistTableViewController.swift in Sources */,
-				C9EDBEEC1D53D14F0033BBAD /* Secrets.swift in Sources */,
 				2C0C9B941D5B7EB500ACA02D /* SpotifyQueryInfo.swift in Sources */,
 				C9EDBEDA1D53D08F0033BBAD /* AppDelegate.swift in Sources */,
 				07EB0FF01D5D661B0091B031 /* Videos.swift in Sources */,
