@@ -18,10 +18,10 @@ protocol VideoModelDelegate {
 class VideoModel: NSObject {
     
     
-    private var API_KEY: String = "AIzaSyDEsBB01SSKFvf9Ypx5wehcQ3V1PTTH3Uk"
+    private var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
     
     
-    private var urlString: String = "https://www.googleapis.com/youtube/v3/videos"
+    private var urlString: String = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=UC2pmfLm7iq6Ov1UwYrWYkZA&key=AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
     
     private let channeId: String = "UC2pmfLm7iq6Ov1UwYrWYkZA"
     
@@ -35,7 +35,7 @@ class VideoModel: NSObject {
     
     func getVideos() {
         
-        Alamofire.request(.GET, urlString, parameters: ["key":API_KEY,"maxResults":"10", "playlisId": playlistId, "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
+        Alamofire.request(.GET, urlString, parameters: ["key":API_KEY,"maxResults":"50", "playlisId": playlistId, "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
             
             if let jsonResult = response.result.value {
                 var videosArray = [Videos]()
@@ -50,6 +50,7 @@ class VideoModel: NSObject {
                     videoList.videoDescription = video.valueForKeyPath("snippet.description") as! String
                     
                     videosArray.append(videoList)
+                
                 }
                 self.listOfVideos = videosArray
                 if self.delegate != nil {
