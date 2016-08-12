@@ -338,7 +338,6 @@
 				2C0C9B8C1D5B699400ACA02D /* GenreViewController.swift in Sources */,
 				2C0C9B921D5B6E1C00ACA02D /* ArtistTableViewController.swift in Sources */,
 				C9EDBEEC1D53D14F0033BBAD /* Secrets.swift in Sources */,
-				C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */,
 				2C0C9B941D5B7EB500ACA02D /* SpotifyQueryInfo.swift in Sources */,
 				C9EDBEDA1D53D08F0033BBAD /* AppDelegate.swift in Sources */,
 				07EB0FF01D5D661B0091B031 /* Videos.swift in Sources */,
