@@ -17,6 +17,7 @@
 		A7F8AA641D5A1A4B00EDC18A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */; };
 		A7FEB94E1D5D23D800DA632E /* GoogleSignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FEB94D1D5D23D800DA632E /* GoogleSignIn.storyboard */; };
 		A7FEB9501D5D792900DA632E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB94F1D5D792900DA632E /* SignInViewController.swift */; };
+		A7FEB9551D5D8D1500DA632E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB9541D5D8D1500DA632E /* HomeViewController.swift */; };
 		C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */; };
 		C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AF1D58D70000CA3323 /* Notifications.swift */; };
 		C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93B11D58D7DB00CA3323 /* Extensions.swift */; };
@@ -42,6 +43,7 @@
 		A7FEB94D1D5D23D800DA632E /* GoogleSignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GoogleSignIn.storyboard; sourceTree = "<group>"; };
 		A7FEB94F1D5D792900DA632E /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A7FEB9511D5D8C0D00DA632E /* Jamdemic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Jamdemic-Bridging-Header.h"; sourceTree = "<group>"; };
+		A7FEB9541D5D8D1500DA632E /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AFBE045B881113EC55CEC497 /* Pods-Jamdemic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jamdemic.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic.release.xcconfig"; sourceTree = "<group>"; };
 		B3A0DE937D12D59AD0A68825 /* Pods-Jamdemic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jamdemic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic.debug.xcconfig"; sourceTree = "<group>"; };
 		C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAPIOAuthClient.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				C9EDBED91D53D08F0033BBAD /* AppDelegate.swift */,
 				A7FEB94F1D5D792900DA632E /* SignInViewController.swift */,
+				A7FEB9541D5D8D1500DA632E /* HomeViewController.swift */,
 				2C0C9B8F1D5B6BE400ACA02D /* Artist.swift */,
 				2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */,
 				C9EDBEDB1D53D08F0033BBAD /* ViewController.swift */,
@@ -313,6 +316,7 @@
 				C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */,
 				C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */,
 				C9EDBEDC1D53D08F0033BBAD /* ViewController.swift in Sources */,
+				A7FEB9551D5D8D1500DA632E /* HomeViewController.swift in Sources */,
 				2C0C9B901D5B6BE400ACA02D /* Artist.swift in Sources */,
 				C94E93B41D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift in Sources */,
 				2C0C9B961D5B83F200ACA02D /* MoodViewController.swift in Sources */,

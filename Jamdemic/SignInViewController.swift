@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
+
+@objc(SignInViewController)
 
 class SignInViewController: UIViewController {
 

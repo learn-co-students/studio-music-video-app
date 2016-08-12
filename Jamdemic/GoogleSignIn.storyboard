@@ -151,7 +151,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="pkU-3H-eMh" kind="show" id="I6d-Qv-2Nl"/>
+                        <segue destination="pkU-3H-eMh" kind="show" identifier="showLogin" id="I6d-Qv-2Nl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kaf-rP-CiG" userLabel="First Responder" sceneMemberID="firstResponder"/>
