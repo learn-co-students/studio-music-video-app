@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Playlist View Controller-->
@@ -19,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="106" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s5p-If-AlO">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="150" width="600" height="450"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="videoCell" rowHeight="106" id="sAJ-Zw-eJb" customClass="PlaylistTableViewCell" customModule="Jamdemic" customModuleProvider="target">
@@ -29,38 +30,47 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="105.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="annoyingdog" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-HG-Hgz">
-                                                    <rect key="frame" x="8" y="12" width="173" height="82"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-HG-Hgz">
+                                                    <rect key="frame" x="8" y="12" width="240" height="82"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SP-3d-gAM">
-                                                    <rect key="frame" x="189" y="17" width="382" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Song name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Fe-JE-P1N">
-                                                    <rect key="frame" x="189" y="42" width="361" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist name and song title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yw9-3F-4Eb">
+                                                    <rect key="frame" x="256" y="12" width="328" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="yw9-3F-4Eb" firstAttribute="leading" secondItem="NNE-HG-Hgz" secondAttribute="trailing" constant="8" id="2A2-SD-Nbj"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="NNE-HG-Hgz" secondAttribute="leading" id="9r6-1C-1zE"/>
+                                                <constraint firstItem="NNE-HG-Hgz" firstAttribute="centerY" secondItem="7FS-bm-H6P" secondAttribute="centerY" id="P0t-7d-S5z"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NNE-HG-Hgz" secondAttribute="bottom" constant="3.5" id="Q0O-No-zOY"/>
+                                                <constraint firstItem="NNE-HG-Hgz" firstAttribute="width" secondItem="7FS-bm-H6P" secondAttribute="width" multiplier="0.4" id="dQO-oC-nQo"/>
+                                                <constraint firstItem="yw9-3F-4Eb" firstAttribute="top" secondItem="NNE-HG-Hgz" secondAttribute="top" id="f8S-T6-oP1"/>
+                                                <constraint firstItem="yw9-3F-4Eb" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="NNE-HG-Hgz" secondAttribute="bottom" id="imP-1r-luu"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="yw9-3F-4Eb" secondAttribute="trailing" constant="8" id="j0O-P6-cdT"/>
+                                                <constraint firstItem="NNE-HG-Hgz" firstAttribute="top" secondItem="7FS-bm-H6P" secondAttribute="topMargin" constant="4" id="rKw-Th-dN3"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Q0O-No-zOY"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="artistNameLabel" destination="0SP-3d-gAM" id="Ou2-3e-hwR"/>
-                                            <outlet property="songNameLabel" destination="3Fe-JE-P1N" id="sNV-Q5-BWW"/>
+                                            <outlet property="artistSongTitleLabel" destination="yw9-3F-4Eb" id="GLU-WM-fvz"/>
                                             <outlet property="thumbnailImageView" destination="NNE-HG-Hgz" id="hQz-hn-2Xf"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="s5p-If-AlO" firstAttribute="bottom" secondItem="Tti-gH-ldD" secondAttribute="bottomMargin" id="E2f-AF-zbq"/>
                             <constraint firstItem="s5p-If-AlO" firstAttribute="width" secondItem="Tti-gH-ldD" secondAttribute="width" id="PhO-nz-88B"/>
-                            <constraint firstItem="s5p-If-AlO" firstAttribute="height" secondItem="Tti-gH-ldD" secondAttribute="height" id="Qgt-wG-VXA"/>
+                            <constraint firstItem="s5p-If-AlO" firstAttribute="height" secondItem="Tti-gH-ldD" secondAttribute="height" multiplier="0.75" id="Qgt-wG-VXA"/>
                             <constraint firstItem="s5p-If-AlO" firstAttribute="leading" secondItem="Tti-gH-ldD" secondAttribute="leading" id="c0a-yV-Rna"/>
-                            <constraint firstItem="s5p-If-AlO" firstAttribute="top" secondItem="Tti-gH-ldD" secondAttribute="topMargin" id="fce-rJ-w2C"/>
                         </constraints>
                     </view>
                     <connections>
@@ -72,7 +82,4 @@
             <point key="canvasLocation" x="1043" y="494"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="annoyingdog" width="148" height="122"/>
-    </resources>
 </document>

@@ -11,8 +11,8 @@ import UIKit
 class PlaylistTableViewCell: UITableViewCell {
     
     @IBOutlet weak var thumbnailImageView: UIImageView!
-    @IBOutlet weak var artistNameLabel: UILabel!
-    @IBOutlet weak var songNameLabel: UILabel!
+    @IBOutlet weak var artistSongTitleLabel: UILabel!
+    
     
 
 }
