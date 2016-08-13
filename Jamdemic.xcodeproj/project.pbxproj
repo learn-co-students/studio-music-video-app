@@ -38,6 +38,7 @@
 		C90BA3F11D5F9C9000A80937 /* hqdefault-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90BA3E71D5F9C9000A80937 /* hqdefault-3.jpg */; };
 		C90BA3F21D5F9C9000A80937 /* hqdefault-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90BA3E81D5F9C9000A80937 /* hqdefault-2.jpg */; };
 		C90BA3F31D5F9C9000A80937 /* hqdefault-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90BA3E91D5F9C9000A80937 /* hqdefault-1.jpg */; };
+		C90BA3F51D5FB21200A80937 /* PlaylistTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90BA3F41D5FB21200A80937 /* PlaylistTestData.swift */; };
 		C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */; };
 		C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AF1D58D70000CA3323 /* Notifications.swift */; };
 		C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93B11D58D7DB00CA3323 /* Extensions.swift */; };
@@ -88,6 +89,7 @@
 		C90BA3E71D5F9C9000A80937 /* hqdefault-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hqdefault-3.jpg"; sourceTree = "<group>"; };
 		C90BA3E81D5F9C9000A80937 /* hqdefault-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hqdefault-2.jpg"; sourceTree = "<group>"; };
 		C90BA3E91D5F9C9000A80937 /* hqdefault-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hqdefault-1.jpg"; sourceTree = "<group>"; };
+		C90BA3F41D5FB21200A80937 /* PlaylistTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTestData.swift; sourceTree = "<group>"; };
 		C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAPIOAuthClient.swift; sourceTree = "<group>"; };
 		C94E93AF1D58D70000CA3323 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		C94E93B11D58D7DB00CA3323 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			children = (
 				C9C1F0EB1D5E8A9200600D75 /* PlaylistViewController.swift */,
 				C9C1F0ED1D5E8E1E00600D75 /* PlaylistTableViewCell.swift */,
+				C90BA3F41D5FB21200A80937 /* PlaylistTestData.swift */,
 			);
 			name = Playlists;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */,
 				C9EDBEDC1D53D08F0033BBAD /* ViewController.swift in Sources */,
 				A7FEB9551D5D8D1500DA632E /* HomeViewController.swift in Sources */,
+				C90BA3F51D5FB21200A80937 /* PlaylistTestData.swift in Sources */,
 				A7FEB95A1D5D922B00DA632E /* AppState.swift in Sources */,
 				2C0C9B901D5B6BE400ACA02D /* Artist.swift in Sources */,
 				C94E93B41D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift in Sources */,

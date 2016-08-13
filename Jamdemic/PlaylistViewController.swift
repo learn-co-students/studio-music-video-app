@@ -12,28 +12,16 @@ class PlaylistViewController: UIViewController {
     
     @IBOutlet weak var playlistTableview: UITableView!
     
-    let testArtistSongDictionary = [
-        "Calvin Harris" : "This Is What You Came For (Official Video) ft. Rihanna",
-        "Major Lazer" : "Cold Water (feat. Justin Bieber & MØ)",
-        "Andra" : "Why",
-        "Justin Bieber" : "Sorry",
-        "Fifth Harmony" : "Work from Home ft. Ty Dolla $ign",
-        "The Chainsmokers" : "Closer (Lyric) ft. Halsey",
-        "Katy Perry" : "Rise",
-        "Shawn Mendes" : "Treat You Better",
-        "Rihanna ft. Drake" : "Work"
-    ]
-    
-    let thumbnails = [
-        UIImage(named: "hqdefault-0.jpg"),
-        UIImage(named: "hqdefault-1.jpg"),
-        UIImage(named: "hqdefault-3.jpg"),
-        UIImage(named: "hqdefault-4.jpg"),
-        UIImage(named: "hqdefault-5.jpg"),
-        UIImage(named: "hqdefault-6.jpg"),
-        UIImage(named: "hqdefault-7.jpg"),
-        UIImage(named: "hqdefault-8.jpg"),
-        UIImage(named: "hqdefault-9.jpg"),
+    let testData = [
+        PlaylistTestData(name: "Calvin Harris", songName: "This Is What You Came For (Official Video) ft. Rihanna", image: UIImage(named: "hqdefault-0.jpg")!),
+        PlaylistTestData(name: "Major Lazer", songName: "Cold Water (feat. Justin Bieber & MØ)", image: UIImage(named: "hqdefault-1.jpg")!),
+        PlaylistTestData(name: "Andra", songName: "Why", image: UIImage(named: "hqdefault-3.jpg")!),
+        PlaylistTestData(name: "Justin Bieber", songName: "Sorry", image: UIImage(named: "hqdefault-4.jpg")!),
+        PlaylistTestData(name: "Fifth Harmony", songName: "Work from Home ft. Ty Dolla $ign", image: UIImage(named: "hqdefault-5.jpg")!),
+        PlaylistTestData(name: "The Chainsmokers", songName: "Closer (Lyric) ft. Halsey", image: UIImage(named: "hqdefault-6.jpg")!),
+        PlaylistTestData(name: "Katy Perry", songName: "Rise", image: UIImage(named: "hqdefault-7.jpg")!),
+        PlaylistTestData(name: "Shawn Mendes", songName: "Treat You Better", image: UIImage(named: "hqdefault-8.jpg")!),
+        PlaylistTestData(name: "Rihanna ft. Drake", songName: "Work", image: UIImage(named: "hqdefault-9.jpg")!)
     ]
     
     override func viewDidLoad() {
@@ -41,6 +29,7 @@ class PlaylistViewController: UIViewController {
         playlistTableview.delegate = self
         playlistTableview.dataSource = self
     }
+    
 
 }
 
@@ -48,18 +37,17 @@ class PlaylistViewController: UIViewController {
 extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testArtistSongDictionary.count
+        return testData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("videoCell", forIndexPath: indexPath) as! PlaylistTableViewCell
         
-        let artistName = Array(testArtistSongDictionary.keys)[indexPath.row]
+        let testInfo = testData[indexPath.row]
         
-        cell.thumbnailImageView.image = thumbnails[indexPath.row]
-        if let title = testArtistSongDictionary[artistName] {
-            cell.artistSongTitleLabel.text = "\(artistName) - \(title)"
-        }
+        cell.thumbnailImageView.image = testInfo.thumbnailImage
+        cell.artistSongTitleLabel.text = "\(testInfo.artistName) - \(testInfo.songName)"
+        
         
         return cell
     }

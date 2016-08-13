@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -19,15 +20,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="106" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s5p-If-AlO">
-                                <rect key="frame" x="0.0" y="150" width="600" height="450"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="106" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s5p-If-AlO">
+                                <rect key="frame" x="0.0" y="120" width="600" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="videoCell" rowHeight="106" id="sAJ-Zw-eJb" customClass="PlaylistTableViewCell" customModule="Jamdemic" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="106"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sAJ-Zw-eJb" id="7FS-bm-H6P">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="105.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-HG-Hgz">
@@ -64,12 +65,30 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrF-Du-DaF" userLabel="HeaderView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRO-n3-R0t" userLabel="Play Button">
+                                <rect key="frame" x="458" y="44" width="102" height="102"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="LRO-n3-R0t" secondAttribute="height" multiplier="1:1" id="syO-C4-SN6"/>
+                                </constraints>
+                                <state key="normal" image="play-button"/>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="jrF-Du-DaF" firstAttribute="width" secondItem="Tti-gH-ldD" secondAttribute="width" id="8mJ-7x-ltY"/>
+                            <constraint firstItem="LRO-n3-R0t" firstAttribute="centerY" secondItem="jrF-Du-DaF" secondAttribute="centerY" multiplier="2" id="AXp-2w-z5S"/>
                             <constraint firstItem="s5p-If-AlO" firstAttribute="bottom" secondItem="Tti-gH-ldD" secondAttribute="bottomMargin" id="E2f-AF-zbq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LRO-n3-R0t" secondAttribute="trailing" constant="20" id="FbX-Ar-Mjy"/>
                             <constraint firstItem="s5p-If-AlO" firstAttribute="width" secondItem="Tti-gH-ldD" secondAttribute="width" id="PhO-nz-88B"/>
-                            <constraint firstItem="s5p-If-AlO" firstAttribute="height" secondItem="Tti-gH-ldD" secondAttribute="height" multiplier="0.75" id="Qgt-wG-VXA"/>
+                            <constraint firstItem="s5p-If-AlO" firstAttribute="height" secondItem="Tti-gH-ldD" secondAttribute="height" multiplier="0.8" id="Qgt-wG-VXA"/>
+                            <constraint firstItem="jrF-Du-DaF" firstAttribute="leading" secondItem="Tti-gH-ldD" secondAttribute="leading" id="R4q-U5-vXA"/>
+                            <constraint firstItem="s5p-If-AlO" firstAttribute="top" secondItem="jrF-Du-DaF" secondAttribute="bottom" constant="25" id="RdK-KK-hjy"/>
+                            <constraint firstItem="LRO-n3-R0t" firstAttribute="width" secondItem="Tti-gH-ldD" secondAttribute="width" multiplier="0.17" id="U32-Cc-nup"/>
+                            <constraint firstAttribute="topMargin" secondItem="jrF-Du-DaF" secondAttribute="top" id="Zb0-1S-aoa"/>
                             <constraint firstItem="s5p-If-AlO" firstAttribute="leading" secondItem="Tti-gH-ldD" secondAttribute="leading" id="c0a-yV-Rna"/>
                         </constraints>
                     </view>
@@ -82,4 +101,7 @@
             <point key="canvasLocation" x="1043" y="494"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="play-button" width="256" height="256"/>
+    </resources>
 </document>
