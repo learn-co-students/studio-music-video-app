@@ -48,8 +48,9 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         cell.thumbnailImageView.image = testInfo.thumbnailImage
         cell.artistSongTitleLabel.text = "\(testInfo.artistName) - \(testInfo.songName)"
         
-        
         return cell
     }
+    
+    
     
 }
