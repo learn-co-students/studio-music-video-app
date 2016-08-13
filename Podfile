@@ -13,6 +13,7 @@ target 'Jamdemic' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'GoogleSignIn'
+  pod "XCDYouTubeKit", "~> 2.5"
 
 
 
