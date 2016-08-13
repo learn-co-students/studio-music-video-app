@@ -24,10 +24,24 @@ class PlaylistViewController: UIViewController {
         PlaylistTestData(name: "Rihanna ft. Drake", songName: "Work", image: UIImage(named: "hqdefault-9.jpg")!)
     ]
     
+    let testVideoIDs = [
+        "4AhkPaHUh0A",
+        "b6uXy1KHjbk",
+        "6qO7v7oMDhw",
+        "Gj8BkwPPEFE"
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         playlistTableview.delegate = self
         playlistTableview.dataSource = self
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showVideoFromPlayButton" {
+            let destinationVC = segue.destinationViewController as! VideoPlayerViewController
+            destinationVC.videoIDs = testVideoIDs
+        }
     }
     
 

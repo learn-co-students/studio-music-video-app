@@ -114,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="1855" y="494"/>
         </scene>
-        <!--View Controller-->
+        <!--Video Player View Controller-->
         <scene sceneID="9tj-Cd-Exb">
             <objects>
-                <viewController id="H0k-8R-KZv" sceneMemberID="viewController">
+                <viewController id="H0k-8R-KZv" customClass="VideoPlayerViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ANe-g2-tX9"/>
                         <viewControllerLayoutGuide type="bottom" id="MeC-Ko-cbO"/>
