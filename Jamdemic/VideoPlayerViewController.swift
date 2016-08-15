@@ -11,6 +11,7 @@ import XCDYouTubeKit
 
 class VideoPlayerViewController: UIViewController {
     
+    // Used as a unique identifier for KVO on the moviePlayer.contentURL
     private static var myContext = 0
     
     var videoIDs: [String] = []
