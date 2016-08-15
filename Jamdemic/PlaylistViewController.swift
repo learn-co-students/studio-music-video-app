@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PlaylistViewController: UIViewController {
     
@@ -38,6 +39,11 @@ class PlaylistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().signInSilently()
+        
         playlistTableview.delegate = self
         playlistTableview.dataSource = self
     }
@@ -51,7 +57,7 @@ class PlaylistViewController: UIViewController {
             let destinationVC = segue.destinationViewController as! VideoPlayerViewController
             destinationVC.videoIDs = testVideoIDs
             if sender is UITableViewCell {
-               let cell = sender as! UITableViewCell
+                let cell = sender as! UITableViewCell
                 if let row = self.playlistTableview.indexPathForCell(cell)?.row {
                     destinationVC.currentVideoIndex = row
                     print("Showing video for row: \(row)")
@@ -60,7 +66,17 @@ class PlaylistViewController: UIViewController {
         }
     }
     
-
+        // For Testing only
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+        //        if FIRAuth.auth()?.currentUser == nil {
+        //            let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
+        //            let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
+        //            self.presentViewController(signInVC, animated: true, completion: nil)
+        //        }
+    }
 }
 
 //MARK: Tableview Methods
@@ -80,7 +96,60 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+}
+
+extension PlaylistViewController: GIDSignInDelegate, GIDSignInUIDelegate {
     
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+        
+    }
     
     
 }
+
+//MARK: Saving Playlists
+extension PlaylistViewController {
+    
+    @IBAction func savePlaylistButtonTapped(sender: UIButton) {
+        
+        let hasYoutubeAuth = NSUserDefaults.standardUserDefaults().boolForKey("YoutubeAuthScope")
+        
+        if !hasYoutubeAuth {
+            presentPermissionsDialog()
+        }
+    }
+    
+    func presentPermissionsDialog() {
+        let alertcontroller = UIAlertController(title: "Allow Jamdemic to save playlists to your Youtube account?", message: nil, preferredStyle: .Alert)
+        
+        let allowAction = UIAlertAction(title: "Allow", style: .Default, handler: { action in
+            let driveScope = "https://www.googleapis.com/auth/youtube"
+            GIDSignIn.sharedInstance().scopes.append(driveScope)
+            GIDSignIn.sharedInstance().signIn()
+            
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertcontroller.addAction(allowAction)
+        alertcontroller.addAction(cancelAction)
+        self.presentViewController(alertcontroller, animated: true, completion: nil)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
