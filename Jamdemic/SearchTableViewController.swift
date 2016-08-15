@@ -16,9 +16,7 @@ class SearchTableViewController: UITableViewController, SearchModelDelegate {
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            model.delegate = self
-         model.getSearches(1, searchText: "")
-            
+        
             
 
         
