@@ -37,7 +37,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist name and song title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yw9-3F-4Eb">
                                                     <rect key="frame" x="256" y="12" width="328" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -155,6 +155,6 @@
         <image name="play-button" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kMK-5m-gTr"/>
+        <segue reference="tjy-4Y-YkO"/>
     </inferredMetricsTieBreakers>
 </document>

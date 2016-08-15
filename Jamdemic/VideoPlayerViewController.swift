@@ -30,7 +30,7 @@ class VideoPlayerViewController: UIViewController {
     }
     
     func playVideos() {
-        videoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: videoIDs[0])
+        videoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: videoIDs[currentVideoIndex])
         videoPlayerViewController.presentInView(self.view)
         registerNotifications()
         self.videoPlayerViewController.addObserver(self, forKeyPath: "moviePlayer.contentURL", options: [], context: &VideoPlayerViewController.myContext)
@@ -38,8 +38,7 @@ class VideoPlayerViewController: UIViewController {
     }
     
     func moviePlayerPlaybackDidFinish(notification: NSNotification) {
-        print("video finished")
-        
+        print("Playing number \(currentVideoIndex)")
         if hasNextVideo() {
             self.videoPlayerViewController.videoIdentifier = nextVideoIdentifier()
         }
@@ -73,22 +72,6 @@ class VideoPlayerViewController: UIViewController {
 
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

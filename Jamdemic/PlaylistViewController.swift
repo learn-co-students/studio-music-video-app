@@ -25,10 +25,15 @@ class PlaylistViewController: UIViewController {
     ]
     
     let testVideoIDs = [
-        "4AhkPaHUh0A",
-        "b6uXy1KHjbk",
-        "6qO7v7oMDhw",
-        "Gj8BkwPPEFE"
+        "kOkQ4T5WO9E",
+        "a59gmGkq_pw",
+        "rhcc1KQlCS4",
+        "fRh_vgS2dFE",
+        "5GL9JoH4Sws",
+        "PT2_F-1esPk",
+        "hdw1uKiTI5c",
+        "lY2yjAdbvdQ",
+        "HL1UzIK-flA"
     ]
     
     override func viewDidLoad() {
@@ -41,6 +46,17 @@ class PlaylistViewController: UIViewController {
         if segue.identifier == "showVideoFromPlayButton" {
             let destinationVC = segue.destinationViewController as! VideoPlayerViewController
             destinationVC.videoIDs = testVideoIDs
+        }
+        else if segue.identifier == "showVideoFromCell" {
+            let destinationVC = segue.destinationViewController as! VideoPlayerViewController
+            destinationVC.videoIDs = testVideoIDs
+            if sender is UITableViewCell {
+               let cell = sender as! UITableViewCell
+                if let row = self.playlistTableview.indexPathForCell(cell)?.row {
+                    destinationVC.currentVideoIndex = row
+                    print("Showing video for row: \(row)")
+                }
+            }
         }
     }
     
