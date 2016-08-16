@@ -10,20 +10,22 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+
+
+
 protocol SearchModelDelegate {
     func dataAreReady()
 }
 
 class SearchModel: NSObject {
     
-   private var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
-
+    private static var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
     
-    private var urlString: String = "https://www.googleapis.com/youtube/v3/search"
     
-   
+    private static var urlString: String = "https://www.googleapis.com/youtube/v3/search"
     
-     private let channeId: String = "UC2pmfLm7iq6Ov1UwYrWYkZA"
+    //   private let channeId: String = "UC2pmfLm7iq6Ov1UwYrWYkZA"
+    
     
     var searchArray = [Search]()
     
@@ -33,45 +35,54 @@ class SearchModel: NSObject {
     
     
     
-    func getSearches(index: Int, searchText: String) {
+    class func getSearches(index: Int, searchText: String, completion: [String : String] -> Void) {
         
-        Alamofire.request(.GET, urlString, parameters: ["key":API_KEY,"q": searchText, "type":"video", "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
+        Alamofire.request(.GET, SearchModel.urlString, parameters: ["key":SearchModel.API_KEY,"q": searchText, "type":"video", "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
             
             if let jsonResult = response.result.value {
                 
                 let json = JSON(jsonResult)
-                print(json)
+                //  print(json)
                 
-//                var searchResult = [Search]()
+                let searchVideoId = (json["items"][0]["id"]["videoId"].stringValue)
+                let videoTitle = (json["items"][0]["snippet"]["title"].stringValue)
+                let thumbnailUrl = (json["items"][0]["snippet"]["thumbnails"]["default"]["url"].stringValue)
                 
-//                for searchObj in (jsonResult["items"] as? NSArray)! {
-//                    
-//                    let search = Search()
-//                
-//                        
-//                    search.searchchannelTitle = searchObj.valueForKeyPath("id.channelId.title") as! String
-//                       search.searchvideoChannelID = searchObj.valueForKeyPath("snippet.channelId") as! String
-//                     search.searchvideoId = searchObj.valueForKeyPath("id.videoId") as! String
-//                    
-//                    searchResult.append(searchObj as! Search)
-//                   
-//                    
-//                }
-//                self.searchArray = searchResult
-//                if self.delegate != nil {
-//                    self.delegate.dataAreReady()
-//                print(self.searchArray)
-//              
-//                }
-        
+                let resultsDictionary = [
+                    "videoID" : searchVideoId,
+                    "videoTitle" : videoTitle,
+                    "thumbnailURLString" : thumbnailUrl
+                ]
+                
+                var searchResultId:[String] = []
+                searchResultId.append(searchVideoId)
+                
+                print (searchResultId)
+                print(videoTitle)
+                print(thumbnailUrl)
+                
+                if completion != nil {
+                completion(resultsDictionary)
+                    
+                }else {
+                    print("Error")
+                }
+                
+                
+                
             }
             
             
             
+            
         }
+        
+        
+        
+    }
     
-
-}
-
+    
+    
+    
 }
 

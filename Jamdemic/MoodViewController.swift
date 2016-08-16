@@ -15,7 +15,7 @@ class MoodViewController: UIViewController {
     // The value of the Mood dictionary is AnyObject because track tuneability can either than Float or Int. The value CANNOT be passed in as a string. Also, Alamofire's parameter input accepts a dication of ["String" : "AnyObject"]
     var moodParameterDictionary : [String : AnyObject] = [:]
     
-    var finalQueryDictionary : [String : String] = [:]
+    static var finalQueryDictionary : [String : String] = [:]
     
     var genreQueryString = ""
     
@@ -183,8 +183,36 @@ class MoodViewController: UIViewController {
                     
                     self.finalQueryDictionary[artistsNames] = trackNames
                 }
-
+                var finalQueryDictionary = self.finalQueryDictionary
                 print("\nThe final query dictionary is: \(self.finalQueryDictionary)\n")
+                func getStringOfArtistAndSongs(){
+                    var arrayContainer: [String] = []
+                    
+                    for artist in finalQueryDictionary.keys.sort(){
+                        
+                        
+                        let pair = "\(artist) - \(finalQueryDictionary[artist]!)"
+                        arrayContainer.append(pair)
+                        
+                        
+                        
+                        
+                    }
+                    
+                    for artistSong in arrayContainer{
+                       // let searchPairArtistSong = artistSong
+                        print(artistSong)
+                    
+                    }
+                    
+                }
+                
+              let searchText =  getStringOfArtistAndSongs()
+                
+            
+                
+                
+                
             })
             
             // If the Spotify API is unavailable, the user is presented with an alert view.
@@ -214,4 +242,9 @@ class MoodViewController: UIViewController {
         
         navigationItem.backBarButtonItem = backButton
     }
+    
+    
+    
+ 
+    
 }
