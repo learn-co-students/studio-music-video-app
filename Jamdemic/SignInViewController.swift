@@ -11,7 +11,7 @@ import Firebase
 import GoogleSignIn
 
 @objc(SignInViewController)
-class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class SignInViewController: UIViewController, GIDSignInUIDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -22,17 +22,10 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().delegate = self
+        
         
         // Uncomment to automatically sign in the user.
         //GIDSignIn.sharedInstance().signInSilently()
-        
-        // TODO(developer) Configure the sign-in button look/feel
-        
-        // If the user is an authenticated Firebase user, then sign them in
-//        if let user = FIRAuth.auth()?.currentUser {
-//            self.signedIn(user)
-//        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -41,28 +34,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     }
     
     
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
-        
-        if let error = error {
-            print(error.localizedDescription)
-            return
-        }
-        
-        let authentication = user.authentication
-        let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken,
-                                                                     accessToken: authentication.accessToken)
-        
-        FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            
-            print("Successfully signed in")
-            // dismiss this current view controller
-            self.dismissViewControllerAnimated(true, completion: nil)
-//            self.setDisplayName(user!)
-        }
+    func userDidSignIn() {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func didTapCreateAccount(sender: AnyObject) {

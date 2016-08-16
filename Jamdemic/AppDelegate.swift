@@ -22,7 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
-
+        GIDSignIn.sharedInstance().delegate = self
+        
         return true
         
   
@@ -71,4 +72,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
 }
+
+//MARK: Login
+extension AppDelegate: GIDSignInDelegate {
+    
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        
+        let authentication = user.authentication
+        let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken,
+                                                                     accessToken: authentication.accessToken)
+        
+        FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            print("Successfully signed in")
+    
+            NSNotificationCenter.defaultCenter().postNotificationName(Notifications.userDidLogIn, object: nil)
+            
+        }
+
+    }
+}
+
+
+
+
 

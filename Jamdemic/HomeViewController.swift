@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance().signInSilently()
     }
     
     override func viewDidAppear(animated: Bool) {

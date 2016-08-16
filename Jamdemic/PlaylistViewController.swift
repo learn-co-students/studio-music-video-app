@@ -44,7 +44,6 @@ class PlaylistViewController: UIViewController {
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-        googleSignInWithYoutubeScope()
         
         playlistTableview.delegate = self
         playlistTableview.dataSource = self
@@ -68,17 +67,17 @@ class PlaylistViewController: UIViewController {
         }
     }
     
-    // For Testing only
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-        //        if FIRAuth.auth()?.currentUser == nil {
-        //            let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
-        //            let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
-        //            self.presentViewController(signInVC, animated: true, completion: nil)
-        //        }
-    }
+//    // For Testing only
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        
+//        //        if FIRAuth.auth()?.currentUser == nil {
+//        //            let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
+//        //            let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
+//        //            self.presentViewController(signInVC, animated: true, completion: nil)
+//        //        }
+//    }
 }
 
 //MARK: Tableview Methods
@@ -107,13 +106,20 @@ extension PlaylistViewController: GIDSignInDelegate, GIDSignInUIDelegate {
             print("Successfully signed in")
             print("Current scopes: \(GIDSignIn.sharedInstance().scopes)")
             print("Access token for youtube: \(GIDSignIn.sharedInstance().currentUser.authentication.accessToken)")
+            savePlaylist()
         }
     }
     
-    func googleSignInWithYoutubeScope() {
+    func googleSignInWithYoutubeScope(silent isSilentSignIn: Bool) {
         let driveScope = "https://www.googleapis.com/auth/youtube"
         GIDSignIn.sharedInstance().scopes.append(driveScope)
-        GIDSignIn.sharedInstance().signIn()
+        if isSilentSignIn {
+            GIDSignIn.sharedInstance().signInSilently()
+        }
+        else {
+            GIDSignIn.sharedInstance().signIn()
+        }
+        
     }
 }
 
@@ -128,8 +134,7 @@ extension PlaylistViewController {
             presentPermissionsDialog()
         }
         else {
-            
-            savePlaylist()
+            googleSignInWithYoutubeScope(silent: true)
         }
     }
     
@@ -137,7 +142,7 @@ extension PlaylistViewController {
         let alertcontroller = UIAlertController(title: "Allow Jamdemic to save playlists to your Youtube account?", message: nil, preferredStyle: .Alert)
         
         let allowAction = UIAlertAction(title: "Allow", style: .Default, handler: { action in
-            self.googleSignInWithYoutubeScope()
+            self.googleSignInWithYoutubeScope(silent: false)
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -147,10 +152,34 @@ extension PlaylistViewController {
     }
     
     func savePlaylist() {
+        
+        // Prompt user for title
+        let alertController = UIAlertController(title: "Enter a title", message: nil, preferredStyle: .Alert)
+        alertController.addTextFieldWithConfigurationHandler {_ in }
+        
+
+        
+        let saveAction = UIAlertAction(title: "Save", style: .Default) { (alertAction) in
+            if let title = alertController.textFields?.first?.text {
+                self.savePlaylistWithTitle(title)
+            }
+        }
+        
+        alertController.addAction(saveAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+        
+
+    }
+    
+    func savePlaylistWithTitle(title: String) {
         // Should make a call to the YoutubeAPIClient to save the playlist to the current user's account
         GIDSignIn.sharedInstance().currentUser.authentication.getTokensWithHandler { (authObject, error) in
             if error == nil {
-                PlaylistViewController.createPlaylistWithTitle("My Title", token: authObject.accessToken, completion: { (playlistID) in
+                PlaylistViewController.createPlaylistWithTitle(title, token: authObject.accessToken, completion: { (playlistID) in
                     print(playlistID)
                     guard let playlistID = playlistID else { fatalError("Unable to unwrap playlist ID") }
                     
@@ -181,8 +210,16 @@ extension PlaylistViewController {
             dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
             dispatch_async(dispatch_get_main_queue(), { 
                 print("All videos saved to youtube!")
+                self.displayFinishedAlert()
             })
         })
+    }
+    
+    func displayFinishedAlert() {
+        let alertController = UIAlertController(title: "Playlist Saved to Youtube", message: nil, preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+        alertController.addAction(okayAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
 }
 
