@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Alamofire
 
 class PlaylistViewController: UIViewController {
     
@@ -42,7 +43,7 @@ class PlaylistViewController: UIViewController {
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signInSilently()
+        googleSignInWithYoutubeScope()
         
         playlistTableview.delegate = self
         playlistTableview.dataSource = self
@@ -101,10 +102,18 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
 extension PlaylistViewController: GIDSignInDelegate, GIDSignInUIDelegate {
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
-        
+        if error == nil {
+            print("Successfully signed in")
+            print("Current scopes: \(GIDSignIn.sharedInstance().scopes)")
+            print("Access token for youtube: \(GIDSignIn.sharedInstance().currentUser.authentication.accessToken)")
+        }
     }
     
-    
+    func googleSignInWithYoutubeScope() {
+        let driveScope = "https://www.googleapis.com/auth/youtube"
+        GIDSignIn.sharedInstance().scopes.append(driveScope)
+        GIDSignIn.sharedInstance().signIn()
+    }
 }
 
 //MARK: Saving Playlists
@@ -117,16 +126,17 @@ extension PlaylistViewController {
         if !hasYoutubeAuth {
             presentPermissionsDialog()
         }
+        else {
+
+            savePlaylist()
+        }
     }
     
     func presentPermissionsDialog() {
         let alertcontroller = UIAlertController(title: "Allow Jamdemic to save playlists to your Youtube account?", message: nil, preferredStyle: .Alert)
         
         let allowAction = UIAlertAction(title: "Allow", style: .Default, handler: { action in
-            let driveScope = "https://www.googleapis.com/auth/youtube"
-            GIDSignIn.sharedInstance().scopes.append(driveScope)
-            GIDSignIn.sharedInstance().signIn()
-            
+            self.googleSignInWithYoutubeScope()
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -134,22 +144,49 @@ extension PlaylistViewController {
         alertcontroller.addAction(cancelAction)
         self.presentViewController(alertcontroller, animated: true, completion: nil)
     }
+    
+    func savePlaylist() {
+        // Should make a call to the YoutubeAPIClient to save the playlist to the current user's account
+        GIDSignIn.sharedInstance().currentUser.authentication.getTokensWithHandler { (authObject, error) in
+            if error == nil {
+                PlaylistViewController.createPlaylistWithTitle("My Title", token: authObject.accessToken, completion: { (playlistID) in
+                    
+                })
+            }
+        }
+        
+    }
 }
 
+//WARNING: This should be done in the YoutubeAPIClient when that is completed
+//MARK: Youtube API Calls --
+extension PlaylistViewController {
+    
+    class func createPlaylistWithTitle(title: String, token: String, completion: String? -> Void) {
+        
+        let key = "AIzaSyDEsBB01SSKFvf9Ypx5wehcQ3V1PTTH3Uk"
+        let baseURLString = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&fields=id%2Csnippet&key=\(key)"
+        
+        
+        let parameters = [
+            "snippet" : ["title" : title]
+        ]
+        
+        let headers = [
+             "Authorization" : "Bearer \(token)",
+        ]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        print("Access token for youtube: \(GIDSignIn.sharedInstance().currentUser.authentication.accessToken)")
+       
+        Alamofire.request(.POST, baseURLString, parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
+            print(response)
+        }
+        
+    }
+    
+    class func insertVideoWithID(videoID: String, intoPlaylist playlistID: String, completion: Void -> Void) {
+        
+    }
+}
 
 
