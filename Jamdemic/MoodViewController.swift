@@ -91,8 +91,36 @@ class MoodViewController: UIViewController {
                     
                     self.finalQueryDictionary[artistsNames] = trackNames
                 }
-
+                var finalQueryDictionary = self.finalQueryDictionary
                 print("\nThe final query dictionary is: \(self.finalQueryDictionary)\n")
+                func getStringOfArtistAndSongs(){
+                    var arrayContainer: [String] = []
+                    
+                    for artist in finalQueryDictionary.keys.sort(){
+                        
+                        
+                        var pair = "\(artist) - \(finalQueryDictionary[artist]!)"
+                        arrayContainer.append(pair)
+                        
+                        
+                        
+                        
+                    }
+                    
+                    for artistSong in arrayContainer{
+                        let searchText = artistSong
+                        print(artistSong)
+                        //return searchText
+                    }
+                    
+                }
+                
+                getStringOfArtistAndSongs()
+                
+            
+                
+                
+                
             })
             
             // If the Spotify API is unavailable, the user is presented with an alert view.
@@ -121,4 +149,9 @@ class MoodViewController: UIViewController {
         
         navigationItem.backBarButtonItem = backButton
     }
+    
+    
+    
+ 
+    
 }

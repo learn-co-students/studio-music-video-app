@@ -10,6 +10,9 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+
+
+
 protocol SearchModelDelegate {
     func dataAreReady()
 }
