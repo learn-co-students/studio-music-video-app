@@ -162,14 +162,20 @@ extension PlaylistViewController {
     }
     
     func addVideosToPlaylist(playlistID: String) {
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
             
             let requestGroup = dispatch_group_create()
             
             self.testVideoIDs.forEach({ (videoID) in
+                
+                usleep(150000) // in microseconds (1 millionth of a second) interval. 150,000 microseconds is the smallest interval where all videos will be saved
+                print("Request entering group")
                 dispatch_group_enter(requestGroup)
                 PlaylistViewController.insertVideoWithID(videoID, intoPlaylist: playlistID, completion: {
+                    
                     dispatch_group_leave(requestGroup)
+                    print("Request leaving group")
                 })
             })
             dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
