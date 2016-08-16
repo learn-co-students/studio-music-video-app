@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import Alamofire
+import SwiftyJSON
 
 class PlaylistViewController: UIViewController {
     
@@ -67,7 +68,7 @@ class PlaylistViewController: UIViewController {
         }
     }
     
-        // For Testing only
+    // For Testing only
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -127,7 +128,7 @@ extension PlaylistViewController {
             presentPermissionsDialog()
         }
         else {
-
+            
             savePlaylist()
         }
     }
@@ -150,11 +151,32 @@ extension PlaylistViewController {
         GIDSignIn.sharedInstance().currentUser.authentication.getTokensWithHandler { (authObject, error) in
             if error == nil {
                 PlaylistViewController.createPlaylistWithTitle("My Title", token: authObject.accessToken, completion: { (playlistID) in
+                    print(playlistID)
+                    guard let playlistID = playlistID else { fatalError("Unable to unwrap playlist ID") }
+                    
+                    self.addVideosToPlaylist(playlistID)
                     
                 })
             }
         }
-        
+    }
+    
+    func addVideosToPlaylist(playlistID: String) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+            
+            let requestGroup = dispatch_group_create()
+            
+            self.testVideoIDs.forEach({ (videoID) in
+                dispatch_group_enter(requestGroup)
+                PlaylistViewController.insertVideoWithID(videoID, intoPlaylist: playlistID, completion: {
+                    dispatch_group_leave(requestGroup)
+                })
+            })
+            dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
+            dispatch_async(dispatch_get_main_queue(), { 
+                print("All videos saved to youtube!")
+            })
+        })
     }
 }
 
@@ -164,8 +186,8 @@ extension PlaylistViewController {
     
     class func createPlaylistWithTitle(title: String, token: String, completion: String? -> Void) {
         
-        let key = "AIzaSyDEsBB01SSKFvf9Ypx5wehcQ3V1PTTH3Uk"
-        let baseURLString = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&fields=id%2Csnippet&key=\(key)"
+        let youtubeAPIKey = "AIzaSyDEsBB01SSKFvf9Ypx5wehcQ3V1PTTH3Uk"
+        let baseURLString = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&fields=id%2Csnippet&key=\(youtubeAPIKey)"
         
         
         let parameters = [
@@ -173,19 +195,42 @@ extension PlaylistViewController {
         ]
         
         let headers = [
-             "Authorization" : "Bearer \(token)",
-        ]
-
-        print("Access token for youtube: \(GIDSignIn.sharedInstance().currentUser.authentication.accessToken)")
-       
+            "Authorization" : "Bearer \(token)",
+            ]
+        
         Alamofire.request(.POST, baseURLString, parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
-            print(response)
+            
+            guard let value = response.result.value else { fatalError("Unable to unwrap playlist post request value") }
+            let json = JSON(value)
+            let playlistID = json["id"].string
+            completion(playlistID)
         }
         
     }
     
     class func insertVideoWithID(videoID: String, intoPlaylist playlistID: String, completion: Void -> Void) {
+        let youtubeAPIKey = "AIzaSyDEsBB01SSKFvf9Ypx5wehcQ3V1PTTH3Uk"
+        let baseURLString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=\(youtubeAPIKey)"
         
+        let parameters = [
+            "snippet" : ["playlistId" : playlistID,
+                "resourceId" : ["videoId" : videoID,
+                    "kind" : "youtube#video"]]
+        ]
+        
+        let headers = [
+            "Authorization" : "Bearer \(GIDSignIn.sharedInstance().currentUser.authentication.accessToken)"
+        ]
+        
+        Alamofire.request(.POST, baseURLString, parameters: parameters, encoding: .JSON, headers: headers).validate().responseJSON { (response) in
+            switch response.result {
+            case .Success:
+                print("Video Saved!")
+                completion()
+            case .Failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
