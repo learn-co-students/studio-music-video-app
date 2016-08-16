@@ -15,7 +15,7 @@ class MoodViewController: UIViewController {
     // The value of the Mood dictionary is AnyObject because track tuneability can either than Float or Int. The value CANNOT be passed in as a string. Also, Alamofire's parameter input accepts a dication of ["String" : "AnyObject"]
     var moodParameterDictionary : [String : AnyObject] = [:]
     
-    var finalQueryDictionary : [String : String] = [:]
+    static var finalQueryDictionary : [String : String] = [:]
     
     var genreQueryString = ""
     
