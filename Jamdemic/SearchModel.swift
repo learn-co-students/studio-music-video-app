@@ -19,10 +19,10 @@ protocol SearchModelDelegate {
 
 class SearchModel: NSObject {
     
-    private var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
+    private static var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
     
     
-    private var urlString: String = "https://www.googleapis.com/youtube/v3/search"
+    private static var urlString: String = "https://www.googleapis.com/youtube/v3/search"
     
     //   private let channeId: String = "UC2pmfLm7iq6Ov1UwYrWYkZA"
     
@@ -35,9 +35,9 @@ class SearchModel: NSObject {
     
     
     
-    func getSearches(index: Int, searchText: String) {
+    class func getSearches(index: Int, searchText: String, completion: [String : String] -> Void) {
         
-        Alamofire.request(.GET, urlString, parameters: ["key":API_KEY,"q": searchText, "type":"video", "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
+        Alamofire.request(.GET, SearchModel.urlString, parameters: ["key":SearchModel.API_KEY,"q": searchText, "type":"video", "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
             
             if let jsonResult = response.result.value {
                 
@@ -48,6 +48,11 @@ class SearchModel: NSObject {
                 let videoTitle = (json["items"][0]["snippet"]["title"].stringValue)
                 let thumbnailUrl = (json["items"][0]["snippet"]["thumbnails"]["default"]["url"].stringValue)
                 
+                let resultsDictionary = [
+                    "videoID" : searchVideoId,
+                    "videoTitle" : videoTitle,
+                    "thumbnailURLString" : thumbnailUrl
+                ]
                 
                 var searchResultId:[String] = []
                 searchResultId.append(searchVideoId)
@@ -55,6 +60,9 @@ class SearchModel: NSObject {
                 print (searchResultId)
                 print(videoTitle)
                 print(thumbnailUrl)
+                
+                
+                completion(resultsDictionary)
                 
                 
                 

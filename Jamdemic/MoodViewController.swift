@@ -99,7 +99,7 @@ class MoodViewController: UIViewController {
                     for artist in finalQueryDictionary.keys.sort(){
                         
                         
-                        var pair = "\(artist) - \(finalQueryDictionary[artist]!)"
+                        let pair = "\(artist) - \(finalQueryDictionary[artist]!)"
                         arrayContainer.append(pair)
                         
                         
@@ -108,14 +108,14 @@ class MoodViewController: UIViewController {
                     }
                     
                     for artistSong in arrayContainer{
-                        let searchText = artistSong
+                       // let searchPairArtistSong = artistSong
                         print(artistSong)
-                        //return searchText
+                    
                     }
                     
                 }
                 
-                getStringOfArtistAndSongs()
+              let searchText =  getStringOfArtistAndSongs()
                 
             
                 
