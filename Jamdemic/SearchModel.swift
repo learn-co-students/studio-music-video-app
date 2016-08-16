@@ -61,12 +61,14 @@ class SearchModel: NSObject {
                 print(videoTitle)
                 print(thumbnailUrl)
                 
-                if completion != nil {
                 completion(resultsDictionary)
-                    
-                }else {
-                    print("Error")
-                }
+                
+//                if completion != nil {
+//                completion(resultsDictionary)
+//                    
+//                }else {
+//                    print("Error")
+//                }
                 
                 
                 

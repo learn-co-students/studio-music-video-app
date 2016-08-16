@@ -181,10 +181,10 @@ class MoodViewController: UIViewController {
                     
                     let trackNames = i["name"].stringValue
                     
-                    self.finalQueryDictionary[artistsNames] = trackNames
+                    MoodViewController.finalQueryDictionary[artistsNames] = trackNames
                 }
-                var finalQueryDictionary = self.finalQueryDictionary
-                print("\nThe final query dictionary is: \(self.finalQueryDictionary)\n")
+                var finalQueryDictionary = MoodViewController.finalQueryDictionary
+                print("\nThe final query dictionary is: \(MoodViewController.finalQueryDictionary)\n")
                 func getStringOfArtistAndSongs(){
                     var arrayContainer: [String] = []
                     
