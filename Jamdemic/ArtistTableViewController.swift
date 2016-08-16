@@ -31,6 +31,9 @@ class ArtistTableViewController: UITableViewController {
         
         print(genreQueryString)
         
+        tableView.estimatedRowHeight = 320
+        
+        
         // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
             
@@ -42,6 +45,13 @@ class ArtistTableViewController: UITableViewController {
                 
                 for i in tracks {
                     
+                    // Returns the each Spotify Artist with their respective 'href' URL to access a JSON object that gives us a URL to their artwork.
+                    let artistArtworkURLString = i["artists"][0]["href"].stringValue
+                    
+                    // Returns the each Spotify Artist with their respective album URL to access their artwork.
+                    let albumImageURL = i["album"]["images"][0]["url"].stringValue
+                    
+                    // Returns the each Spotify Artist with their respective name.
                     let artistsNames = i["artists"][0]["name"].stringValue
                     
                     // Returns the each Spotify Artist with their respective spotifyID.
@@ -51,7 +61,7 @@ class ArtistTableViewController: UITableViewController {
                     let separatedSpotifyID = artistSpotifyID.componentsSeparatedByString("spotify:artist:")[1]
                     
                     // Sets each artists that is returned back to the Artist Object we created.
-                    let eachArtist = Artist(name: artistsNames, spotifyID: separatedSpotifyID)
+                    let eachArtist = Artist(name: artistsNames, spotifyID: separatedSpotifyID, artistAlbumArtwork: albumImageURL, artistArtworkURLString: artistArtworkURLString)
                     
                     // Adds each artist that is returned to an array of artists that will then be used to populate the table view.
                     self.artists.append(eachArtist)
@@ -80,18 +90,49 @@ class ArtistTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source:
-
+    
+    // Required for Alphabetical Header Sections:
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         // Displays every artists that is returned from the API call.
         return self.artists.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("artistCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("artistCell") as! ArtistTableViewCell
         
-        cell.textLabel?.text = self.artists[indexPath.row].name
+        cell.artistNameLabel.text = self.artists[indexPath.row].name
+        
+        //cell.albumArtImageView.image = UIImage(data: NSData.init(contentsOfURL: NSURL(string: self.artists[indexPath.row].artistAlbumArtwork)!)!)
+        
+        Alamofire.request(.GET, self.artists[indexPath.row].artistArtworkURLString).validate().responseJSON { (response) in
+            
+            guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
+            
+            if responseValue == 200 {
+            
+                let responseValue = response.result.value
+                
+                guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping JSON response.") }
+                
+                let json = JSON(unwrappedResponseValue)
+                
+                let imageURLString = json["images"][0]["url"].stringValue
+                
+                let imageData = NSData(contentsOfURL: NSURL(string: imageURLString)!)
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                    
+                    cell.albumArtImageView.image = UIImage(data: imageData!)
+                    
+                })
+                
+            } else {
+                
+                print("Error Code: \(responseValue)")
+            }
+        }
         
         return cell
     }
@@ -104,19 +145,21 @@ class ArtistTableViewController: UITableViewController {
         
             print(self.artistButtonPressedNumber)
         
-            // For each artist that the user chooses in a cell, they are added to a new array of Artists that will then be used in another API to Spotify.
             let selectedArtist = self.artists[indexPath.row]
+            
             self.userSelectedArtists.append(selectedArtist)
         
             for artist in userSelectedArtists {
             
                 print("The selected artist(s) name: \(artist.name) -- SpotifyID: \(artist.spotifyID)\n")
             }
+            
            
             // If the user chooses more than five artists, they are presented with an alert view and no more genres are added to the selectedArtist array.
         } else {
             
             let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of artists selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            
             notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             
             self.presentViewController(notificationAlert, animated: true, completion: nil)

@@ -23,6 +23,9 @@ class MoodViewController: UIViewController {
     
     var testUserArtistString = ""
     
+    // Counter to keep track of how many mood buttons a user has selected.
+    var moodButtonPressedNumber = 0
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -57,18 +60,107 @@ class MoodViewController: UIViewController {
         return eachArtistString
     }
     
-    @IBAction func moodButtonDidTouchUpInside(sender: UIButton) {
-    
-        guard let unwrappedMoodTitle = sender.titleLabel?.text else { fatalError("Error unwrapping mood button title.") }
+    func storeDifferentMoods(moods : String) {
         
-        switch unwrappedMoodTitle {
-        
+        switch moods {
+            
         case "Acoustic":
-            self.moodParameterDictionary["min_acousticness"] = 0.5
+            self.moodParameterDictionary["min_acousticness"] = 0.7
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Most Played":
+            self.moodParameterDictionary["min_popularity"] = 70
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Live":
+            self.moodParameterDictionary["min_liveness"] = 0.7
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Slow Dance":
+            self.moodParameterDictionary["min_danceability"] = 0.7
+            self.moodParameterDictionary["max_energy"] = 0.4
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Energetic":
+            self.moodParameterDictionary["min_danceability"] = 0.7
+            self.moodParameterDictionary["max_energy"] = 0.7
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Instrumental":
+            self.moodParameterDictionary["min_instrumentalness"] = 0.6
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Happy":
+            self.moodParameterDictionary["min_valence"] = 0.7
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Chill":
+            self.moodParameterDictionary["min_energy"] = 0.6
+            self.moodParameterDictionary["min_valence"] = 0.7
+            self.moodParameterDictionary["max_danceability"] = 0.5
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Sad":
+            self.moodParameterDictionary["max_valence"] = 0.4
+            self.moodParameterDictionary["max_energy"] = 0.4
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Rage":
+            self.moodParameterDictionary["max_valence"] = 0.4
+            self.moodParameterDictionary["min_energy"] = 0.7
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Smooth":
+            self.moodParameterDictionary["min_energy"] = 0.5
+            self.moodParameterDictionary["min_valence"] = 0.5
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Reflective":
+            self.moodParameterDictionary["min_liveness"] = 0.7
+            self.moodParameterDictionary["min_valence"] = 0.6
+            self.moodParameterDictionary["max_energy"] = 0.5
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Awake":
+            self.moodParameterDictionary["max_energy"] = 0.5
+            self.moodParameterDictionary["min_valence"] = 0.7
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Motivational":
+            self.moodParameterDictionary["min_valence"] = 0.7
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Chaotic":
+            self.moodParameterDictionary["min_valence"] = 0.4
+            self.moodParameterDictionary["min_energy"] = 0.7
+            print("Your music mood(s) are: \(self.moodParameterDictionary)")
+            
+        case "Sleepy":
+            //self.moodParameterDictionary["max_tempo"] = 0.5
+            self.moodParameterDictionary["max_energy"] = 0.5
             print("Your music mood(s) are: \(self.moodParameterDictionary)")
             
         default:
             print("Not a valid Mood.")
+        }
+    }
+    
+    @IBAction func moodButtonDidTouchUpInside(sender: UIButton) {
+    
+        guard let unwrappedMoodTitle = sender.titleLabel?.text else { fatalError("Error unwrapping moode button title.") }
+        
+        if self.moodButtonPressedNumber < 3 {
+            
+            self.storeDifferentMoods(unwrappedMoodTitle)
+        
+        // If the user chooses more than three moods, they are presented with an alert view and no more genres are added to the genreValues string.
+        } else {
+            
+            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of moods selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            
+            self.presentViewController(notificationAlert, animated: true, completion: nil)
         }
     }
 
@@ -101,6 +193,7 @@ class MoodViewController: UIViewController {
             print("Error verifying access token.")
             
             let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, problem loading artists.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            
             notificationAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
             
             self.presentViewController(notificationAlert, animated: true, completion: nil)

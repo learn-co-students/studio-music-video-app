@@ -14,17 +14,23 @@ class Artist {
     
     let spotifyID : String
     
-    init(name : String, spotifyID : String) {
+    let artistAlbumArtwork : String
+    
+    let artistArtworkURLString : String
+    
+    init(name : String, spotifyID : String, artistAlbumArtwork : String, artistArtworkURLString : String) {
         
         self.name = name
         
         self.spotifyID = spotifyID
         
+        self.artistAlbumArtwork = artistAlbumArtwork
+        
+        self.artistArtworkURLString = artistArtworkURLString
     }
     
     func description() {
         
         print("Artist name: \(self.name) -- SpotifyID: \(self.spotifyID)\n")
-        
     }
 }
