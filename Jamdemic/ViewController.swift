@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        SearchModel.getSearches(9, searchText: " Thriller") { (results) in
+        SearchModel.getSearches(9, searchText: "Something") { (results) in
             print(results)
         }
 
