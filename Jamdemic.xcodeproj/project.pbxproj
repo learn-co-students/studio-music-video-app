@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07EB0FF21D5D6A2C0091B031 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB0FF11D5D6A2C0091B031 /* SearchTableViewController.swift */; };
 		07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */; };
 		07F31BD51D5D16F3005EA2B9 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F31BD41D5D16F3005EA2B9 /* Search.swift */; };
 		2C0C9B8C1D5B699400ACA02D /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C9B8B1D5B699400ACA02D /* GenreViewController.swift */; };
@@ -54,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		079B8FE31D5E0DA000369CC0 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
-		07EB0FF11D5D6A2C0091B031 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		07F31BD41D5D16F3005EA2B9 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		2C0C9B8B1D5B699400ACA02D /* GenreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 			children = (
 				07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */,
 				07F31BD41D5D16F3005EA2B9 /* Search.swift */,
-				07EB0FF11D5D6A2C0091B031 /* SearchTableViewController.swift */,
 			);
 			name = Youtube;
 			sourceTree = "<group>";
@@ -511,11 +508,9 @@
 				2C0C9B901D5B6BE400ACA02D /* Artist.swift in Sources */,
 				C94E93B41D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift in Sources */,
 				A7FEB9591D5D922B00DA632E /* MeasurementHelper.swift in Sources */,
-				07EB0FF41D5D6EE70091B031 /* VideoModel.swift in Sources */,
 				C9C1F0EE1D5E8E1E00600D75 /* PlaylistTableViewCell.swift in Sources */,
 				C90BA3F71D5FDD4800A80937 /* VideoPlayerViewController.swift in Sources */,
 				C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */,
-				07EB0FF21D5D6A2C0091B031 /* SearchTableViewController.swift in Sources */,
 				2C0C9B961D5B83F200ACA02D /* MoodViewController.swift in Sources */,
 				2C0C9B8C1D5B699400ACA02D /* GenreViewController.swift in Sources */,
 				2C0C9B921D5B6E1C00ACA02D /* ArtistTableViewController.swift in Sources */,
