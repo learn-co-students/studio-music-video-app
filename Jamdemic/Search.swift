@@ -14,5 +14,6 @@ class Search: NSObject {
     var searchvideoId: String = ""
     var searchvideoDescription: String = ""
     var searchvideoChannelID: String = ""
+    var thumbnailUrl: String = ""
 
 }

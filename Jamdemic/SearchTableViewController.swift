@@ -16,7 +16,8 @@ class SearchTableViewController: UITableViewController, SearchModelDelegate {
         override func viewDidLoad() {
             super.viewDidLoad()
             
-        
+       let model = SearchModel()
+       model.getSearches(1, searchText: "Sade - Smooth Operator")
             
 
         

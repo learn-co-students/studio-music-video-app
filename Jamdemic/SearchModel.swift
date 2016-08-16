@@ -21,9 +21,8 @@ class SearchModel: NSObject {
     
     private var urlString: String = "https://www.googleapis.com/youtube/v3/search"
     
-    
-    
     //   private let channeId: String = "UC2pmfLm7iq6Ov1UwYrWYkZA"
+    
     
     var searchArray = [Search]()
     
@@ -40,16 +39,19 @@ class SearchModel: NSObject {
             if let jsonResult = response.result.value {
                 
                 let json = JSON(jsonResult)
-                // print(json)
+                //  print(json)
                 
                 let searchVideoId = (json["items"][0]["id"]["videoId"].stringValue)
                 let videoTitle = (json["items"][0]["snippet"]["title"].stringValue)
+                let thumbnailUrl = (json["items"][0]["snippet"]["thumbnails"]["default"]["url"].stringValue)
+                
                 
                 var searchResultId:[String] = []
                 searchResultId.append(searchVideoId)
                 
                 print (searchResultId)
                 print(videoTitle)
+                print(thumbnailUrl)
                 
                 
                 
@@ -68,5 +70,4 @@ class SearchModel: NSObject {
     
     
 }
-
 
