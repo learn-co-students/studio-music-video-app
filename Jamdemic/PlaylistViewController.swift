@@ -42,11 +42,13 @@ class PlaylistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         
         playlistTableview.delegate = self
         playlistTableview.dataSource = self
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(savePlaylist), name: Notifications.userDidLogIn, object: nil)
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -67,17 +69,16 @@ class PlaylistViewController: UIViewController {
         }
     }
     
-//    // For Testing only
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        
-//        
-//        //        if FIRAuth.auth()?.currentUser == nil {
-//        //            let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
-//        //            let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
-//        //            self.presentViewController(signInVC, animated: true, completion: nil)
-//        //        }
-//    }
+    // For Testing only
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+                if FIRAuth.auth()?.currentUser == nil {
+                    let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
+                    let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
+                    self.presentViewController(signInVC, animated: true, completion: nil)
+                }
+    }
 }
 
 //MARK: Tableview Methods
@@ -99,20 +100,11 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension PlaylistViewController: GIDSignInDelegate, GIDSignInUIDelegate {
-    
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
-        if error == nil {
-            print("Successfully signed in")
-            print("Current scopes: \(GIDSignIn.sharedInstance().scopes)")
-            print("Access token for youtube: \(GIDSignIn.sharedInstance().currentUser.authentication.accessToken)")
-            savePlaylist()
-        }
-    }
+extension PlaylistViewController: GIDSignInUIDelegate {
     
     func googleSignInWithYoutubeScope(silent isSilentSignIn: Bool) {
-        let driveScope = "https://www.googleapis.com/auth/youtube"
-        GIDSignIn.sharedInstance().scopes.append(driveScope)
+        let youtubeScope = "https://www.googleapis.com/auth/youtube"
+        GIDSignIn.sharedInstance().scopes.append(youtubeScope)
         if isSilentSignIn {
             GIDSignIn.sharedInstance().signInSilently()
         }
@@ -134,7 +126,7 @@ extension PlaylistViewController {
             presentPermissionsDialog()
         }
         else {
-            googleSignInWithYoutubeScope(silent: true)
+            googleSignInWithYoutubeScope(silent: false)
         }
     }
     
@@ -198,7 +190,7 @@ extension PlaylistViewController {
             
             self.testVideoIDs.forEach({ (videoID) in
                 
-                usleep(150000) // in microseconds (1 millionth of a second) interval. 150,000 microseconds is the smallest interval where all videos will be saved
+                usleep(170000) // in microseconds (1 millionth of a second) interval. 170,000 microseconds is the smallest interval where all videos will be saved
                 print("Request entering group")
                 dispatch_group_enter(requestGroup)
                 PlaylistViewController.insertVideoWithID(videoID, intoPlaylist: playlistID, completion: {
