@@ -11,4 +11,5 @@ import Foundation
 struct Notifications {
     static let receivedSpotifyCode = "codeReceived"
     static let userDidLogIn = "userDidLogIn"
+    static let newSearch = "NewSearch"
 }

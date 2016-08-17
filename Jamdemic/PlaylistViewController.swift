@@ -90,6 +90,8 @@ class PlaylistViewController: UIViewController {
 //    }
     
     @IBAction func newSearchButtonTapped(sender: UIButton) {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.newSearch, object: nil)
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     

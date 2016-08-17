@@ -32,6 +32,9 @@ class GenreViewController: UIViewController {
         //print(genreQueryString)
         
         self.nextButton.enabled = false
+        
+        // Listen for new searches
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearSelection), name: Notifications.newSearch, object: nil)
     }
     
     func storeDifferentGenres(genres : String) {
@@ -188,5 +191,14 @@ class GenreViewController: UIViewController {
         backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
         
         navigationItem.backBarButtonItem = backButton
+    }
+    
+    // MARK: - Clearing Selection
+    func clearSelection() {
+        self.genreParameterDictionary.removeAll()
+        self.genreQueryString = ""
+        self.genreButtonPressedNumber = 0
+        // Do anything else to reset the selection
+        // ...
     }
 }
