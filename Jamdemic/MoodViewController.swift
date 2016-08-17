@@ -184,30 +184,22 @@ class MoodViewController: UIViewController {
                     MoodViewController.finalQueryDictionary[artistsNames] = trackNames
                 }
                 var finalQueryDictionary = MoodViewController.finalQueryDictionary
+                
                 print("\nThe final query dictionary is: \(MoodViewController.finalQueryDictionary)\n")
-                func getStringOfArtistAndSongs(){
-                    var arrayContainer: [String] = []
-                    
-                    for artist in finalQueryDictionary.keys.sort(){
+                
+                for (artist, song) in MoodViewController.finalQueryDictionary {
+                    let searchText = artist + " " + song
+                    SearchModel.getSearches(0, searchText: searchText, completion: { (infoDictionary) in
                         
-                        
-                        let pair = "\(artist) - \(finalQueryDictionary[artist]!)"
-                        arrayContainer.append(pair)
-                        
-                        
-                        
-                        
-                    }
-                    
-                    for artistSong in arrayContainer{
-                       // let searchPairArtistSong = artistSong
-                        print(artistSong)
-                    
-                    }
+                    })
                     
                 }
                 
-              let searchText =  getStringOfArtistAndSongs()
+                
+                
+                
+                
+//              let searchText =  getStringOfArtistAndSongs()
                 
             
                 
@@ -228,6 +220,29 @@ class MoodViewController: UIViewController {
         }
     }
     
+    func getStringOfArtistAndSongs(){
+        var arrayContainer: [String] = []
+        
+        for artist in MoodViewController.finalQueryDictionary.keys.sort(){
+            
+            
+            let pair = "\(artist) - \(MoodViewController.finalQueryDictionary[artist]!)"
+            arrayContainer.append(pair)
+            
+            
+            
+            
+        }
+        
+        for artistSong in arrayContainer{
+            // let searchPairArtistSong = artistSong
+            print(artistSong)
+            
+        }
+        
+    }
+
+    
     // MARK: - UI Element changes:
     
     func changeNavigationFontElements() {
@@ -241,10 +256,5 @@ class MoodViewController: UIViewController {
         backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
         
         navigationItem.backBarButtonItem = backButton
-    }
-    
-    
-    
- 
-    
+    }   
 }

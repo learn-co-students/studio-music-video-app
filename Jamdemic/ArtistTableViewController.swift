@@ -16,6 +16,8 @@ class ArtistTableViewController: UITableViewController {
     
     var artists : [Artist] = []
     
+    var photoCacheDictionary : [String : UIImage] = [:]
+    
     var userSelectedArtists : [Artist] = []
     
     @IBOutlet weak var nextButton: UIBarButtonItem!
@@ -32,7 +34,6 @@ class ArtistTableViewController: UITableViewController {
         print(genreQueryString)
         
         tableView.estimatedRowHeight = 320
-        
         
         // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
@@ -65,6 +66,8 @@ class ArtistTableViewController: UITableViewController {
                     
                     // Adds each artist that is returned to an array of artists that will then be used to populate the table view.
                     self.artists.append(eachArtist)
+                    
+                    print(artistArtworkURLString)
                     
                     eachArtist.description()
                 }
@@ -101,39 +104,66 @@ class ArtistTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("artistCell") as! ArtistTableViewCell
+        let artistName = self.artists[indexPath.row].name
         
-        cell.artistNameLabel.text = self.artists[indexPath.row].name
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsetsZero
+        cell.layoutMargins = UIEdgeInsetsZero
+        cell.artistNameLabel.text = artistName
         
         //cell.albumArtImageView.image = UIImage(data: NSData.init(contentsOfURL: NSURL(string: self.artists[indexPath.row].artistAlbumArtwork)!)!)
         
-        Alamofire.request(.GET, self.artists[indexPath.row].artistArtworkURLString).validate().responseJSON { (response) in
+        
+        // we have the image, load from cache
+        if let artistPhoto = photoCacheDictionary[artistName] {
+         
+            cell.albumArtImageView.image = artistPhoto
+        
+        } else {
             
-            guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
-            
-            if responseValue == 200 {
-            
-                let responseValue = response.result.value
+            Alamofire.request(.GET, self.artists[indexPath.row].artistArtworkURLString).validate().responseJSON { (response) in
                 
-                guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping JSON response.") }
+                guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
                 
-                let json = JSON(unwrappedResponseValue)
-                
-                let imageURLString = json["images"][0]["url"].stringValue
-                
-                let imageData = NSData(contentsOfURL: NSURL(string: imageURLString)!)
-                
-                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                if responseValue == 200 {
                     
-                    cell.albumArtImageView.image = UIImage(data: imageData!)
+                    let responseValue = response.result.value
                     
-                })
-                
-            } else {
-                
-                print("Error Code: \(responseValue)")
+                    guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping JSON response.") }
+                    
+                    let json = JSON(unwrappedResponseValue)
+                    
+                    let imageURLString = json["images"][0]["url"].stringValue
+                    
+                    guard let unwrappedURLString = NSURL(string: imageURLString) else { fatalError("Error unwrapping NSUL when converting String to NSURL.") }
+                    
+                    // Create a background queue because NSData(contentsOFURL:) is a network request call. This needs to happen on the background thread.
+                    let queue = NSOperationQueue()
+                    queue.addOperationWithBlock({
+                        
+                        guard let imageData = NSData(contentsOfURL: unwrappedURLString) else { fatalError("Error unwrapping data from image URL.") }
+                        
+                        // On the main thread, we will add the image to the imageView and cache our dictionary.
+                        NSOperationQueue.mainQueue().addOperationWithBlock({
+                            
+                            guard let artistImage = UIImage(data: imageData) else { fatalError("unable to unwrap image data") }
+                            
+                            // As long as the cell is not nil, we will load each artist's image into its respective cell.
+                            if tableView.cellForRowAtIndexPath(indexPath) != nil {
+                                
+                                cell.albumArtImageView.image = artistImage
+                            }
+                            // Load each artist's image into our photoCacheDictionary so we only make a network call to get images once for each artist.
+                            self.photoCacheDictionary[artistName] = artistImage
+                        })
+                    })
+                    
+                } else {
+                    
+                    print("Error Code: \(responseValue)")
+                }
             }
         }
-        
         return cell
     }
     
