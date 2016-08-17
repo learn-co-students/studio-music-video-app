@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import Alamofire
 import SwiftyJSON
+import NVActivityIndicatorView
 
 class PlaylistViewController: UIViewController {
     
@@ -19,30 +20,6 @@ class PlaylistViewController: UIViewController {
     var videoIDs: [String] = []
     
     let photoQueue = NSOperationQueue()
-    
-//    let testData = [
-//        PlaylistTestData(name: "Calvin Harris", songName: "This Is What You Came For (Official Video) ft. Rihanna", image: UIImage(named: "hqdefault-0.jpg")!),
-//        PlaylistTestData(name: "Major Lazer", songName: "Cold Water (feat. Justin Bieber & MØ)", image: UIImage(named: "hqdefault-1.jpg")!),
-//        PlaylistTestData(name: "Andra", songName: "Why", image: UIImage(named: "hqdefault-3.jpg")!),
-//        PlaylistTestData(name: "Justin Bieber", songName: "Sorry", image: UIImage(named: "hqdefault-4.jpg")!),
-//        PlaylistTestData(name: "Fifth Harmony", songName: "Work from Home ft. Ty Dolla $ign", image: UIImage(named: "hqdefault-5.jpg")!),
-//        PlaylistTestData(name: "The Chainsmokers", songName: "Closer (Lyric) ft. Halsey", image: UIImage(named: "hqdefault-6.jpg")!),
-//        PlaylistTestData(name: "Katy Perry", songName: "Rise", image: UIImage(named: "hqdefault-7.jpg")!),
-//        PlaylistTestData(name: "Shawn Mendes", songName: "Treat You Better", image: UIImage(named: "hqdefault-8.jpg")!),
-//        PlaylistTestData(name: "Rihanna ft. Drake", songName: "Work", image: UIImage(named: "hqdefault-9.jpg")!)
-//    ]
-//    
-//    let testVideoIDs = [
-//        "kOkQ4T5WO9E",
-//        "a59gmGkq_pw",
-//        "rhcc1KQlCS4",
-//        "fRh_vgS2dFE",
-//        "5GL9JoH4Sws",
-//        "PT2_F-1esPk",
-//        "hdw1uKiTI5c",
-//        "lY2yjAdbvdQ",
-//        "HL1UzIK-flA"
-//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +31,7 @@ class PlaylistViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(savePlaylist), name: Notifications.userDidLogIn, object: nil)
         
-        
         videoIDs = playlistData.map{ $0.videoID }
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -77,17 +52,6 @@ class PlaylistViewController: UIViewController {
             }
         }
     }
-    
-//    // For Testing only
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        
-//                if FIRAuth.auth()?.currentUser == nil {
-//                    let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
-//                    let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
-//                    self.presentViewController(signInVC, animated: true, completion: nil)
-//                }
-//    }
     
     @IBAction func newSearchButtonTapped(sender: UIButton) {
         
@@ -203,6 +167,8 @@ extension PlaylistViewController {
     }
     
     func savePlaylistWithTitle(title: String) {
+        
+        startLoadingAnimation()
         // Should make a call to the YoutubeAPIClient to save the playlist to the current user's account
         GIDSignIn.sharedInstance().currentUser.authentication.getTokensWithHandler { (authObject, error) in
             if error == nil {
@@ -237,6 +203,7 @@ extension PlaylistViewController {
             dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
             dispatch_async(dispatch_get_main_queue(), { 
                 print("All videos saved to youtube!")
+                self.stopActivityAnimating()
                 self.displayFinishedAlert()
             })
         })
@@ -300,6 +267,13 @@ extension PlaylistViewController {
                 print(error)
             }
         }
+    }
+}
+
+
+extension PlaylistViewController: NVActivityIndicatorViewable {
+    func startLoadingAnimation() {
+        startActivityAnimating(message: "Saving...", type: .LineScalePulseOutRapid)
     }
 }
 

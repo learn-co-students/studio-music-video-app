@@ -14,7 +14,7 @@ target 'Jamdemic' do
   pod 'Firebase/Storage'
   pod 'GoogleSignIn'
   pod "XCDYouTubeKit", "~> 2.5"
-
+  pod 'NVActivityIndicatorView'
 
   # Pods for Jamdemic
 
