@@ -225,6 +225,7 @@ class MoodViewController: UIViewController {
                         }
                         
                         // TODO: manual segue to next view controller.
+                        self.performSegueWithIdentifier("showPlaylist", sender: nil)
                     })
                 })
             })
@@ -239,6 +240,15 @@ class MoodViewController: UIViewController {
             notificationAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
             
             self.presentViewController(notificationAlert, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: Segues
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showPlaylist" {
+            let destinationNavVC = segue.destinationViewController as! UINavigationController
+            let destinationVC = destinationNavVC.viewControllers[0] as! PlaylistViewController
+            destinationVC.playlistData = playlistDetailInfoArray
         }
     }
     
