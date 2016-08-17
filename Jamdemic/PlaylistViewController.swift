@@ -69,16 +69,16 @@ class PlaylistViewController: UIViewController {
         }
     }
     
-    // For Testing only
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-                if FIRAuth.auth()?.currentUser == nil {
-                    let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
-                    let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
-                    self.presentViewController(signInVC, animated: true, completion: nil)
-                }
-    }
+//    // For Testing only
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//                if FIRAuth.auth()?.currentUser == nil {
+//                    let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
+//                    let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
+//                    self.presentViewController(signInVC, animated: true, completion: nil)
+//                }
+//    }
 }
 
 //MARK: Tableview Methods
@@ -102,15 +102,11 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension PlaylistViewController: GIDSignInUIDelegate {
     
-    func googleSignInWithYoutubeScope(silent isSilentSignIn: Bool) {
+    func googleSignInWithYoutubeScope() {
         let youtubeScope = "https://www.googleapis.com/auth/youtube"
         GIDSignIn.sharedInstance().scopes.append(youtubeScope)
-        if isSilentSignIn {
-            GIDSignIn.sharedInstance().signInSilently()
-        }
-        else {
-            GIDSignIn.sharedInstance().signIn()
-        }
+        GIDSignIn.sharedInstance().signIn()
+        
         
     }
 }
@@ -126,7 +122,7 @@ extension PlaylistViewController {
             presentPermissionsDialog()
         }
         else {
-            googleSignInWithYoutubeScope(silent: false)
+            googleSignInWithYoutubeScope()
         }
     }
     
@@ -134,7 +130,7 @@ extension PlaylistViewController {
         let alertcontroller = UIAlertController(title: "Allow Jamdemic to save playlists to your Youtube account?", message: nil, preferredStyle: .Alert)
         
         let allowAction = UIAlertAction(title: "Allow", style: .Default, handler: { action in
-            self.googleSignInWithYoutubeScope(silent: false)
+            self.googleSignInWithYoutubeScope()
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -189,8 +185,8 @@ extension PlaylistViewController {
             let requestGroup = dispatch_group_create()
             
             self.testVideoIDs.forEach({ (videoID) in
-                
-                usleep(170000) // in microseconds (1 millionth of a second) interval. 170,000 microseconds is the smallest interval where all videos will be saved
+                // in microseconds (1 millionth of a second) interval. 170,000 microseconds is the smallest interval where all videos will be saved.
+                usleep(170000)
                 print("Request entering group")
                 dispatch_group_enter(requestGroup)
                 PlaylistViewController.insertVideoWithID(videoID, intoPlaylist: playlistID, completion: {
@@ -221,8 +217,7 @@ extension PlaylistViewController {
     
     class func createPlaylistWithTitle(title: String, token: String, completion: String? -> Void) {
         
-        let youtubeAPIKey = "AIzaSyDEsBB01SSKFvf9Ypx5wehcQ3V1PTTH3Uk"
-        let baseURLString = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&fields=id%2Csnippet&key=\(youtubeAPIKey)"
+        let urlString = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&fields=id%2Csnippet&key=\(Secrets.youtubeAPIKey)"
         
         
         let parameters = [
@@ -233,7 +228,7 @@ extension PlaylistViewController {
             "Authorization" : "Bearer \(token)",
             ]
         
-        Alamofire.request(.POST, baseURLString, parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
+        Alamofire.request(.POST, urlString, parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
             
             guard let value = response.result.value else { fatalError("Unable to unwrap playlist post request value") }
             let json = JSON(value)
@@ -244,8 +239,8 @@ extension PlaylistViewController {
     }
     
     class func insertVideoWithID(videoID: String, intoPlaylist playlistID: String, completion: Void -> Void) {
-        let youtubeAPIKey = "AIzaSyDEsBB01SSKFvf9Ypx5wehcQ3V1PTTH3Uk"
-        let baseURLString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=\(youtubeAPIKey)"
+        
+        let urlString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=\(Secrets.youtubeAPIKey)"
         
         let parameters = [
             "snippet" : ["playlistId" : playlistID,
@@ -257,7 +252,7 @@ extension PlaylistViewController {
             "Authorization" : "Bearer \(GIDSignIn.sharedInstance().currentUser.authentication.accessToken)"
         ]
         
-        Alamofire.request(.POST, baseURLString, parameters: parameters, encoding: .JSON, headers: headers).validate().responseJSON { (response) in
+        Alamofire.request(.POST, urlString, parameters: parameters, encoding: .JSON, headers: headers).validate().responseJSON { (response) in
             switch response.result {
             case .Success:
                 print("Video Saved!")
