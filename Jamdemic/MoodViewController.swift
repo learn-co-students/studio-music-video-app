@@ -9,8 +9,9 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import NVActivityIndicatorView
 
-class MoodViewController: UIViewController {
+class MoodViewController: UIViewController, NVActivityIndicatorViewable {
 
     // The value of the Mood dictionary is AnyObject because track tuneability can either than Float or Int. The value CANNOT be passed in as a string. Also, Alamofire's parameter input accepts a dication of ["String" : "AnyObject"]
     var moodParameterDictionary : [String : AnyObject] = [:]
@@ -168,6 +169,8 @@ class MoodViewController: UIViewController {
 
     @IBAction func generatePlaylist(sender: AnyObject) {
         
+        startActivityAnimating(message: "Loading...", type: .LineScalePulseOutRapid)
+        
         // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
             
@@ -223,7 +226,7 @@ class MoodViewController: UIViewController {
                         for playlistItem in self.playlistDetailInfoArray {
                             print("\(playlistItem.name) - \(playlistItem.songTitle)\n\(playlistItem.videoID)\n\(playlistItem.thumnailURLString)")
                         }
-                        
+                        self.stopActivityAnimating()
                         // TODO: manual segue to next view controller.
                         self.performSegueWithIdentifier("showPlaylist", sender: nil)
                     })
