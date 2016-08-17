@@ -202,7 +202,18 @@
                                         </imageView>
                                         <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tPW-Rv-1o6">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="319"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like.png" translatesAutoresizingMaskIntoConstraints="NO" id="wca-aL-EFm">
+                                                    <rect key="frame" x="282" y="8" width="30" height="25"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="wca-aL-EFm" firstAttribute="top" secondItem="tPW-Rv-1o6" secondAttribute="top" constant="8" id="DdE-w1-7q5"/>
+                                                <constraint firstItem="wca-aL-EFm" firstAttribute="leading" secondItem="tPW-Rv-1o6" secondAttribute="leading" constant="282" id="OrB-Hh-hgK"/>
+                                                <constraint firstAttribute="bottom" secondItem="wca-aL-EFm" secondAttribute="bottom" constant="286" id="l7Z-Xx-iRO"/>
+                                                <constraint firstAttribute="trailing" secondItem="wca-aL-EFm" secondAttribute="trailing" constant="8" id="pRV-jg-V5A"/>
+                                            </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unP-1L-ixm">
                                             <rect key="frame" x="34" y="148.5" width="251" height="23.5"/>
@@ -248,6 +259,7 @@
                                 <connections>
                                     <outlet property="albumArtImageView" destination="lEM-ug-3Um" id="AvT-ZD-0Rz"/>
                                     <outlet property="artistNameLabel" destination="unP-1L-ixm" id="1NX-x7-eqh"/>
+                                    <outlet property="likeIndicatorLabel" destination="wca-aL-EFm" id="RAV-Gu-MMC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -448,4 +460,7 @@
             <point key="canvasLocation" x="1241" y="390"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="like.png" width="180" height="141"/>
+    </resources>
 </document>

@@ -15,13 +15,15 @@ class MoodViewController: UIViewController {
     // The value of the Mood dictionary is AnyObject because track tuneability can either than Float or Int. The value CANNOT be passed in as a string. Also, Alamofire's parameter input accepts a dication of ["String" : "AnyObject"]
     var moodParameterDictionary : [String : AnyObject] = [:]
     
-    static var finalQueryDictionary : [String : String] = [:]
+    var finalQueryDictionary : [String : String] = [:]
     
     var genreQueryString = ""
     
     var userSelectedArtists : [Artist] = []
     
     var testUserArtistString = ""
+    
+    var playlistDetailInfoArray : [PlaylistDetailInfo] = []
     
     // Counter to keep track of how many mood buttons a user has selected.
     var moodButtonPressedNumber = 0
@@ -181,30 +183,50 @@ class MoodViewController: UIViewController {
                     
                     let trackNames = i["name"].stringValue
                     
-                    MoodViewController.finalQueryDictionary[artistsNames] = trackNames
+                    self.finalQueryDictionary[artistsNames] = trackNames
                 }
-                var finalQueryDictionary = MoodViewController.finalQueryDictionary
                 
-                print("\nThe final query dictionary is: \(MoodViewController.finalQueryDictionary)\n")
-                
-                for (artist, song) in MoodViewController.finalQueryDictionary {
-                    let searchText = artist + " " + song
-                    SearchModel.getSearches(0, searchText: searchText, completion: { (infoDictionary) in
-                        
-                    })
+                // Setting an asynchronous queue with a high priority.
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { 
                     
-                }
-                
-                
-                
-                
-                
-//              let searchText =  getStringOfArtistAndSongs()
-                
-            
-                
-                
-                
+                    // Create an asynchronous request group because we multiple requests to make to each artist and song to search youtube.
+                    let requestGroup = dispatch_group_create()
+                    
+                    for (artist, song) in self.finalQueryDictionary {
+                        
+                        let searchText = artist + "-" + song
+                        
+                        // Is a tally holder that adds up all of the request groups. We do this before the Youtube API call.
+                        dispatch_group_enter(requestGroup)
+                        
+                        SearchModel.getSearches(0, searchText: searchText, completion: { (infoDictionary) in
+                            
+                            guard let videoID = infoDictionary["videoID"] else { fatalError("Error unwrapping videoID from infoDictionary.") }
+                            
+                            guard let thumbnailURLString = infoDictionary["thumbnailURLString"] else { fatalError("Error unwrapping thumbnailURLString from infoDictionary.") }
+                            
+                            let playlistItemInfo = PlaylistDetailInfo(name: artist, songTitle: song, videoID: videoID, thumbnailURLString: thumbnailURLString)
+                            
+                            self.playlistDetailInfoArray.append(playlistItemInfo)
+                            
+                            // When we are done with every request for artist and song, the dispatch group leaves.
+                            dispatch_group_leave(requestGroup)
+                        })
+                    }
+                    
+                    // Wait for all request groups to finish before proceeding.
+                    dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
+                    
+                    dispatch_async(dispatch_get_main_queue(), { 
+                        
+                        
+                        for playlistItem in self.playlistDetailInfoArray {
+                            print("\(playlistItem.name) - \(playlistItem.songTitle)\n\(playlistItem.videoID)\n\(playlistItem.thumnailURLString)")
+                        }
+                        
+                        // TODO: manual segue to next view controller.
+                    })
+                })
             })
             
             // If the Spotify API is unavailable, the user is presented with an alert view.
@@ -219,29 +241,6 @@ class MoodViewController: UIViewController {
             self.presentViewController(notificationAlert, animated: true, completion: nil)
         }
     }
-    
-    func getStringOfArtistAndSongs(){
-        var arrayContainer: [String] = []
-        
-        for artist in MoodViewController.finalQueryDictionary.keys.sort(){
-            
-            
-            let pair = "\(artist) - \(MoodViewController.finalQueryDictionary[artist]!)"
-            arrayContainer.append(pair)
-            
-            
-            
-            
-        }
-        
-        for artistSong in arrayContainer{
-            // let searchPairArtistSong = artistSong
-            print(artistSong)
-            
-        }
-        
-    }
-
     
     // MARK: - UI Element changes:
     

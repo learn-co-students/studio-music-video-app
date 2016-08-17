@@ -16,6 +16,8 @@ class ArtistTableViewCell: UITableViewCell {
 
     @IBOutlet weak var musicGenreForArtist: UILabel!
     
+    @IBOutlet weak var likeIndicatorLabel: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

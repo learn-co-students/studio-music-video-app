@@ -16,6 +16,7 @@ class ArtistTableViewController: UITableViewController {
     
     var artists : [Artist] = []
     
+    // Photo cache dictionary to store each artist's image after we do a network call.
     var photoCacheDictionary : [String : UIImage] = [:]
     
     var userSelectedArtists : [Artist] = []
@@ -66,9 +67,7 @@ class ArtistTableViewController: UITableViewController {
                     
                     // Adds each artist that is returned to an array of artists that will then be used to populate the table view.
                     self.artists.append(eachArtist)
-                    
-                    print(artistArtworkURLString)
-                    
+                                        
                     eachArtist.description()
                 }
                 
@@ -110,9 +109,7 @@ class ArtistTableViewController: UITableViewController {
         cell.separatorInset = UIEdgeInsetsZero
         cell.layoutMargins = UIEdgeInsetsZero
         cell.artistNameLabel.text = artistName
-        
-        //cell.albumArtImageView.image = UIImage(data: NSData.init(contentsOfURL: NSURL(string: self.artists[indexPath.row].artistAlbumArtwork)!)!)
-        
+        cell.likeIndicatorLabel.hidden = true
         
         // we have the image, load from cache
         if let artistPhoto = photoCacheDictionary[artistName] {
@@ -174,7 +171,7 @@ class ArtistTableViewController: UITableViewController {
             self.artistButtonPressedNumber = self.artistButtonPressedNumber + 1
         
             print(self.artistButtonPressedNumber)
-        
+            
             let selectedArtist = self.artists[indexPath.row]
             
             self.userSelectedArtists.append(selectedArtist)

@@ -8,14 +8,19 @@
 
 import Foundation
 
+// Artist Class that defines parameters coming back from Spotify API.
 class Artist {
     
+    // Name of artist that we get from Spotify API.
     let name : String
     
+    // SpotifyID of artist that we get from Spotify API.
     let spotifyID : String
     
+    // Album artwork of artist that we get from Spotify API.
     let artistAlbumArtwork : String
     
+    // Picture of artist that we get from Spotify API.
     let artistArtworkURLString : String
     
     init(name : String, spotifyID : String, artistAlbumArtwork : String, artistArtworkURLString : String) {
