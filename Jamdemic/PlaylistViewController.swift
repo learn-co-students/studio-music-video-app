@@ -88,6 +88,11 @@ class PlaylistViewController: UIViewController {
 //                    self.presentViewController(signInVC, animated: true, completion: nil)
 //                }
 //    }
+    
+    @IBAction func newSearchButtonTapped(sender: UIButton) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
 }
 
 //MARK: Tableview Methods

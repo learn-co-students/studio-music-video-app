@@ -11,7 +11,7 @@
         <!--Playlist-->
         <scene sceneID="7Kl-GN-sER">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Zc4-Bj-P7f" customClass="PlaylistViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaylistViewController" automaticallyAdjustsScrollViewInsets="NO" id="Zc4-Bj-P7f" customClass="PlaylistViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="K6O-JI-fvB"/>
                         <viewControllerLayoutGuide type="bottom" id="FJ2-Mg-90I"/>
@@ -76,10 +76,19 @@
                                             <action selector="savePlaylistButtonTapped:" destination="Zc4-Bj-P7f" eventType="touchUpInside" id="vcj-Rd-Lah"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUi-ZB-3Vi">
+                                        <rect key="frame" x="104" y="96" width="83" height="30"/>
+                                        <state key="normal" title="New Search"/>
+                                        <connections>
+                                            <action selector="newSearchButtonTapped:" destination="Zc4-Bj-P7f" eventType="touchUpInside" id="t7Q-FO-zag"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="pUi-ZB-3Vi" secondAttribute="bottom" constant="8" id="IwP-8z-KG1"/>
                                     <constraint firstAttribute="bottom" secondItem="U7y-F8-tgB" secondAttribute="bottom" constant="8" id="T2J-22-tSD"/>
+                                    <constraint firstItem="pUi-ZB-3Vi" firstAttribute="leading" secondItem="U7y-F8-tgB" secondAttribute="trailing" constant="10" id="riG-aA-Trj"/>
                                     <constraint firstItem="U7y-F8-tgB" firstAttribute="leading" secondItem="jrF-Du-DaF" secondAttribute="leading" constant="8" id="yI5-KD-lLV"/>
                                 </constraints>
                             </view>

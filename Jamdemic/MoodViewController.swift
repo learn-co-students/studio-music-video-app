@@ -246,8 +246,7 @@ class MoodViewController: UIViewController {
     // MARK: Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showPlaylist" {
-            let destinationNavVC = segue.destinationViewController as! UINavigationController
-            let destinationVC = destinationNavVC.viewControllers[0] as! PlaylistViewController
+            let destinationVC = segue.destinationViewController as! PlaylistViewController
             destinationVC.playlistData = playlistDetailInfoArray
         }
     }

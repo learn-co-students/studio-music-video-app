@@ -444,13 +444,13 @@
             </objects>
             <point key="canvasLocation" x="2760" y="374"/>
         </scene>
-        <!--VideoPlaylist-->
+        <!--PlaylistViewController-->
         <scene sceneID="zTY-IZ-QyU">
             <objects>
-                <viewControllerPlaceholder storyboardName="VideoPlaylist" id="mjp-Pu-2iq" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="VideoPlaylist" referencedIdentifier="PlaylistViewController" id="mjp-Pu-2iq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xY5-08-nTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3101.5" y="318"/>
+            <point key="canvasLocation" x="3140.5" y="374"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="z0F-LC-c6Q">
