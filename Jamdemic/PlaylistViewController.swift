@@ -14,30 +14,35 @@ import SwiftyJSON
 class PlaylistViewController: UIViewController {
     
     @IBOutlet weak var playlistTableview: UITableView!
+    var playlistData: [PlaylistDetailInfo] = []
+    var artistThumbnails: [String : UIImage] = [:]
+    var videoIDs: [String] = []
     
-    let testData = [
-        PlaylistTestData(name: "Calvin Harris", songName: "This Is What You Came For (Official Video) ft. Rihanna", image: UIImage(named: "hqdefault-0.jpg")!),
-        PlaylistTestData(name: "Major Lazer", songName: "Cold Water (feat. Justin Bieber & MØ)", image: UIImage(named: "hqdefault-1.jpg")!),
-        PlaylistTestData(name: "Andra", songName: "Why", image: UIImage(named: "hqdefault-3.jpg")!),
-        PlaylistTestData(name: "Justin Bieber", songName: "Sorry", image: UIImage(named: "hqdefault-4.jpg")!),
-        PlaylistTestData(name: "Fifth Harmony", songName: "Work from Home ft. Ty Dolla $ign", image: UIImage(named: "hqdefault-5.jpg")!),
-        PlaylistTestData(name: "The Chainsmokers", songName: "Closer (Lyric) ft. Halsey", image: UIImage(named: "hqdefault-6.jpg")!),
-        PlaylistTestData(name: "Katy Perry", songName: "Rise", image: UIImage(named: "hqdefault-7.jpg")!),
-        PlaylistTestData(name: "Shawn Mendes", songName: "Treat You Better", image: UIImage(named: "hqdefault-8.jpg")!),
-        PlaylistTestData(name: "Rihanna ft. Drake", songName: "Work", image: UIImage(named: "hqdefault-9.jpg")!)
-    ]
+    let photoQueue = NSOperationQueue()
     
-    let testVideoIDs = [
-        "kOkQ4T5WO9E",
-        "a59gmGkq_pw",
-        "rhcc1KQlCS4",
-        "fRh_vgS2dFE",
-        "5GL9JoH4Sws",
-        "PT2_F-1esPk",
-        "hdw1uKiTI5c",
-        "lY2yjAdbvdQ",
-        "HL1UzIK-flA"
-    ]
+//    let testData = [
+//        PlaylistTestData(name: "Calvin Harris", songName: "This Is What You Came For (Official Video) ft. Rihanna", image: UIImage(named: "hqdefault-0.jpg")!),
+//        PlaylistTestData(name: "Major Lazer", songName: "Cold Water (feat. Justin Bieber & MØ)", image: UIImage(named: "hqdefault-1.jpg")!),
+//        PlaylistTestData(name: "Andra", songName: "Why", image: UIImage(named: "hqdefault-3.jpg")!),
+//        PlaylistTestData(name: "Justin Bieber", songName: "Sorry", image: UIImage(named: "hqdefault-4.jpg")!),
+//        PlaylistTestData(name: "Fifth Harmony", songName: "Work from Home ft. Ty Dolla $ign", image: UIImage(named: "hqdefault-5.jpg")!),
+//        PlaylistTestData(name: "The Chainsmokers", songName: "Closer (Lyric) ft. Halsey", image: UIImage(named: "hqdefault-6.jpg")!),
+//        PlaylistTestData(name: "Katy Perry", songName: "Rise", image: UIImage(named: "hqdefault-7.jpg")!),
+//        PlaylistTestData(name: "Shawn Mendes", songName: "Treat You Better", image: UIImage(named: "hqdefault-8.jpg")!),
+//        PlaylistTestData(name: "Rihanna ft. Drake", songName: "Work", image: UIImage(named: "hqdefault-9.jpg")!)
+//    ]
+//    
+//    let testVideoIDs = [
+//        "kOkQ4T5WO9E",
+//        "a59gmGkq_pw",
+//        "rhcc1KQlCS4",
+//        "fRh_vgS2dFE",
+//        "5GL9JoH4Sws",
+//        "PT2_F-1esPk",
+//        "hdw1uKiTI5c",
+//        "lY2yjAdbvdQ",
+//        "HL1UzIK-flA"
+//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,16 +54,20 @@ class PlaylistViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(savePlaylist), name: Notifications.userDidLogIn, object: nil)
         
+        
+        videoIDs = playlistData.map{ $0.videoID }
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVideoFromPlayButton" {
             let destinationVC = segue.destinationViewController as! VideoPlayerViewController
-            destinationVC.videoIDs = testVideoIDs
+            
+            destinationVC.videoIDs = self.videoIDs
         }
         else if segue.identifier == "showVideoFromCell" {
             let destinationVC = segue.destinationViewController as! VideoPlayerViewController
-            destinationVC.videoIDs = testVideoIDs
+            destinationVC.videoIDs = self.videoIDs
             if sender is UITableViewCell {
                 let cell = sender as! UITableViewCell
                 if let row = self.playlistTableview.indexPathForCell(cell)?.row {
@@ -85,16 +94,39 @@ class PlaylistViewController: UIViewController {
 extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testData.count
+        return playlistData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("videoCell", forIndexPath: indexPath) as! PlaylistTableViewCell
         
-        let testInfo = testData[indexPath.row]
+        let playlistItem = playlistData[indexPath.row]
+        cell.artistSongTitleLabel.text = "\(playlistItem.name) - \(playlistItem.songTitle)"
         
-        cell.thumbnailImageView.image = testInfo.thumbnailImage
-        cell.artistSongTitleLabel.text = "\(testInfo.artistName) - \(testInfo.songName)"
+        if let artistThumbnailImage = artistThumbnails[playlistItem.videoID] {
+            // Artist thumbnail is cached
+            cell.thumbnailImageView.image = artistThumbnailImage
+        }
+        else {
+            // not cached, load image from the url on the photo queue
+            photoQueue.addOperationWithBlock({
+                
+                guard let imageURL = NSURL(string: playlistItem.thumnailURLString) else { fatalError("Unable to create image URL") }
+                
+                guard let imageData = NSData(contentsOfURL: imageURL) else { fatalError("Unable to create image data") }
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                    guard let thumbnailImage = UIImage(data: imageData) else { fatalError("Unable to create UIImage from data") }
+                    
+                    // Check to see if the cell is still loaded
+                    if tableView.cellForRowAtIndexPath(indexPath) != nil {
+                        cell.thumbnailImageView.image = thumbnailImage
+                    }
+                    self.artistThumbnails[playlistItem.videoID] = thumbnailImage
+                    
+                })
+            })
+        }
         
         return cell
     }
@@ -184,7 +216,7 @@ extension PlaylistViewController {
             
             let requestGroup = dispatch_group_create()
             
-            self.testVideoIDs.forEach({ (videoID) in
+            self.videoIDs.forEach({ (videoID) in
                 // in microseconds (1 millionth of a second) interval. 170,000 microseconds is the smallest interval where all videos will be saved.
                 usleep(170000)
                 print("Request entering group")
