@@ -63,7 +63,7 @@ class SpotifyAPIClient {
     // Artist, Genre, Mood and token are placeholders here. When we call the function in the controller, we then pass these values in.
     class func generateArtistsAndSongs(withUserSelectedArtists selectedArtists : String, withGenre genre : String,  withMood mood: [String : AnyObject], withToken token: String, completion:(JSON?) -> ()) {
         
-        var parameterDictionary : [String : AnyObject] = [spotifyParameter.seedArtists : selectedArtists, spotifyParameter.seedGenre : genre, spotifyParameter.seedLimit : 60]
+        var parameterDictionary : [String : AnyObject] = [spotifyParameter.seedArtists : selectedArtists, spotifyParameter.seedGenre : genre, spotifyParameter.seedLimit : 80]
         
         let authorizationDictionary = [spotifyParameter.authorization : "Bearer \(token)"]
         
