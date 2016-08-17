@@ -19,8 +19,8 @@ protocol SearchModelDelegate {
 
 class SearchModel: NSObject {
     
-    private static var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
     
+    private static var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
     
     private static var urlString: String = "https://www.googleapis.com/youtube/v3/search"
     
@@ -29,7 +29,7 @@ class SearchModel: NSObject {
     
     var searchArray = [Search]()
     
-    //var type = ["channel", "video"]
+    //var type = ["channel", "video", "playlist"]
     
     var delegate: SearchModelDelegate!
     
@@ -63,14 +63,7 @@ class SearchModel: NSObject {
                 
                 completion(resultsDictionary)
                 
-//                if completion != nil {
-//                completion(resultsDictionary)
-//                    
-//                }else {
-//                    print("Error")
-//                }
-                
-                
+
                 
             }
             

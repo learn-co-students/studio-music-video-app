@@ -8,7 +8,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="zb3-OB-xTm">
             <objects>
-                <viewController id="pkU-3H-eMh" customClass="SignInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" id="pkU-3H-eMh" customClass="SignInViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XKT-rC-gWe"/>
                         <viewControllerLayoutGuide type="bottom" id="GX4-Ts-8YP"/>
