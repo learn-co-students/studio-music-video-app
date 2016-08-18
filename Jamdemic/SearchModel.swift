@@ -20,8 +20,6 @@ protocol SearchModelDelegate {
 class SearchModel: NSObject {
     
     
-    private static var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
-    
     private static var urlString: String = "https://www.googleapis.com/youtube/v3/search"
     
     //   private let channeId: String = "UC2pmfLm7iq6Ov1UwYrWYkZA"

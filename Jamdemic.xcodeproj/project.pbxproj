@@ -321,7 +321,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9EDBEE81D53D08F0033BBAD /* Build configuration list for PBXNativeTarget "Jamdemic" */;
 			buildPhases = (
-				5A61594ECE25E15E49E5C6FF /* 📦 Check Pods Manifest.lock */,
+				5A61594ECE25E15E49E5C6FF /* [CP] Check Pods Manifest.lock */,
 				9B55E032B81E1C2E126EEE3F /* [CP] Check Pods Manifest.lock */,
 				6E3C8231FB42331B28648A2C /* [CP] Check Pods Manifest.lock */,
 				F53FFB970E0378C32C2ABBA1 /* [CP] Check Pods Manifest.lock */,
@@ -435,14 +435,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Jamdemic/Pods-Jamdemic-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5A61594ECE25E15E49E5C6FF /* 📦 Check Pods Manifest.lock */ = {
+		5A61594ECE25E15E49E5C6FF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
