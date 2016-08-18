@@ -87,7 +87,10 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 guard let imageURL = NSURL(string: playlistItem.thumnailURLString) else { fatalError("Unable to create image URL") }
                 
-                guard let imageData = NSData(contentsOfURL: imageURL) else { fatalError("Unable to create image data") }
+                guard let imageData = NSData(contentsOfURL: imageURL) else {
+                    print("Unable to create image data from URL.")
+                    return
+                }
                 
                 NSOperationQueue.mainQueue().addOperationWithBlock({ 
                     guard let thumbnailImage = UIImage(data: imageData) else { fatalError("Unable to create UIImage from data") }
