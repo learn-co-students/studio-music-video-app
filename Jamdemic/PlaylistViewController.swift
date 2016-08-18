@@ -74,6 +74,9 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         let playlistItem = playlistData[indexPath.row]
         cell.artistSongTitleLabel.text = "\(playlistItem.name) - \(playlistItem.songTitle)"
         
+        cell.thumbnailImageView.image = nil
+        cell.thumbnailImageView.backgroundColor = UIColor.grayColor()
+        
         if let artistThumbnailImage = artistThumbnails[playlistItem.videoID] {
             // Artist thumbnail is cached
             cell.thumbnailImageView.image = artistThumbnailImage
