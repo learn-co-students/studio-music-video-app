@@ -29,6 +29,10 @@ class HomeViewController: UIViewController {
     
     func networkUnavailable() {
         self.notification.notificationLabelBackgroundColor = UIColor.redColor()
+        
+        let notificationFont = UIFont.systemFontOfSize(15)
+        
+        self.notification.notificationLabelFont = notificationFont
         self.notification.displayNotificationWithMessage("No Internet Connection") {}
     }
     
@@ -37,6 +41,8 @@ class HomeViewController: UIViewController {
             let connectedNotification = CWStatusBarNotification()
             connectedNotification.notificationLabelBackgroundColor = UIColor.greenColor()
             connectedNotification.notificationLabelTextColor = UIColor.blackColor()
+             let notificationFont = UIFont.systemFontOfSize(15)
+            connectedNotification.notificationLabelFont = notificationFont
             connectedNotification.displayNotificationWithMessage("Connected!", forDuration: 2.0)
         }
     }
