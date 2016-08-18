@@ -15,6 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    var reach: Reachability?
+    
+    
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -23,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
+        
+        setupReachability()
         
         return true
         
@@ -71,6 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //    }
     
     
+
+    
 }
 
 //MARK: Login
@@ -102,6 +109,36 @@ extension AppDelegate: GIDSignInDelegate {
 }
 
 
-
+// MARK: Reachability
+extension AppDelegate {
+    
+    func setupReachability() {
+        // Allocate a reachability object
+        self.reach = Reachability.reachabilityForInternetConnection()
+        
+        // Tell the reachability that we DON'T want to be reachable on 3G/EDGE/CDMA
+        self.reach!.reachableOnWWAN = false
+        
+        // Here we set up a NSNotification observer. The Reachability that caused the notification
+        // is passed in the object parameter
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(reachabilityChanged),
+                                                         name: kReachabilityChangedNotification,
+                                                         object: nil)
+        
+        self.reach!.startNotifier()
+    }
+    
+    func reachabilityChanged() {
+        if self.reach!.isReachableViaWiFi() || self.reach!.isReachableViaWWAN() {
+            print("Service avalaible!!!")
+            NSNotificationCenter.defaultCenter().postNotificationName(Notifications.networkAvailable, object: nil)
+        } else {
+            print("No service avalaible!!!")
+            NSNotificationCenter.defaultCenter().postNotificationName(Notifications.networkUnavailable, object: nil)
+        }
+    }
+    
+}
 
 

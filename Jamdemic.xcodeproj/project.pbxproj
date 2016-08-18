@@ -40,11 +40,15 @@
 		C90BA3F21D5F9C9000A80937 /* hqdefault-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90BA3E81D5F9C9000A80937 /* hqdefault-2.jpg */; };
 		C90BA3F31D5F9C9000A80937 /* hqdefault-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90BA3E91D5F9C9000A80937 /* hqdefault-1.jpg */; };
 		C90BA3F51D5FB21200A80937 /* PlaylistTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90BA3F41D5FB21200A80937 /* PlaylistTestData.swift */; };
-		C90BA3F71D5FDD4800A80937 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90BA3F61D5FDD4800A80937 /* VideoPlayerViewController.swift */; };
+		C926A17E1D66074600C86C27 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C926A17D1D66074600C86C27 /* VideoPlayerViewController.m */; };
 		C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */; };
 		C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AF1D58D70000CA3323 /* Notifications.swift */; };
 		C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93B11D58D7DB00CA3323 /* Extensions.swift */; };
 		C94E93B41D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93B31D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift */; };
+		C9579D941D662B8500169281 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C9579D931D662B8500169281 /* Reachability.m */; };
+		C9579D961D662BA800169281 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9579D951D662BA800169281 /* SystemConfiguration.framework */; };
+		C9579D991D6630DB00169281 /* CWStatusBarNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9579D971D6630DB00169281 /* CWStatusBarNotification.swift */; };
+		C9579D9A1D6630DB00169281 /* CWStatusBarNotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9579D981D6630DB00169281 /* CWStatusBarNotificationUtils.swift */; };
 		C99E23FE8884C695C0F15292 /* Pods_Jamdemic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4F7CDAAA23EF60705D56B4 /* Pods_Jamdemic.framework */; };
 		C9C1F0E91D5E8A2200600D75 /* VideoPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9C1F0E81D5E8A2200600D75 /* VideoPlaylist.storyboard */; };
 		C9C1F0EC1D5E8A9200600D75 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C1F0EB1D5E8A9200600D75 /* PlaylistViewController.swift */; };
@@ -93,11 +97,17 @@
 		C90BA3E81D5F9C9000A80937 /* hqdefault-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hqdefault-2.jpg"; sourceTree = "<group>"; };
 		C90BA3E91D5F9C9000A80937 /* hqdefault-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hqdefault-1.jpg"; sourceTree = "<group>"; };
 		C90BA3F41D5FB21200A80937 /* PlaylistTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTestData.swift; sourceTree = "<group>"; };
-		C90BA3F61D5FDD4800A80937 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		C926A17C1D66074600C86C27 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
+		C926A17D1D66074600C86C27 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
 		C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAPIOAuthClient.swift; sourceTree = "<group>"; };
 		C94E93AF1D58D70000CA3323 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		C94E93B11D58D7DB00CA3323 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C94E93B31D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTokenGeneratorViewController.swift; sourceTree = "<group>"; };
+		C9579D921D662B8500169281 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		C9579D931D662B8500169281 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		C9579D951D662BA800169281 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C9579D971D6630DB00169281 /* CWStatusBarNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotification.swift; sourceTree = "<group>"; };
+		C9579D981D6630DB00169281 /* CWStatusBarNotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotificationUtils.swift; sourceTree = "<group>"; };
 		C9C1F0E81D5E8A2200600D75 /* VideoPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = VideoPlaylist.storyboard; sourceTree = "<group>"; };
 		C9C1F0EB1D5E8A9200600D75 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		C9C1F0ED1D5E8E1E00600D75 /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
@@ -116,6 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9579D961D662BA800169281 /* SystemConfiguration.framework in Frameworks */,
 				C99E23FE8884C695C0F15292 /* Pods_Jamdemic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,6 +192,10 @@
 		C9C1F0E01D5E736900600D75 /* Utility (Spotify API) */ = {
 			isa = PBXGroup;
 			children = (
+				C9579D971D6630DB00169281 /* CWStatusBarNotification.swift */,
+				C9579D981D6630DB00169281 /* CWStatusBarNotificationUtils.swift */,
+				C9579D921D662B8500169281 /* Reachability.h */,
+				C9579D931D662B8500169281 /* Reachability.m */,
 				C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */,
 				2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */,
 			);
@@ -269,7 +284,8 @@
 				C9C1F0EB1D5E8A9200600D75 /* PlaylistViewController.swift */,
 				C9C1F0ED1D5E8E1E00600D75 /* PlaylistTableViewCell.swift */,
 				C90BA3F41D5FB21200A80937 /* PlaylistTestData.swift */,
-				C90BA3F61D5FDD4800A80937 /* VideoPlayerViewController.swift */,
+				C926A17C1D66074600C86C27 /* VideoPlayerViewController.h */,
+				C926A17D1D66074600C86C27 /* VideoPlayerViewController.m */,
 			);
 			name = Playlists;
 			sourceTree = "<group>";
@@ -312,6 +328,7 @@
 		D634A66E2571A2A9D564CD85 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9579D951D662BA800169281 /* SystemConfiguration.framework */,
 				CF4F7CDAAA23EF60705D56B4 /* Pods_Jamdemic.framework */,
 			);
 			name = Frameworks;
@@ -541,22 +558,25 @@
 				07F31BD51D5D16F3005EA2B9 /* Search.swift in Sources */,
 				2C4A0C8F1D5CF3B500EA9105 /* SpotifyAPIClient.swift in Sources */,
 				C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */,
+				C9579D991D6630DB00169281 /* CWStatusBarNotification.swift in Sources */,
 				C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */,
 				2CE04EC21D63A52700B7681C /* ArtistWithHeadersTableViewController.swift in Sources */,
 				07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */,
 				C9EDBEDC1D53D08F0033BBAD /* ViewController.swift in Sources */,
 				A7FEB9551D5D8D1500DA632E /* HomeViewController.swift in Sources */,
+				C9579D941D662B8500169281 /* Reachability.m in Sources */,
 				C90BA3F51D5FB21200A80937 /* PlaylistTestData.swift in Sources */,
 				A7FEB95A1D5D922B00DA632E /* AppState.swift in Sources */,
 				2C0C9B901D5B6BE400ACA02D /* Artist.swift in Sources */,
 				C94E93B41D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift in Sources */,
 				A7FEB9591D5D922B00DA632E /* MeasurementHelper.swift in Sources */,
 				C9C1F0EE1D5E8E1E00600D75 /* PlaylistTableViewCell.swift in Sources */,
-				C90BA3F71D5FDD4800A80937 /* VideoPlayerViewController.swift in Sources */,
 				C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */,
 				2CE04E7E1D6391DF00B7681C /* ArtistTableViewCell.swift in Sources */,
 				2C0C9B961D5B83F200ACA02D /* MoodViewController.swift in Sources */,
 				2C0C9B8C1D5B699400ACA02D /* GenreViewController.swift in Sources */,
+				C9579D9A1D6630DB00169281 /* CWStatusBarNotificationUtils.swift in Sources */,
+				C926A17E1D66074600C86C27 /* VideoPlayerViewController.m in Sources */,
 				2C0C9B921D5B6E1C00ACA02D /* ArtistTableViewController.swift in Sources */,
 				2C0C9B941D5B7EB500ACA02D /* SpotifyQueryInfo.swift in Sources */,
 				C9C1F0EC1D5E8A9200600D75 /* PlaylistViewController.swift in Sources */,

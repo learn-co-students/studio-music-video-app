@@ -10,34 +10,17 @@ import UIKit
 import Firebase
 import Alamofire
 import SwiftyJSON
+import NVActivityIndicatorView
+import SCLAlertView
 
 class PlaylistViewController: UIViewController {
     
     @IBOutlet weak var playlistTableview: UITableView!
+    var playlistData: [PlaylistDetailInfo] = []
+    var artistThumbnails: [String : UIImage] = [:]
+    var videoIDs: [String] = []
     
-    let testData = [
-        PlaylistTestData(name: "Calvin Harris", songName: "This Is What You Came For (Official Video) ft. Rihanna", image: UIImage(named: "hqdefault-0.jpg")!),
-        PlaylistTestData(name: "Major Lazer", songName: "Cold Water (feat. Justin Bieber & MØ)", image: UIImage(named: "hqdefault-1.jpg")!),
-        PlaylistTestData(name: "Andra", songName: "Why", image: UIImage(named: "hqdefault-3.jpg")!),
-        PlaylistTestData(name: "Justin Bieber", songName: "Sorry", image: UIImage(named: "hqdefault-4.jpg")!),
-        PlaylistTestData(name: "Fifth Harmony", songName: "Work from Home ft. Ty Dolla $ign", image: UIImage(named: "hqdefault-5.jpg")!),
-        PlaylistTestData(name: "The Chainsmokers", songName: "Closer (Lyric) ft. Halsey", image: UIImage(named: "hqdefault-6.jpg")!),
-        PlaylistTestData(name: "Katy Perry", songName: "Rise", image: UIImage(named: "hqdefault-7.jpg")!),
-        PlaylistTestData(name: "Shawn Mendes", songName: "Treat You Better", image: UIImage(named: "hqdefault-8.jpg")!),
-        PlaylistTestData(name: "Rihanna ft. Drake", songName: "Work", image: UIImage(named: "hqdefault-9.jpg")!)
-    ]
-    
-    let testVideoIDs = [
-        "kOkQ4T5WO9E",
-        "a59gmGkq_pw",
-        "rhcc1KQlCS4",
-        "fRh_vgS2dFE",
-        "5GL9JoH4Sws",
-        "PT2_F-1esPk",
-        "hdw1uKiTI5c",
-        "lY2yjAdbvdQ",
-        "HL1UzIK-flA"
-    ]
+    let photoQueue = NSOperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,16 +32,18 @@ class PlaylistViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(savePlaylist), name: Notifications.userDidLogIn, object: nil)
         
+        videoIDs = playlistData.map{ $0.videoID }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVideoFromPlayButton" {
             let destinationVC = segue.destinationViewController as! VideoPlayerViewController
-            destinationVC.videoIDs = testVideoIDs
+            
+            destinationVC.videoIDs = self.videoIDs
         }
         else if segue.identifier == "showVideoFromCell" {
             let destinationVC = segue.destinationViewController as! VideoPlayerViewController
-            destinationVC.videoIDs = testVideoIDs
+            destinationVC.videoIDs = self.videoIDs
             if sender is UITableViewCell {
                 let cell = sender as! UITableViewCell
                 if let row = self.playlistTableview.indexPathForCell(cell)?.row {
@@ -69,32 +54,57 @@ class PlaylistViewController: UIViewController {
         }
     }
     
-//    // For Testing only
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        
-//                if FIRAuth.auth()?.currentUser == nil {
-//                    let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
-//                    let signInVC = storyboard.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
-//                    self.presentViewController(signInVC, animated: true, completion: nil)
-//                }
-//    }
+    @IBAction func newSearchButtonTapped(sender: UIButton) {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.newSearch, object: nil)
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
 }
 
 //MARK: Tableview Methods
 extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testData.count
+        return playlistData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("videoCell", forIndexPath: indexPath) as! PlaylistTableViewCell
         
-        let testInfo = testData[indexPath.row]
+        let playlistItem = playlistData[indexPath.row]
+        cell.artistSongTitleLabel.text = "\(playlistItem.name) - \(playlistItem.songTitle)"
         
-        cell.thumbnailImageView.image = testInfo.thumbnailImage
-        cell.artistSongTitleLabel.text = "\(testInfo.artistName) - \(testInfo.songName)"
+        cell.thumbnailImageView.image = nil
+        cell.thumbnailImageView.backgroundColor = UIColor.grayColor()
+        
+        if let artistThumbnailImage = artistThumbnails[playlistItem.videoID] {
+            // Artist thumbnail is cached
+            cell.thumbnailImageView.image = artistThumbnailImage
+        }
+        else {
+            // not cached, load image from the url on the photo queue
+            photoQueue.addOperationWithBlock({
+                
+                guard let imageURL = NSURL(string: playlistItem.thumnailURLString) else { fatalError("Unable to create image URL") }
+                
+                guard let imageData = NSData(contentsOfURL: imageURL) else {
+                    print("Unable to create image data from URL.")
+                    return
+                }
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                    guard let thumbnailImage = UIImage(data: imageData) else { fatalError("Unable to create UIImage from data") }
+                    
+                    // Check to see if the cell is still loaded
+                    if tableView.cellForRowAtIndexPath(indexPath) != nil {
+                        cell.thumbnailImageView.image = thumbnailImage
+                    }
+                    self.artistThumbnails[playlistItem.videoID] = thumbnailImage
+                    
+                })
+            })
+        }
         
         return cell
     }
@@ -164,15 +174,23 @@ extension PlaylistViewController {
     }
     
     func savePlaylistWithTitle(title: String) {
+        
+        startLoadingAnimation()
         // Should make a call to the YoutubeAPIClient to save the playlist to the current user's account
         GIDSignIn.sharedInstance().currentUser.authentication.getTokensWithHandler { (authObject, error) in
             if error == nil {
-                PlaylistViewController.createPlaylistWithTitle(title, token: authObject.accessToken, completion: { (playlistID) in
+                PlaylistViewController.createPlaylistWithTitle(title, token: authObject.accessToken, completion: { (playlistID, playlistError) in
                     print(playlistID)
-                    guard let playlistID = playlistID else { fatalError("Unable to unwrap playlist ID") }
                     
-                    self.addVideosToPlaylist(playlistID)
-                    
+                    if let playlistError = playlistError {
+                        self.stopActivityAnimating()
+                        self.displayErrorMessage(forError: playlistError)
+                    }
+                    else {
+                        guard let playlistID = playlistID else { fatalError("Unable to unwrap playlist ID") }
+                        
+                        self.addVideosToPlaylist(playlistID)
+                    }
                 })
             }
         }
@@ -184,12 +202,12 @@ extension PlaylistViewController {
             
             let requestGroup = dispatch_group_create()
             
-            self.testVideoIDs.forEach({ (videoID) in
+            self.videoIDs.forEach({ (videoID) in
                 // in microseconds (1 millionth of a second) interval. 170,000 microseconds is the smallest interval where all videos will be saved.
                 usleep(170000)
                 print("Request entering group")
                 dispatch_group_enter(requestGroup)
-                PlaylistViewController.insertVideoWithID(videoID, intoPlaylist: playlistID, completion: {
+                PlaylistViewController.insertVideoWithID(videoID, intoPlaylist: playlistID, completion: { error in
                     
                     dispatch_group_leave(requestGroup)
                     print("Request leaving group")
@@ -198,6 +216,7 @@ extension PlaylistViewController {
             dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
             dispatch_async(dispatch_get_main_queue(), { 
                 print("All videos saved to youtube!")
+                self.stopActivityAnimating()
                 self.displayFinishedAlert()
             })
         })
@@ -208,6 +227,7 @@ extension PlaylistViewController {
         let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
         alertController.addAction(okayAction)
         presentViewController(alertController, animated: true, completion: nil)
+        
     }
 }
 
@@ -215,7 +235,7 @@ extension PlaylistViewController {
 //MARK: Youtube API Calls --
 extension PlaylistViewController {
     
-    class func createPlaylistWithTitle(title: String, token: String, completion: String? -> Void) {
+    class func createPlaylistWithTitle(title: String, token: String, completion: (String?, NSError?) -> Void) {
         
         let urlString = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&fields=id%2Csnippet&key=\(Secrets.youtubeAPIKey)"
         
@@ -228,17 +248,25 @@ extension PlaylistViewController {
             "Authorization" : "Bearer \(token)",
             ]
         
-        Alamofire.request(.POST, urlString, parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
+        Alamofire.request(.POST, urlString, parameters: parameters, encoding: .JSON, headers: headers).validate().responseJSON { (response) in
             
-            guard let value = response.result.value else { fatalError("Unable to unwrap playlist post request value") }
-            let json = JSON(value)
-            let playlistID = json["id"].string
-            completion(playlistID)
+            switch response.result {
+            case .Success:
+                guard let value = response.result.value else { fatalError("Unable to unwrap playlist post request value") }
+                let json = JSON(value)
+                let playlistID = json["id"].string
+                completion(playlistID, nil)
+            case .Failure(let error):
+                print(error)
+                print(error.localizedDescription)
+                completion(nil, error)
+            }
         }
+        
         
     }
     
-    class func insertVideoWithID(videoID: String, intoPlaylist playlistID: String, completion: Void -> Void) {
+    class func insertVideoWithID(videoID: String, intoPlaylist playlistID: String, completion: NSError? -> Void) {
         
         let urlString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=\(Secrets.youtubeAPIKey)"
         
@@ -256,12 +284,34 @@ extension PlaylistViewController {
             switch response.result {
             case .Success:
                 print("Video Saved!")
-                completion()
+                completion(nil)
             case .Failure(let error):
                 print(error)
+                completion(error)
             }
         }
     }
+}
+
+
+extension PlaylistViewController: NVActivityIndicatorViewable {
+     func startLoadingAnimation() {
+        startActivityAnimating(message: "Saving...", type: .LineScalePulseOutRapid)
+    }
+}
+
+//MARK: Error messages
+extension PlaylistViewController {
+    
+    func displayErrorMessage(forError error: NSError) {
+        if error.code == NSURLErrorNotConnectedToInternet {
+            SCLAlertView().showError("Oh no!", subTitle: error.localizedDescription)
+        }
+        else {
+            SCLAlertView().showError("Oh no!", subTitle: "Something went wrong!")
+        }
+    }
+    
 }
 
 

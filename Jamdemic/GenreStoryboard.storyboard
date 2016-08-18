@@ -436,10 +436,21 @@
                     </view>
                     <navigationItem key="navigationItem" title="Choose up to 3" id="rv7-Fe-Ker"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="mjp-Pu-2iq" kind="show" identifier="showPlaylist" id="c6S-9b-kMl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2e-s3-V5V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2760" y="374"/>
+        </scene>
+        <!--PlaylistViewController-->
+        <scene sceneID="zTY-IZ-QyU">
+            <objects>
+                <viewControllerPlaceholder storyboardName="VideoPlaylist" referencedIdentifier="PlaylistViewController" id="mjp-Pu-2iq" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xY5-08-nTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3140.5" y="374"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="z0F-LC-c6Q">
