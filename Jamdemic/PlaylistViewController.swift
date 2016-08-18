@@ -11,6 +11,7 @@ import Firebase
 import Alamofire
 import SwiftyJSON
 import NVActivityIndicatorView
+import SCLAlertView
 
 class PlaylistViewController: UIViewController {
     
@@ -178,12 +179,18 @@ extension PlaylistViewController {
         // Should make a call to the YoutubeAPIClient to save the playlist to the current user's account
         GIDSignIn.sharedInstance().currentUser.authentication.getTokensWithHandler { (authObject, error) in
             if error == nil {
-                PlaylistViewController.createPlaylistWithTitle(title, token: authObject.accessToken, completion: { (playlistID) in
+                PlaylistViewController.createPlaylistWithTitle(title, token: authObject.accessToken, completion: { (playlistID, playlistError) in
                     print(playlistID)
-                    guard let playlistID = playlistID else { fatalError("Unable to unwrap playlist ID") }
                     
-                    self.addVideosToPlaylist(playlistID)
-                    
+                    if let playlistError = playlistError {
+                        self.stopActivityAnimating()
+                        self.displayErrorMessage(forError: playlistError)
+                    }
+                    else {
+                        guard let playlistID = playlistID else { fatalError("Unable to unwrap playlist ID") }
+                        
+                        self.addVideosToPlaylist(playlistID)
+                    }
                 })
             }
         }
@@ -200,7 +207,7 @@ extension PlaylistViewController {
                 usleep(170000)
                 print("Request entering group")
                 dispatch_group_enter(requestGroup)
-                PlaylistViewController.insertVideoWithID(videoID, intoPlaylist: playlistID, completion: {
+                PlaylistViewController.insertVideoWithID(videoID, intoPlaylist: playlistID, completion: { error in
                     
                     dispatch_group_leave(requestGroup)
                     print("Request leaving group")
@@ -220,6 +227,7 @@ extension PlaylistViewController {
         let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
         alertController.addAction(okayAction)
         presentViewController(alertController, animated: true, completion: nil)
+        
     }
 }
 
@@ -227,7 +235,7 @@ extension PlaylistViewController {
 //MARK: Youtube API Calls --
 extension PlaylistViewController {
     
-    class func createPlaylistWithTitle(title: String, token: String, completion: String? -> Void) {
+    class func createPlaylistWithTitle(title: String, token: String, completion: (String?, NSError?) -> Void) {
         
         let urlString = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&fields=id%2Csnippet&key=\(Secrets.youtubeAPIKey)"
         
@@ -247,24 +255,18 @@ extension PlaylistViewController {
                 guard let value = response.result.value else { fatalError("Unable to unwrap playlist post request value") }
                 let json = JSON(value)
                 let playlistID = json["id"].string
-                completion(playlistID)
+                completion(playlistID, nil)
             case .Failure(let error):
                 print(error)
                 print(error.localizedDescription)
-                if error.code == NSURLErrorNotConnectedToInternet {
-                    // show alert
-                }
-                else {
-                    
-                }
+                completion(nil, error)
             }
-            
-   
         }
+        
         
     }
     
-    class func insertVideoWithID(videoID: String, intoPlaylist playlistID: String, completion: Void -> Void) {
+    class func insertVideoWithID(videoID: String, intoPlaylist playlistID: String, completion: NSError? -> Void) {
         
         let urlString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=\(Secrets.youtubeAPIKey)"
         
@@ -282,9 +284,10 @@ extension PlaylistViewController {
             switch response.result {
             case .Success:
                 print("Video Saved!")
-                completion()
+                completion(nil)
             case .Failure(let error):
                 print(error)
+                completion(error)
             }
         }
     }
@@ -292,9 +295,23 @@ extension PlaylistViewController {
 
 
 extension PlaylistViewController: NVActivityIndicatorViewable {
-    func startLoadingAnimation() {
+     func startLoadingAnimation() {
         startActivityAnimating(message: "Saving...", type: .LineScalePulseOutRapid)
     }
+}
+
+//MARK: Error messages
+extension PlaylistViewController {
+    
+    func displayErrorMessage(forError error: NSError) {
+        if error.code == NSURLErrorNotConnectedToInternet {
+            SCLAlertView().showError("Oh no!", subTitle: error.localizedDescription)
+        }
+        else {
+            SCLAlertView().showError("Oh no!", subTitle: "Something went wrong!")
+        }
+    }
+    
 }
 
 
