@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import NVActivityIndicatorView
+import SCLAlertView
 
 class MoodViewController: UIViewController, NVActivityIndicatorViewable {
 
@@ -174,76 +175,80 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
             
-            SpotifyAPIClient.generateArtistsAndSongs(withUserSelectedArtists: self.testUserArtistString, withGenre: self.genreQueryString, withMood: self.moodParameterDictionary, withToken: token, completion: { (json) in
-              
-                guard let unwrappedJSON = json else { fatalError("Error unwrapping JSON object in MoodTableViewController.") }
-                
-                let tracks = unwrappedJSON["tracks"].arrayValue
-                
-                for i in tracks {
-                    
-                    let artistsNames = i["artists"][0]["name"].stringValue
-                    
-                    let trackNames = i["name"].stringValue
-                    
-                    self.finalQueryDictionary[artistsNames] = trackNames
+            SpotifyAPIClient.generateArtistsAndSongs(withUserSelectedArtists: self.testUserArtistString, withGenre: self.genreQueryString, withMood: self.moodParameterDictionary, withToken: token, completion: { (json, error) in
+                if let error = error {
+                    // display error message
+                    self.displayErrorMessage(forError: error)
                 }
-                
-                // Setting an asynchronous queue with a high priority.
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { 
+                else {
+                    guard let unwrappedJSON = json else { fatalError("Error unwrapping JSON object in MoodTableViewController.") }
                     
-                    // Create an asynchronous request group because we multiple requests to make to each artist and song to search youtube.
-                    let requestGroup = dispatch_group_create()
+                    let tracks = unwrappedJSON["tracks"].arrayValue
                     
-                    for (artist, song) in self.finalQueryDictionary {
+                    for i in tracks {
                         
-                        let searchText = artist + "-" + song
+                        let artistsNames = i["artists"][0]["name"].stringValue
                         
-                        // Is a tally holder that adds up all of the request groups. We do this before the Youtube API call.
-                        dispatch_group_enter(requestGroup)
+                        let trackNames = i["name"].stringValue
                         
-                        SearchModel.getSearches(0, searchText: searchText, completion: { (infoDictionary) in
-                            
-                            guard let videoID = infoDictionary["videoID"] else { fatalError("Error unwrapping videoID from infoDictionary.") }
-                            
-                            guard let thumbnailURLString = infoDictionary["thumbnailURLString"] else { fatalError("Error unwrapping thumbnailURLString from infoDictionary.") }
-                            
-                            let playlistItemInfo = PlaylistDetailInfo(name: artist, songTitle: song, videoID: videoID, thumbnailURLString: thumbnailURLString)
-                            
-                            self.playlistDetailInfoArray.append(playlistItemInfo)
-                            
-                            // When we are done with every request for artist and song, the dispatch group leaves.
-                            dispatch_group_leave(requestGroup)
-                        })
+                        self.finalQueryDictionary[artistsNames] = trackNames
                     }
-                    
-                    // Wait for all request groups to finish before proceeding.
-                    dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
-                    
-                    dispatch_async(dispatch_get_main_queue(), { 
-                        
-                        
-                        for playlistItem in self.playlistDetailInfoArray {
-                            print("\(playlistItem.name) - \(playlistItem.songTitle)\n\(playlistItem.videoID)\n\(playlistItem.thumnailURLString)")
-                        }
-                        self.stopActivityAnimating()
-                        // TODO: manual segue to next view controller.
-                        self.performSegueWithIdentifier("showPlaylist", sender: nil)
-                    })
-                })
+                    self.crossReferenceYoutubeSearch()
+                }
+              
             })
             
             // If the Spotify API is unavailable, the user is presented with an alert view.
         }) { (error) in
-                
-            print("Error verifying access token.")
-            
-            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, problem loading artists.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            notificationAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
-            
-            self.presentViewController(notificationAlert, animated: true, completion: nil)
+            self.stopActivityAnimating()
+            self.displayErrorMessage(forError: error)
         }
+    }
+    
+    func crossReferenceYoutubeSearch() {
+        
+        // Setting an asynchronous queue with a high priority.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+            
+            // Create an asynchronous request group because we multiple requests to make to each artist and song to search youtube.
+            let requestGroup = dispatch_group_create()
+            
+            for (artist, song) in self.finalQueryDictionary {
+                
+                let searchText = artist + "-" + song
+                
+                // Is a tally holder that adds up all of the request groups. We do this before the Youtube API call.
+                dispatch_group_enter(requestGroup)
+                
+                SearchModel.getSearches(0, searchText: searchText, completion: { (infoDictionary) in
+                    
+                    guard let videoID = infoDictionary["videoID"] else { fatalError("Error unwrapping videoID from infoDictionary.") }
+                    
+                    guard let thumbnailURLString = infoDictionary["thumbnailURLString"] else { fatalError("Error unwrapping thumbnailURLString from infoDictionary.") }
+                    
+                    let playlistItemInfo = PlaylistDetailInfo(name: artist, songTitle: song, videoID: videoID, thumbnailURLString: thumbnailURLString)
+                    
+                    self.playlistDetailInfoArray.append(playlistItemInfo)
+                    
+                    // When we are done with every request for artist and song, the dispatch group leaves.
+                    dispatch_group_leave(requestGroup)
+                })
+            }
+            
+            // Wait for all request groups to finish before proceeding.
+            dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                
+                self.stopActivityAnimating()
+                for playlistItem in self.playlistDetailInfoArray {
+                    print("\(playlistItem.name) - \(playlistItem.songTitle)\n\(playlistItem.videoID)\n\(playlistItem.thumnailURLString)")
+                }
+                self.stopActivityAnimating()
+                // TODO: manual segue to next view controller.
+                self.performSegueWithIdentifier("showPlaylist", sender: nil)
+            })
+        })
     }
     
     // MARK: Segues
@@ -251,6 +256,15 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         if segue.identifier == "showPlaylist" {
             let destinationVC = segue.destinationViewController as! PlaylistViewController
             destinationVC.playlistData = playlistDetailInfoArray
+        }
+    }
+    
+    func displayErrorMessage(forError error: NSError) {
+        if error.code == NSURLErrorNotConnectedToInternet {
+            SCLAlertView().showError("Oh no!", subTitle: error.localizedDescription)
+        }
+        else {
+            SCLAlertView().showError("Oh no!", subTitle: "Something went wrong!")
         }
     }
     

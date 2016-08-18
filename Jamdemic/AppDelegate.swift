@@ -139,6 +139,13 @@ extension AppDelegate {
         }
     }
     
+    func isReachable() -> Bool {
+        if self.reach!.isReachableViaWWAN() || self.reach!.isReachableViaWiFi() {
+            return true
+        }
+        return false
+    }
+    
 }
 
 

@@ -61,7 +61,7 @@ class SpotifyAPIClient {
     }
     
     // Artist, Genre, Mood and token are placeholders here. When we call the function in the controller, we then pass these values in.
-    class func generateArtistsAndSongs(withUserSelectedArtists selectedArtists : String, withGenre genre : String,  withMood mood: [String : AnyObject], withToken token: String, completion:(JSON?) -> ()) {
+    class func generateArtistsAndSongs(withUserSelectedArtists selectedArtists : String, withGenre genre : String,  withMood mood: [String : AnyObject], withToken token: String, completion:(JSON?, NSError?) -> ()) {
         
         var parameterDictionary : [String : AnyObject] = [spotifyParameter.seedArtists : selectedArtists, spotifyParameter.seedGenre : genre, spotifyParameter.seedLimit : 80]
         
@@ -74,24 +74,22 @@ class SpotifyAPIClient {
         
         Alamofire.request(.GET, URLRouter.baseURLString, parameters: parameterDictionary, encoding: ParameterEncoding.URL, headers: authorizationDictionary).validate().responseJSON { (response) in
             
-            guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
-            
-            if responseValue == 200 {
-            
+            switch response.result {
+            case .Success:
                 let responseValue = response.result.value
                 
                 guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping response value.") }
-            
+                
                 let json = JSON(unwrappedResponseValue)
-            
-                completion(json)
                 
-            } else {
-            
-                print("Error Code: \(responseValue)")
+                completion(json, nil)
                 
-                completion(nil)
+            case .Failure(let error):
+                
+                print(error.localizedDescription)
+                completion(nil, error)
             }
+            
         }
     }
 }
