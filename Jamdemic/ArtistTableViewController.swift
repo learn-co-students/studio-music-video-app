@@ -105,11 +105,14 @@ class ArtistTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("artistCell") as! ArtistTableViewCell
         let artistName = self.artists[indexPath.row].name
         
+        
+        // Clears the cell before we start using it. This way we don't get multiple pictures loaded in cells.
+        cell.albumArtImageView.image = nil
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsetsZero
         cell.layoutMargins = UIEdgeInsetsZero
         cell.artistNameLabel.text = artistName
-        cell.likeIndicatorLabel.hidden = true
+        cell.likeIndicatorLabel.hidden = false
         
         // we have the image, load from cache
         if let artistPhoto = photoCacheDictionary[artistName] {
@@ -132,28 +135,35 @@ class ArtistTableViewController: UITableViewController {
                     
                     let imageURLString = json["images"][0]["url"].stringValue
                     
-                    guard let unwrappedURLString = NSURL(string: imageURLString) else { fatalError("Error unwrapping NSUL when converting String to NSURL.") }
-                    
-                    // Create a background queue because NSData(contentsOFURL:) is a network request call. This needs to happen on the background thread.
-                    let queue = NSOperationQueue()
-                    queue.addOperationWithBlock({
+                    if imageURLString == "" {
                         
-                        guard let imageData = NSData(contentsOfURL: unwrappedURLString) else { fatalError("Error unwrapping data from image URL.") }
+                        cell.albumArtImageView.image = UIImage(named: "musicPlaceholderImage")
                         
-                        // On the main thread, we will add the image to the imageView and cache our dictionary.
-                        NSOperationQueue.mainQueue().addOperationWithBlock({
+                    } else {
+                        
+                        guard let unwrappedURLString = NSURL(string: imageURLString) else { fatalError("Error unwrapping NSUL when converting String to NSURL.") }
+                        
+                        // Create a background queue because NSData(contentsOFURL:) is a network request call. This needs to happen on the background thread.
+                        let queue = NSOperationQueue()
+                        queue.addOperationWithBlock({
                             
-                            guard let artistImage = UIImage(data: imageData) else { fatalError("unable to unwrap image data") }
+                            guard let imageData = NSData(contentsOfURL: unwrappedURLString) else { fatalError("Error unwrapping data from image URL.") }
                             
-                            // As long as the cell is not nil, we will load each artist's image into its respective cell.
-                            if tableView.cellForRowAtIndexPath(indexPath) != nil {
+                            // On the main thread, we will add the image to the imageView and cache our dictionary.
+                            NSOperationQueue.mainQueue().addOperationWithBlock({
                                 
-                                cell.albumArtImageView.image = artistImage
-                            }
-                            // Load each artist's image into our photoCacheDictionary so we only make a network call to get images once for each artist.
-                            self.photoCacheDictionary[artistName] = artistImage
+                                guard let artistImage = UIImage(data: imageData) else { fatalError("unable to unwrap image data") }
+                                
+                                // As long as the cell is not nil, we will load each artist's image into its respective cell.
+                                if tableView.cellForRowAtIndexPath(indexPath) != nil {
+                                    
+                                    cell.albumArtImageView.image = artistImage
+                                }
+                                // Load each artist's image into our photoCacheDictionary so we only make a network call to get images once for each artist.
+                                self.photoCacheDictionary[artistName] = artistImage
+                            })
                         })
-                    })
+                    }
                     
                 } else {
                     
