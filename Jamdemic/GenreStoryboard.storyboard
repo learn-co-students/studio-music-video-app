@@ -18,152 +18,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7R-o9-o05">
-                                <rect key="frame" x="14" y="106" width="74" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Alternative"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="UFy-2Y-ISf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wLH-iN-Omf">
-                                <rect key="frame" x="144" y="106" width="34" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Rock"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="Ml9-WP-GOR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKH-fE-6bI">
-                                <rect key="frame" x="26" y="173" width="30" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Jazz"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="zs4-Ld-gC5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhM-TV-AIH">
-                                <rect key="frame" x="254" y="106" width="30" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Pop"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="cGs-FS-IYx"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DY6-un-uPQ">
-                                <rect key="frame" x="243" y="173" width="53" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Reggae"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="6L0-I3-6Rd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1W-Lp-aHe">
-                                <rect key="frame" x="240" y="236" width="59" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Hip-Hop"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="7xT-WV-Lk0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyx-KU-zdB">
-                                <rect key="frame" x="253" y="314" width="33" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Funk"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="C5A-Ot-sIX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkb-az-UeM">
-                                <rect key="frame" x="240" y="393" width="59" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Classical"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="gT8-j9-aPH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjg-V6-U6G">
-                                <rect key="frame" x="254" y="469" width="31" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Soul"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="vud-0c-hRO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y50-zW-7Dg">
-                                <rect key="frame" x="14" y="236" width="55" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Country"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="3Oa-g6-gJl"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzs-Zd-HCY">
-                                <rect key="frame" x="141" y="173" width="39" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Metal"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="8mC-TQ-l4P"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8YL-t4-tHb">
-                                <rect key="frame" x="20" y="314" width="43" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="K-pop"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="6RE-iH-H5l"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0S-Tw-yrg">
-                                <rect key="frame" x="119" y="236" width="84" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="EDM/Dance"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="ttD-lO-pO8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VnX-ow-gBM">
-                                <rect key="frame" x="25" y="393" width="34" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Punk"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="n12-u9-YfN"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNX-dU-S9R">
-                                <rect key="frame" x="130" y="314" width="61" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Christian"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="Po6-fs-o6x"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1d-xS-kLM">
-                                <rect key="frame" x="26" y="469" width="30" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="RnB"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="bjY-WO-KHQ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bN-QE-bAh">
-                                <rect key="frame" x="141" y="393" width="38" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Blues"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="O7G-2O-DZG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfP-8a-LQH">
-                                <rect key="frame" x="143" y="469" width="35" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Indie"/>
-                                <connections>
-                                    <action selector="genreButtonDidTouchUpInside:" destination="OrF-xZ-m4G" eventType="touchUpInside" id="n2v-5Y-hFX"/>
-                                </connections>
-                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GOp-hc-Wdu">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b6v-v7-ksL">
+                                    <size key="itemSize" width="104" height="97"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="genreCell" id="CBh-Wq-uAI" customClass="GenreCollectionViewCell" customModule="Jamdemic" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="64" width="104" height="97"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="104" height="97"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyr-b2-c84">
+                                                    <rect key="frame" x="31" y="38" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="zyr-b2-c84" firstAttribute="centerX" secondItem="CBh-Wq-uAI" secondAttribute="centerX" id="K2V-p5-CIz"/>
+                                            <constraint firstItem="zyr-b2-c84" firstAttribute="centerY" secondItem="CBh-Wq-uAI" secondAttribute="centerY" id="KC3-K3-jKz"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="label" destination="zyr-b2-c84" id="zLn-c3-X7K"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GOp-hc-Wdu" firstAttribute="leading" secondItem="2k0-42-eFX" secondAttribute="leading" id="Djl-mE-A2I"/>
+                            <constraint firstItem="GOp-hc-Wdu" firstAttribute="top" secondItem="2k0-42-eFX" secondAttribute="topMargin" id="TKI-w0-Jyu"/>
+                            <constraint firstItem="GOp-hc-Wdu" firstAttribute="width" secondItem="2k0-42-eFX" secondAttribute="width" id="hhL-gP-crq"/>
+                            <constraint firstItem="GOp-hc-Wdu" firstAttribute="height" secondItem="2k0-42-eFX" secondAttribute="height" id="iVg-uK-efE"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Choose up to 5" id="9e7-Mn-2Dd">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="uWd-Vd-Pd2">
@@ -174,6 +73,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="collectionView" destination="GOp-hc-Wdu" id="x07-Pa-sBB"/>
                         <outlet property="nextButton" destination="uWd-Vd-Pd2" id="dnB-3C-pMT"/>
                     </connections>
                 </viewController>
