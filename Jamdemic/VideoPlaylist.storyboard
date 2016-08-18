@@ -139,7 +139,7 @@
         <!--Video Player View Controller-->
         <scene sceneID="9tj-Cd-Exb">
             <objects>
-                <viewController id="H0k-8R-KZv" customClass="VideoPlayerViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="H0k-8R-KZv" customClass="VideoPlayerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ANe-g2-tX9"/>
                         <viewControllerLayoutGuide type="bottom" id="MeC-Ko-cbO"/>
