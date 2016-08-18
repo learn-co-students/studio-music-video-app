@@ -240,12 +240,26 @@ extension PlaylistViewController {
             "Authorization" : "Bearer \(token)",
             ]
         
-        Alamofire.request(.POST, urlString, parameters: parameters, encoding: .JSON, headers: headers).responseJSON { (response) in
+        Alamofire.request(.POST, urlString, parameters: parameters, encoding: .JSON, headers: headers).validate().responseJSON { (response) in
             
-            guard let value = response.result.value else { fatalError("Unable to unwrap playlist post request value") }
-            let json = JSON(value)
-            let playlistID = json["id"].string
-            completion(playlistID)
+            switch response.result {
+            case .Success:
+                guard let value = response.result.value else { fatalError("Unable to unwrap playlist post request value") }
+                let json = JSON(value)
+                let playlistID = json["id"].string
+                completion(playlistID)
+            case .Failure(let error):
+                print(error)
+                print(error.localizedDescription)
+                if error.code == NSURLErrorNotConnectedToInternet {
+                    // show alert
+                }
+                else {
+                    
+                }
+            }
+            
+   
         }
         
     }
