@@ -11,6 +11,29 @@ import Alamofire
 import SwiftyJSON
 
 class GenreViewController: UIViewController {
+
+    
+    let genreInfo = [
+        GenreInfo(displayTitle: "Alternative", spotifyTitle: "alternative", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Rock", spotifyTitle: "rock", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Pop", spotifyTitle: "pop", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Jazz", spotifyTitle: "jazz", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Metal", spotifyTitle: "metal", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Reggae", spotifyTitle: "reggae", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Country", spotifyTitle: "country", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "EDM/Dance", spotifyTitle: "dance", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Hip-Hop", spotifyTitle: "hip-hop", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "K-pop", spotifyTitle: "k-pop", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Christian", spotifyTitle: "gospel", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Funk", spotifyTitle: "funk", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Punk", spotifyTitle: "punk", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Blues", spotifyTitle: "blues", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Classical", spotifyTitle: "classical", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "RnB", spotifyTitle: "r-n-b", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Indie", spotifyTitle: "indie", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        GenreInfo(displayTitle: "Soul", spotifyTitle: "soul", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!)
+    ]
+    
     
     let genreTitles = [
         "Alternative", "Rock", "Pop",
@@ -21,7 +44,13 @@ class GenreViewController: UIViewController {
         "RnB", "Indie", "Soul"
     ]
     
-    let genreDictionary = ["K-pop": "k-pop", "Christian": "gospel", "Classical": "classical", "RnB": "r-n-b", "Hip-Hop": "hip-hop", "Indie": "indie", "Reggae": "reggae", "Metal": "metal", "Blues": "blues", "Rock": "rock", "Alternative": "alternative", "Punk": "punk", "EDM/Dance": "dance", "Country": "country", "Funk": "funk", "Jazz": "jazz", "Soul": "soul", "Pop": "pop"]
+    let genreDictionary = [
+    "K-pop": "k-pop", "Christian": "gospel", "Classical": "classical",
+    "RnB": "r-n-b", "Hip-Hop": "hip-hop", "Indie": "indie",
+    "Reggae": "reggae", "Metal": "metal", "Blues": "blues",
+    "Rock": "rock", "Alternative": "alternative", "Punk": "punk",
+    "EDM/Dance": "dance", "Country": "country", "Funk": "funk",
+    "Jazz": "jazz", "Soul": "soul", "Pop": "pop"]
     
     var selectedGenres: [String] = []
     
@@ -137,17 +166,16 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.genreTitles.count
+        return self.genreInfo.count
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("Cell # \(indexPath.row) selected")
         
-        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! GenreCollectionViewCell
+        var genre = genreInfo[indexPath.row]
+        genre.isSelected = true
         
-        let genre = genreDictionary[selectedCell.label.text!]
-        
-        selectedGenres.append(genre!)
+        selectedGenres.append(genre.spotifyTitle)
         
         if self.numberOfSelectedGenres == 5 {
             self.displayMaxGenreSelectedAlert()
@@ -161,37 +189,36 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! GenreCollectionViewCell
-        cell.label.backgroundColor = UIColor.blueColor()
-        cell.label.textColor = UIColor.whiteColor()
+        cell.displayImageView.image = genre.displayImage
         
         print(selectedGenres)
     }
-    
+
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         print("Cell # \(indexPath.row) deselected")
         
         self.numberOfSelectedGenres -= 1
         
+        var genre = genreInfo[indexPath.row]
+        genre.isSelected = false
+        
+        // remove from selected genres
+        if let indexToRemove = selectedGenres.indexOf(genre.spotifyTitle) {
+            selectedGenres.removeAtIndex(indexToRemove)
+        }
+        
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! GenreCollectionViewCell
-        cell.label.backgroundColor = nil
-        cell.label.textColor = UIColor.blackColor()
-        
-        // remove from the dictionary
-        let genreToRemove = genreDictionary[cell.label.text!]
-        
-        guard let indexToRemove = selectedGenres.indexOf(genreToRemove!) else { fatalError("invalid index") }
-        
-        selectedGenres.removeAtIndex(indexToRemove)
-        
+        cell.displayImageView.image = genre.displayImage
+    
         print(selectedGenres)
-        
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("genreCell", forIndexPath: indexPath) as! GenreCollectionViewCell
         
-        cell.label.text = genreTitles[indexPath.row]
+        let cellInfo = genreInfo[indexPath.row]
         
+        cell.displayImageView.image = cellInfo.displayImage
     
         return cell
     }

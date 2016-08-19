@@ -10,6 +10,6 @@ import UIKit
 
 class GenreCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var displayImageView: UIImageView!
     
 }

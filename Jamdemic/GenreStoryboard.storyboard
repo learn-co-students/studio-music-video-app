@@ -35,22 +35,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="104" height="97"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyr-b2-c84">
-                                                    <rect key="frame" x="31" y="38" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b9e-Gr-5v3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="104" height="97"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="zyr-b2-c84" firstAttribute="centerX" secondItem="CBh-Wq-uAI" secondAttribute="centerX" id="K2V-p5-CIz"/>
-                                            <constraint firstItem="zyr-b2-c84" firstAttribute="centerY" secondItem="CBh-Wq-uAI" secondAttribute="centerY" id="KC3-K3-jKz"/>
+                                            <constraint firstItem="b9e-Gr-5v3" firstAttribute="height" secondItem="CBh-Wq-uAI" secondAttribute="height" id="O0A-gl-juj"/>
+                                            <constraint firstItem="b9e-Gr-5v3" firstAttribute="top" secondItem="CBh-Wq-uAI" secondAttribute="topMargin" constant="-8" id="ahD-rn-OTn"/>
+                                            <constraint firstItem="b9e-Gr-5v3" firstAttribute="leading" secondItem="CBh-Wq-uAI" secondAttribute="leadingMargin" constant="-8" id="dPf-CJ-1nN"/>
+                                            <constraint firstItem="b9e-Gr-5v3" firstAttribute="width" secondItem="CBh-Wq-uAI" secondAttribute="width" id="y3h-3T-ruH"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="label" destination="zyr-b2-c84" id="zLn-c3-X7K"/>
+                                            <outlet property="displayImageView" destination="b9e-Gr-5v3" id="r5w-ky-C2z"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

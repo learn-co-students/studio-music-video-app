@@ -49,6 +49,7 @@
 		C9579D961D662BA800169281 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9579D951D662BA800169281 /* SystemConfiguration.framework */; };
 		C9579D991D6630DB00169281 /* CWStatusBarNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9579D971D6630DB00169281 /* CWStatusBarNotification.swift */; };
 		C9579D9A1D6630DB00169281 /* CWStatusBarNotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9579D981D6630DB00169281 /* CWStatusBarNotificationUtils.swift */; };
+		C976AD511D674C9300C40D9A /* GenreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976AD501D674C9300C40D9A /* GenreInfo.swift */; };
 		C99CECE51D665C3300427F16 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99CECE41D665C3300427F16 /* GenreCollectionViewCell.swift */; };
 		C99E23FE8884C695C0F15292 /* Pods_Jamdemic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4F7CDAAA23EF60705D56B4 /* Pods_Jamdemic.framework */; };
 		C9C1F0E91D5E8A2200600D75 /* VideoPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9C1F0E81D5E8A2200600D75 /* VideoPlaylist.storyboard */; };
@@ -109,6 +110,7 @@
 		C9579D951D662BA800169281 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C9579D971D6630DB00169281 /* CWStatusBarNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotification.swift; sourceTree = "<group>"; };
 		C9579D981D6630DB00169281 /* CWStatusBarNotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotificationUtils.swift; sourceTree = "<group>"; };
+		C976AD501D674C9300C40D9A /* GenreInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreInfo.swift; sourceTree = "<group>"; };
 		C99CECE41D665C3300427F16 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9C1F0E81D5E8A2200600D75 /* VideoPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = VideoPlaylist.storyboard; sourceTree = "<group>"; };
 		C9C1F0EB1D5E8A9200600D75 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				2C0C9B8F1D5B6BE400ACA02D /* Artist.swift */,
 				2CE04EC41D64ADC900B7681C /* PlaylistDetailInfo.swift */,
 				2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */,
+				C976AD501D674C9300C40D9A /* GenreInfo.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				C99CECE51D665C3300427F16 /* GenreCollectionViewCell.swift in Sources */,
 				C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */,
 				C9579D991D6630DB00169281 /* CWStatusBarNotification.swift in Sources */,
+				C976AD511D674C9300C40D9A /* GenreInfo.swift in Sources */,
 				C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */,
 				2CE04EC21D63A52700B7681C /* ArtistWithHeadersTableViewController.swift in Sources */,
 				07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */,
