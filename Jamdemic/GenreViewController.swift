@@ -184,7 +184,7 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         self.numberOfSelectedGenres += 1
         
-        if self.numberOfSelectedGenres > 1 {
+        if self.numberOfSelectedGenres > 0 {
             self.nextButton.enabled = true
         }
         

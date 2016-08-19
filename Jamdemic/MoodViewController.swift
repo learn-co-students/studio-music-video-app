@@ -14,6 +14,28 @@ import SCLAlertView
 
 class MoodViewController: UIViewController, NVActivityIndicatorViewable {
 
+    
+    let moods = [
+        MoodInfo(type: .Acoustic, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .MostPlayed, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Live, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .SlowDance, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Energetic, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Instrumental, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Happy, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Chill, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Sad, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Rage, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Smooth, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Reflective, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Awake, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Motivational, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Chaotic, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Sleepy, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+    ]
+    
+    var selectedMoods: [MoodInfo] = []
+    
     // The value of the Mood dictionary is AnyObject because track tuneability can either than Float or Int. The value CANNOT be passed in as a string. Also, Alamofire's parameter input accepts a dication of ["String" : "AnyObject"]
     var moodParameterDictionary : [String : AnyObject] = [:]
     
@@ -28,7 +50,15 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
     var playlistDetailInfoArray : [PlaylistDetailInfo] = []
     
     // Counter to keep track of how many mood buttons a user has selected.
-    var moodButtonPressedNumber = 0
+    var numberOfSelectedMoods = 0
+    
+    let maxMoodsAllowed = 1
+    
+    let cellSpacing: CGFloat = 1.0
+    let numberOfColumns: CGFloat = 3.0
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     
     override func viewDidLoad() {
         
@@ -45,7 +75,13 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
             print("Selected: \(artist.name)\n")
         }
         
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.allowsMultipleSelection = false
+        
         self.testUserArtistString = self.spotifyArtistArrayToString()
+        
+        
     }
     
     func spotifyArtistArrayToString() -> String {
@@ -153,7 +189,7 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
     
         guard let unwrappedMoodTitle = sender.titleLabel?.text else { fatalError("Error unwrapping moode button title.") }
         
-        if self.moodButtonPressedNumber < 3 {
+        if self.numberOfSelectedMoods < 3 {
             
             self.storeDifferentMoods(unwrappedMoodTitle)
         
@@ -175,7 +211,9 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
             
-            SpotifyAPIClient.generateArtistsAndSongs(withUserSelectedArtists: self.testUserArtistString, withGenre: self.genreQueryString, withMood: self.moodParameterDictionary, withToken: token, completion: { (json, error) in
+            let moodParamater = self.flattenSelectedMoods()
+            
+            SpotifyAPIClient.generateArtistsAndSongs(withUserSelectedArtists: self.testUserArtistString, withGenre: self.genreQueryString, withMood: moodParamater, withToken: token, completion: { (json, error) in
                 if let error = error {
                     // display error message
                     self.displayErrorMessage(forError: error)
@@ -281,5 +319,95 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
         
         navigationItem.backBarButtonItem = backButton
-    }   
+    }
+    
+    func flattenSelectedMoods() -> [String : AnyObject] {
+        
+        var flattenedMoods: [String : AnyObject] = [:]
+        
+        for mood in selectedMoods {
+            let moodAttributes = mood.attributes
+            for (key, value) in moodAttributes {
+                flattenedMoods[key] = value
+            }
+        }
+        return flattenedMoods
+    }
 }
+
+//MARK: - CollectionView
+extension MoodViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return calculcateCellSize()
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return self.cellSpacing
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return self.cellSpacing
+    }
+    
+    func calculcateCellSize() -> CGSize {
+        let cellWidthAndHeight = (self.collectionView.bounds.size.width - (self.cellSpacing * self.numberOfColumns)) / self.numberOfColumns
+        return CGSize(width: cellWidthAndHeight, height: cellWidthAndHeight)
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        if self.selectedMoods.count >= self.maxMoodsAllowed {
+            // display alert saying max moods already selected
+            return
+        }
+        
+        var mood = moods[indexPath.row]
+        mood.isSelected = true
+        
+        self.selectedMoods.append(mood)
+        
+        setCellDisplayImageForIndexPath(indexPath, mood: mood)
+        print(selectedMoods)
+
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        var mood = moods[indexPath.row]
+         mood.isSelected = false
+        let indexToRemove = selectedMoods.indexOf { $0.type == mood.type }
+        
+        if let indexToRemove = indexToRemove {
+            selectedMoods.removeAtIndex(indexToRemove)
+        }
+        
+       
+        
+        setCellDisplayImageForIndexPath(indexPath, mood: mood)
+    }
+    
+    func setCellDisplayImageForIndexPath(indexPath: NSIndexPath, mood: MoodInfo) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MoodCollectionViewCell
+        cell.displayImageView.image = mood.displayImage
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.moods.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("moodCell", forIndexPath: indexPath) as! MoodCollectionViewCell
+        
+         cell.displayImageView.image = moods[indexPath.row].displayImage
+        
+        return cell
+    }
+    
+}
+
+
+
+
+
