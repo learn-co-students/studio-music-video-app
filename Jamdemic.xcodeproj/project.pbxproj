@@ -23,6 +23,7 @@
 		2CE04ECA1D64C28000B7681C /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE04EC91D64C28000B7681C /* like.png */; };
 		2CE04ECC1D64D6F700B7681C /* musicPlaceholderImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CE04ECB1D64D6F700B7681C /* musicPlaceholderImage.jpg */; };
 		A7F8AA641D5A1A4B00EDC18A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */; };
+		A7FD51871D6784610015711B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD51861D6784610015711B /* Helper.swift */; };
 		A7FEB94E1D5D23D800DA632E /* GoogleSignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FEB94D1D5D23D800DA632E /* GoogleSignIn.storyboard */; };
 		A7FEB9501D5D792900DA632E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB94F1D5D792900DA632E /* SignInViewController.swift */; };
 		A7FEB9551D5D8D1500DA632E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEB9541D5D8D1500DA632E /* HomeViewController.swift */; };
@@ -79,6 +80,7 @@
 		2CE04EC91D64C28000B7681C /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
 		2CE04ECB1D64D6F700B7681C /* musicPlaceholderImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = musicPlaceholderImage.jpg; sourceTree = "<group>"; };
 		A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A7FD51861D6784610015711B /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		A7FEB94D1D5D23D800DA632E /* GoogleSignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GoogleSignIn.storyboard; sourceTree = "<group>"; };
 		A7FEB94F1D5D792900DA632E /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A7FEB9511D5D8C0D00DA632E /* Jamdemic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Jamdemic-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			children = (
 				A7FEB94F1D5D792900DA632E /* SignInViewController.swift */,
 				A7FEB9541D5D8D1500DA632E /* HomeViewController.swift */,
+				A7FD51861D6784610015711B /* Helper.swift */,
 				A7FEB9561D5D922B00DA632E /* MeasurementHelper.swift */,
 				A7FEB9571D5D922B00DA632E /* AppState.swift */,
 			);
@@ -570,6 +573,7 @@
 				C94E93B21D58D7DB00CA3323 /* Extensions.swift in Sources */,
 				2CE04EC21D63A52700B7681C /* ArtistWithHeadersTableViewController.swift in Sources */,
 				07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */,
+				A7FD51871D6784610015711B /* Helper.swift in Sources */,
 				C9EDBEDC1D53D08F0033BBAD /* ViewController.swift in Sources */,
 				A7FEB9551D5D8D1500DA632E /* HomeViewController.swift in Sources */,
 				C9579D941D662B8500169281 /* Reachability.m in Sources */,
