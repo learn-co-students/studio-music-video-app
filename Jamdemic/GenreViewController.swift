@@ -127,9 +127,9 @@ class GenreViewController: UIViewController {
     
     // MARK: - Clearing Selection
     func clearSelection() {
-        self.selectedGenres.removeAll()
-        self.genreQueryString = ""
-        self.numberOfSelectedGenres = 0
+//        self.selectedGenres.removeAll()
+//        self.genreQueryString = ""
+//        self.numberOfSelectedGenres = 0
         // Do anything else to reset the selection
         // ...
     }
