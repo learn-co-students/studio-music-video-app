@@ -85,12 +85,15 @@ class ArtistTableViewController: UITableViewController {
             // If the Spotify API is unavailable, the user is presented with an alert view.
         }) { (error) in
             
+            
+            
             print("Error verifying access token in ArtistViewController.")
             
-            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, problem loading artists.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            notificationAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+            let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
             
-            self.presentViewController(notificationAlert, animated: true, completion: nil)
+            let alert = SCLAlertView(appearance: alertAppearance)
+            
+            alert.showError("Oh no!", subTitle: "Something went wrong!")
         }
     }
     
@@ -115,7 +118,7 @@ class ArtistTableViewController: UITableViewController {
         cell.separatorInset = UIEdgeInsetsZero
         cell.layoutMargins = UIEdgeInsetsZero
         cell.artistNameLabel.text = artistName
-        cell.likeIndicatorLabel.hidden = false
+      
         
         // we have the image, load from cache
         if let artistPhoto = photoCacheDictionary[artistName] {
