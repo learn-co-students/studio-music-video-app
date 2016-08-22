@@ -29,7 +29,7 @@ class ArtistViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     // Cell Spacing
-    let numberOfColumns: CGFloat = 3.0
+    let numberOfColumns: CGFloat = 2.0
     let cellSpacing: CGFloat = 5.0
     var totalSpacing: CGFloat {
         return numberOfColumns + 1
@@ -135,9 +135,10 @@ extension ArtistViewController {
     }
 }
 
+// MARK: - Collection View Stuff
 extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    // MARK - Cell Layout & Sizing
+    // MARK: Cell Layout & Sizing
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return calculcateCellSize()
         
@@ -171,6 +172,13 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         cell.artistNameLabel.text = artistObj.name
         
+        if cell.selected {
+            cell.selectedImageView.hidden = false
+        }
+        else {
+            cell.selectedImageView.hidden = true
+        }
+        
         self.loadPhotosForArtist(artistObj, cell: cell, indexPath: indexPath)
 
         
@@ -195,6 +203,10 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
             print("The selected artist(s) name: \(artist.name) -- SpotifyID: \(artist.spotifyID)\n")
         }
         
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? ArtistCollectionViewCell {
+            cell.selectedImageView.hidden = false
+        }
+        
 
     }
     
@@ -206,6 +218,11 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if let indexToRemove = indexToRemove {
             self.userSelectedArtists.removeAtIndex(indexToRemove)
         }
+        
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? ArtistCollectionViewCell {
+            cell.selectedImageView.hidden = true
+        }
+
         
         
     }
