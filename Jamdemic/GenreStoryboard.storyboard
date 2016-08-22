@@ -68,7 +68,7 @@
                         <barButtonItem key="backBarButtonItem" title="Genre" id="Hhm-ew-rGo"/>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="uWd-Vd-Pd2">
                             <connections>
-                                <segue destination="dHm-y5-cXf" kind="show" identifier="showArtistSegue" id="wz1-HD-InU"/>
+                                <segue destination="iYa-3X-P0g" kind="show" identifier="showArtistSegue" id="OYW-4s-9qG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -92,7 +92,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="artistCell" rowHeight="320" id="qnT-VQ-47s" customClass="ArtistTableViewCell" customModule="Jamdemic" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qnT-VQ-47s" id="t8n-Aw-Tat">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="319.5"/>
@@ -159,11 +159,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Choose up to 5" id="7b2-4g-739">
                         <barButtonItem key="backBarButtonItem" title="Artist" id="79A-Qn-Fnd"/>
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="I1B-Fc-awo">
-                            <connections>
-                                <segue destination="g6n-eO-eaP" kind="show" identifier="showMoodSegue" id="qaA-J8-ZLO"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="I1B-Fc-awo"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -172,7 +168,108 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10R-JS-Giv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2312" y="374"/>
+            <point key="canvasLocation" x="2070" y="1132"/>
+        </scene>
+        <!--Choose up to 5-->
+        <scene sceneID="dwd-hV-UsH">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="iYa-3X-P0g" customClass="ArtistViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fZR-4E-GH4"/>
+                        <viewControllerLayoutGuide type="bottom" id="eAa-r2-TDS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="88U-I9-2Qa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yNK-Ot-wSN">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sZ8-uW-Aso">
+                                    <size key="itemSize" width="140" height="124"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="artistCell" id="1LK-W2-ang" customClass="ArtistCollectionViewCell" customModule="Jamdemic" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="140" height="124"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="124"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IU6-z2-kzC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="124"/>
+                                                </imageView>
+                                                <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N5i-E9-Pq2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="124"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R36-d4-L1f">
+                                                            <rect key="frame" x="8" y="50" width="124" height="24"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="R36-d4-L1f" firstAttribute="centerY" secondItem="N5i-E9-Pq2" secondAttribute="centerY" id="2EK-Is-Xez"/>
+                                                        <constraint firstItem="R36-d4-L1f" firstAttribute="centerX" secondItem="N5i-E9-Pq2" secondAttribute="centerX" id="g8Q-VO-meM"/>
+                                                        <constraint firstAttribute="trailing" secondItem="R36-d4-L1f" secondAttribute="trailing" constant="8" id="mfU-iw-jan"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="N5i-E9-Pq2" firstAttribute="top" secondItem="1LK-W2-ang" secondAttribute="top" id="AXI-nC-Btb"/>
+                                            <constraint firstItem="N5i-E9-Pq2" firstAttribute="height" secondItem="1LK-W2-ang" secondAttribute="height" id="H7b-RW-eOT"/>
+                                            <constraint firstItem="IU6-z2-kzC" firstAttribute="top" secondItem="1LK-W2-ang" secondAttribute="top" id="Sda-UT-bO1"/>
+                                            <constraint firstItem="IU6-z2-kzC" firstAttribute="width" secondItem="1LK-W2-ang" secondAttribute="width" id="fk6-nX-g9n"/>
+                                            <constraint firstItem="N5i-E9-Pq2" firstAttribute="leading" secondItem="1LK-W2-ang" secondAttribute="leading" id="hiW-zp-4oR"/>
+                                            <constraint firstItem="IU6-z2-kzC" firstAttribute="leading" secondItem="1LK-W2-ang" secondAttribute="leading" id="iQA-Wq-0oe"/>
+                                            <constraint firstItem="IU6-z2-kzC" firstAttribute="height" secondItem="1LK-W2-ang" secondAttribute="height" id="k5W-9y-jrt"/>
+                                            <constraint firstItem="N5i-E9-Pq2" firstAttribute="width" secondItem="1LK-W2-ang" secondAttribute="width" id="vgE-ME-gty"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="artistImageView" destination="IU6-z2-kzC" id="V8X-tr-AjW"/>
+                                            <outlet property="artistNameLabel" destination="R36-d4-L1f" id="ck2-fC-yk7"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yNK-Ot-wSN" firstAttribute="height" secondItem="88U-I9-2Qa" secondAttribute="height" id="8na-df-y5h"/>
+                            <constraint firstItem="eAa-r2-TDS" firstAttribute="top" secondItem="yNK-Ot-wSN" secondAttribute="bottom" id="Xms-gQ-NIx"/>
+                            <constraint firstItem="yNK-Ot-wSN" firstAttribute="leading" secondItem="88U-I9-2Qa" secondAttribute="leading" id="bv8-di-KsJ"/>
+                            <constraint firstItem="yNK-Ot-wSN" firstAttribute="top" secondItem="fZR-4E-GH4" secondAttribute="bottom" id="gqp-NT-IdX"/>
+                            <constraint firstItem="yNK-Ot-wSN" firstAttribute="width" secondItem="88U-I9-2Qa" secondAttribute="width" id="uKK-OQ-SJz"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8na-df-y5h"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Choose up to 5" id="ebO-jr-mby">
+                        <barButtonItem key="backBarButtonItem" title="Artist" id="pax-EW-fXN"/>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="DH4-Ws-Uki">
+                            <connections>
+                                <segue destination="g6n-eO-eaP" kind="show" identifier="showMoodSegue" id="bcV-0c-HFJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="collectionView" destination="yNK-Ot-wSN" id="9Ww-EX-0k8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d9K-Fz-wUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2315" y="374"/>
         </scene>
         <!--How are you feeling?-->
         <scene sceneID="vcf-w3-ayU">

@@ -103,7 +103,7 @@ class GenreViewController: UIViewController {
         
         if segue.identifier == "showArtistSegue" {
             
-            let destinationTVC = segue.destinationViewController as! ArtistTableViewController
+            let destinationTVC = segue.destinationViewController as! ArtistViewController
             
             // Passes the genreValues string to the ArtistsTableViewController to do the API call to Spotify in the viewDidLoad method.
             destinationTVC.genreQueryString = queryStringForSelectedGenres()

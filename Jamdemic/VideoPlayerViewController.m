@@ -52,7 +52,6 @@ static NSString *kKeyPath = @"moviePlayer.contentURL";
 
 - (void)_moviePlayerDidFinish:(NSNotification *)notification
 {
-    NSLog(@"Playing number %li", self.currentVideoIndex);
     if ([self _hasNextVideo]) {
         self.videoPlayerViewController.videoIdentifier = [self _nextVideoIdentifier];
     }
