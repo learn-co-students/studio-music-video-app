@@ -33,8 +33,6 @@ class ArtistTableViewController: UITableViewController {
         
         self.tableView.allowsMultipleSelection = true
         
-        changeNavigationFontElements()
-        
         print(genreQueryString)
         
         tableView.estimatedRowHeight = 320
@@ -228,20 +226,5 @@ class ArtistTableViewController: UITableViewController {
             // Pass on the Artists array to further customize our final API call to Spotify.
             destinationVC.userSelectedArtists = self.userSelectedArtists
         }
-    }
-    
-    // MARK: - UI Element changes:
-    
-    func changeNavigationFontElements() {
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
-        
-        self.nextButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        let backButton = UIBarButtonItem(title: "Artists", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
-        
-        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        navigationItem.backBarButtonItem = backButton
     }
 }

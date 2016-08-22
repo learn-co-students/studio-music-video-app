@@ -71,8 +71,6 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
 
         // Do any additional setup after loading the view.
         
-        changeNavigationFontElements()
-        
         print(genreQueryString)
         
         for artist in userSelectedArtists {
@@ -316,21 +314,6 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         else {
             alert.showError("Oh no!", subTitle: "Something went wrong!")
         }
-    }
-    
-    // MARK: - UI Element changes:
-    
-    func changeNavigationFontElements() {
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
-        
-        self.navigationController?.navigationBar.backItem?.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        let backButton = UIBarButtonItem(title: "Moods", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
-        
-        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        navigationItem.backBarButtonItem = backButton
     }
     
     func flattenSelectedMoods() -> [String : AnyObject] {

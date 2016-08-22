@@ -76,9 +76,6 @@ class GenreViewController: UIViewController {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
-        changeNagivationFontElements()
-        //print(genreQueryString)
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -111,21 +108,6 @@ class GenreViewController: UIViewController {
             // Passes the genreValues string to the ArtistsTableViewController to do the API call to Spotify in the viewDidLoad method.
             destinationTVC.genreQueryString = queryStringForSelectedGenres()
         }
-    }
-    
-    // MARK: - UI Element changes:
-    
-    func changeNagivationFontElements() {
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
-        
-        self.nextButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        let backButton = UIBarButtonItem(title: "Genres", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
-        
-        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        navigationItem.backBarButtonItem = backButton
     }
     
     // MARK: - Clearing Selection
