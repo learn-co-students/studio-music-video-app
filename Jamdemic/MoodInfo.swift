@@ -9,7 +9,7 @@
 import Foundation
 
 enum MoodType {
-    case Acoustic, MostPlayed, Live, SlowDance, Energetic, Instrumental, Happy, Chill, Sad, Rage, Smooth, Reflective, Awake, Motivational, Chaotic, Sleepy
+    case Acoustic, Trendy, Live, SlowDance, Energetic, Instrumental, Happy, Chill, Sad, Rage, Smooth, Reflective, Awake, Motivational, Chaotic, Sleepy, Active, Focused
 }
 
 struct MoodInfo {
@@ -43,7 +43,7 @@ struct MoodInfo {
         case .Acoustic:
             attributes["min_acousticness"] = 0.7
             
-        case .MostPlayed:
+        case .Trendy:
             attributes["min_popularity"] = 70
             
         case .Live:
@@ -98,6 +98,10 @@ struct MoodInfo {
         case .Sleepy:
             attributes["max_tempo"] = 0.5
             attributes["max_energy"] = 0.5
+            
+        case .Active: break
+        
+        case .Focused: break
             
         }
         return attributes

@@ -16,22 +16,24 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
 
     
     let moods = [
-        MoodInfo(type: .Acoustic, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .MostPlayed, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Live, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .SlowDance, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Energetic, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Instrumental, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Happy, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Chill, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Sad, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Rage, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Smooth, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Reflective, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Awake, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Motivational, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Chaotic, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        MoodInfo(type: .Sleepy, selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
+        MoodInfo(type: .Acoustic, selectedImage: UIImage(named: "acoustic-selected")!, deselectedImage: UIImage(named: "acoustic-unselected")!),
+        MoodInfo(type: .Trendy, selectedImage: UIImage(named: "trendy-selected")!, deselectedImage: UIImage(named: "trendy-unselected")!),
+        MoodInfo(type: .Live, selectedImage: UIImage(named: "live-selected")!, deselectedImage: UIImage(named: "live-unselected")!),
+        MoodInfo(type: .SlowDance, selectedImage: UIImage(named: "slow-dance-selected")!, deselectedImage: UIImage(named: "slow-dance-unselected")!),
+        MoodInfo(type: .Energetic, selectedImage: UIImage(named: "energetic-selected")!, deselectedImage: UIImage(named: "energetic-unselected")!),
+        MoodInfo(type: .Instrumental, selectedImage: UIImage(named: "instrumental-selected")!, deselectedImage: UIImage(named: "instrumental-unselected")!),
+        MoodInfo(type: .Happy, selectedImage: UIImage(named: "happy-selected")!, deselectedImage: UIImage(named: "happy-unselected")!),
+        MoodInfo(type: .Chill, selectedImage: UIImage(named: "chill-selected")!, deselectedImage: UIImage(named: "chill-unselected")!),
+        MoodInfo(type: .Sad, selectedImage: UIImage(named: "sad-selected")!, deselectedImage: UIImage(named: "sad-unselected")!),
+        MoodInfo(type: .Rage, selectedImage: UIImage(named: "rage-selected")!, deselectedImage: UIImage(named: "rage-unselected")!),
+        MoodInfo(type: .Smooth, selectedImage: UIImage(named: "smooth-selected")!, deselectedImage: UIImage(named: "smooth-unselected")!),
+        MoodInfo(type: .Reflective, selectedImage: UIImage(named: "reflective-selected")!, deselectedImage: UIImage(named: "reflective-unselected")!),
+        MoodInfo(type: .Awake, selectedImage: UIImage(named: "awake-selected")!, deselectedImage: UIImage(named: "awake-unselected")!),
+        MoodInfo(type: .Motivational, selectedImage: UIImage(named: "motivational-selected")!, deselectedImage: UIImage(named: "motivational-unselected")!),
+        MoodInfo(type: .Chaotic, selectedImage: UIImage(named: "chaotic-selected")!, deselectedImage: UIImage(named: "chaotic-unselected")!),
+        MoodInfo(type: .Sleepy, selectedImage: UIImage(named: "sleepy-selected")!, deselectedImage: UIImage(named: "sleepy-unselected")!),
+        MoodInfo(type: .Active, selectedImage: UIImage(named: "active-selected")!, deselectedImage: UIImage(named: "active-unselected")!),
+        MoodInfo(type: .Focused, selectedImage: UIImage(named: "focused-selected")!, deselectedImage: UIImage(named: "focused-unselected")!)
     ]
     
     var selectedMoods: [MoodInfo] = []
