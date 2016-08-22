@@ -93,12 +93,11 @@ class GenreViewController: UIViewController {
     
     func displayMaxGenreSelectedAlert() {
         
-        let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of genres selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
         
-        notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        let alert = SCLAlertView(appearance: alertAppearance)
         
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
-
+        alert.showWarning("", subTitle: "Maximum number of genres selected")
     }
     
     // MARK: - Navigation:
@@ -173,6 +172,14 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return self.genreInfo.count
     }
     
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if self.numberOfSelectedGenres == 5 {
+            self.displayMaxGenreSelectedAlert()
+            return false
+        }
+        return true
+    }
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("Cell # \(indexPath.row) selected")
         
@@ -180,11 +187,6 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         genre.isSelected = true
         
         selectedGenres.append(genre.spotifyTitle)
-        
-        if self.numberOfSelectedGenres == 5 {
-            self.displayMaxGenreSelectedAlert()
-            return
-        }
         
         self.numberOfSelectedGenres += 1
         

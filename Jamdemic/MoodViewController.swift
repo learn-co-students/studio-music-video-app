@@ -303,11 +303,18 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
     }
     
     func displayErrorMessage(forError error: NSError) {
+        
+        let alertAppearance = SCLAlertView.SCLAppearance(kTitleFont: UIFont(name: "Avenir Next", size: 20)!,
+                                                         kTextFont: UIFont(name: "Avenir Next", size: 14)!,
+                                                         kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
+        
+        let alert = SCLAlertView(appearance: alertAppearance)
+        
         if error.code == NSURLErrorNotConnectedToInternet {
-            SCLAlertView().showError("Oh no!", subTitle: error.localizedDescription)
+            alert.showError("Oh no!", subTitle: error.localizedDescription)
         }
         else {
-            SCLAlertView().showError("Oh no!", subTitle: "Something went wrong!")
+            alert.showError("Oh no!", subTitle: "Something went wrong!")
         }
     }
     

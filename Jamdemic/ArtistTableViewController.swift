@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SCLAlertView
 
 class ArtistTableViewController: UITableViewController {
     
@@ -196,13 +197,18 @@ class ArtistTableViewController: UITableViewController {
            
             // If the user chooses more than five artists, they are presented with an alert view and no more genres are added to the selectedArtist array.
         } else {
-            
-            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of artists selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            
-            self.presentViewController(notificationAlert, animated: true, completion: nil)
+            self.displayMaxArtistsSelectedAlert()
         }
+    }
+    
+    func displayMaxArtistsSelectedAlert() {
+        
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
+        
+        let alert = SCLAlertView(appearance: alertAppearance)
+        
+        alert.showWarning("", subTitle: "Maximum number of artists selected")
+
     }
     
     // MARK: - Navigation:
