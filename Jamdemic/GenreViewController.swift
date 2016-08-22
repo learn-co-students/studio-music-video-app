@@ -62,7 +62,10 @@ class GenreViewController: UIViewController {
     var numberOfSelectedGenres = 0
     
     let numberOfColumns: CGFloat = 3.0
-    let cellSpacing: CGFloat = 1.0
+    let cellSpacing: CGFloat = 5.0
+    var totalSpacing: CGFloat {
+       return numberOfColumns + 1
+    }
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -82,7 +85,7 @@ class GenreViewController: UIViewController {
         self.collectionView.allowsMultipleSelection = true
         
         self.nextButton.enabled = false
-        
+        self.collectionView.contentInset = UIEdgeInsets(top: self.cellSpacing, left: self.cellSpacing, bottom: self.cellSpacing, right: self.cellSpacing)
         // Listen for new searches
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearSelection), name: Notifications.newSearch, object: nil)
         
@@ -162,8 +165,7 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func calculcateCellSize() -> CGSize {
-        let cellWidthAndHeight = (self.collectionView.bounds.size.width - (self.cellSpacing * self.numberOfColumns)) / self.numberOfColumns
-        print(cellWidthAndHeight)
+        let cellWidthAndHeight = (self.collectionView.bounds.size.width - (self.cellSpacing * self.totalSpacing)) / self.numberOfColumns
         return CGSize(width: cellWidthAndHeight, height: cellWidthAndHeight)
     }
     
