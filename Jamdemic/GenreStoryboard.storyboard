@@ -174,7 +174,7 @@
             </objects>
             <point key="canvasLocation" x="2312" y="374"/>
         </scene>
-        <!--Choose up to 3-->
+        <!--How are you feeling?-->
         <scene sceneID="vcf-w3-ayU">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="g6n-eO-eaP" customClass="MoodViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
@@ -245,7 +245,9 @@
                             <constraint firstItem="yH8-e1-WSW" firstAttribute="width" secondItem="vUI-nH-x2p" secondAttribute="width" id="waw-z8-RZy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Choose up to 3" id="rv7-Fe-Ker"/>
+                    <navigationItem key="navigationItem" title="How are you feeling?" id="rv7-Fe-Ker">
+                        <barButtonItem key="backBarButtonItem" title="Moods" id="Yng-4G-5Ml"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionView" destination="EY9-Ro-kkU" id="hCu-iy-fMc"/>
