@@ -29,7 +29,7 @@ class ArtistViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     // Cell Spacing
-    let numberOfColumns: CGFloat = 2.0
+    let numberOfColumns: CGFloat = 3.0
     let cellSpacing: CGFloat = 5.0
     var totalSpacing: CGFloat {
         return numberOfColumns + 1
@@ -177,12 +177,49 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
     
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if self.userSelectedArtists.count == 5 {
+            self.displayMaxArtistsSelectedAlert()
+            return false
+        }
+        return true
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let selectedArtist = self.artists[indexPath.row]
+        
+        self.userSelectedArtists.append(selectedArtist)
+        
+        for artist in userSelectedArtists {
+            
+            print("The selected artist(s) name: \(artist.name) -- SpotifyID: \(artist.spotifyID)\n")
+        }
+        
+
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let selectedArtist = self.artists[indexPath.row]
+        
+        let indexToRemove = self.userSelectedArtists.indexOf { $0.name == selectedArtist.name}
+        
+        if let indexToRemove = indexToRemove {
+            self.userSelectedArtists.removeAtIndex(indexToRemove)
+        }
+        
+        
+    }
+    
 }
 
 
 // MARK: - Loading Photos
 extension ArtistViewController {
     func loadPhotosForArtist(artist: Artist, cell: ArtistCollectionViewCell, indexPath: NSIndexPath) {
+        
+        // Reset the image so when the cell is reused the previous image does not show up
+        cell.artistImageView.image = nil
+        
         // we have the image, load from cache
         if let artistPhoto = photoCacheDictionary[artist.name] {
             cell.artistImageView.image = artistPhoto
