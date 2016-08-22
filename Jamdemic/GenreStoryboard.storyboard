@@ -197,35 +197,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EY9-Ro-kkU">
-                                <rect key="frame" x="-4" y="64" width="328" height="447"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="447"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8Xj-gc-V3s">
-                                    <size key="itemSize" width="56" height="90"/>
+                                    <size key="itemSize" width="118" height="110"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="moodCell" id="E36-WM-3zM" customClass="MoodCollectionViewCell" customModule="Jamdemic" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="118" height="110"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="118" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sAP-fW-lIK">
-                                                    <rect key="frame" x="8" y="0.0" width="60" height="60"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sAP-fW-lIK">
+                                                    <rect key="frame" x="0.0" y="0.0" width="118" height="110"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="sAP-fW-lIK" firstAttribute="top" secondItem="E36-WM-3zM" secondAttribute="topMargin" constant="-8" id="Q6i-hJ-KCV"/>
-                                            <constraint firstItem="sAP-fW-lIK" firstAttribute="height" secondItem="E36-WM-3zM" secondAttribute="height" id="kwi-vv-0pv"/>
-                                            <constraint firstItem="sAP-fW-lIK" firstAttribute="leading" secondItem="E36-WM-3zM" secondAttribute="leadingMargin" id="uBr-hc-kne"/>
-                                            <constraint firstItem="sAP-fW-lIK" firstAttribute="width" secondItem="E36-WM-3zM" secondAttribute="width" id="wfv-Z2-wtm"/>
+                                            <constraint firstItem="sAP-fW-lIK" firstAttribute="leading" secondItem="E36-WM-3zM" secondAttribute="leading" id="Rmr-1h-7Oo"/>
+                                            <constraint firstItem="sAP-fW-lIK" firstAttribute="width" secondItem="E36-WM-3zM" secondAttribute="width" id="Xsi-Dw-gyK"/>
+                                            <constraint firstItem="sAP-fW-lIK" firstAttribute="height" secondItem="E36-WM-3zM" secondAttribute="height" id="clf-9F-dv3"/>
+                                            <constraint firstItem="sAP-fW-lIK" firstAttribute="top" secondItem="E36-WM-3zM" secondAttribute="top" id="fEf-CO-jfR"/>
                                         </constraints>
-                                        <size key="customSize" width="60" height="60"/>
                                         <connections>
                                             <outlet property="displayImageView" destination="sAP-fW-lIK" id="Pfh-qn-rlI"/>
                                         </connections>
@@ -251,8 +250,8 @@
                             <constraint firstItem="yH8-e1-WSW" firstAttribute="leading" secondItem="vUI-nH-x2p" secondAttribute="leading" id="LTY-XG-V4t"/>
                             <constraint firstAttribute="bottomMargin" secondItem="yH8-e1-WSW" secondAttribute="bottom" id="Nja-na-ZDa"/>
                             <constraint firstItem="yH8-e1-WSW" firstAttribute="height" secondItem="vUI-nH-x2p" secondAttribute="height" multiplier="0.1" id="eoz-Q0-fPm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="EY9-Ro-kkU" secondAttribute="trailing" constant="-20" id="pIf-mA-tJZ"/>
-                            <constraint firstItem="EY9-Ro-kkU" firstAttribute="leading" secondItem="vUI-nH-x2p" secondAttribute="leadingMargin" constant="-20" id="qKX-nY-5P7"/>
+                            <constraint firstAttribute="trailing" secondItem="EY9-Ro-kkU" secondAttribute="trailing" id="pIf-mA-tJZ"/>
+                            <constraint firstItem="EY9-Ro-kkU" firstAttribute="leading" secondItem="vUI-nH-x2p" secondAttribute="leading" id="qKX-nY-5P7"/>
                             <constraint firstItem="yH8-e1-WSW" firstAttribute="width" secondItem="vUI-nH-x2p" secondAttribute="width" id="waw-z8-RZy"/>
                         </constraints>
                     </view>

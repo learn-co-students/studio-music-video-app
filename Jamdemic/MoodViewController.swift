@@ -350,9 +350,11 @@ extension MoodViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return self.cellSpacing
     }
+
     
     func calculcateCellSize() -> CGSize {
         let cellWidthAndHeight = (self.collectionView.bounds.size.width - (self.cellSpacing * self.numberOfColumns)) / self.numberOfColumns
+        print(cellWidthAndHeight)
         return CGSize(width: cellWidthAndHeight, height: cellWidthAndHeight)
     }
     

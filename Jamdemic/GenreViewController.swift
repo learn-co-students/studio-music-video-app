@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SCLAlertView
 
 class GenreViewController: UIViewController {
 
@@ -162,6 +163,7 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func calculcateCellSize() -> CGSize {
         let cellWidthAndHeight = (self.collectionView.bounds.size.width - (self.cellSpacing * self.numberOfColumns)) / self.numberOfColumns
+        print(cellWidthAndHeight)
         return CGSize(width: cellWidthAndHeight, height: cellWidthAndHeight)
     }
     
