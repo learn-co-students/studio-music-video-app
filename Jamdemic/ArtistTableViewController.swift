@@ -30,6 +30,8 @@ class ArtistTableViewController: UITableViewController {
        
         super.viewDidLoad()
         
+        self.tableView.allowsMultipleSelection = true
+        
         changeNavigationFontElements()
         
         print(genreQueryString)
