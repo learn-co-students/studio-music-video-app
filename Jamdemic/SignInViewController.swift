@@ -15,7 +15,7 @@ import GoogleSignIn
 class SignInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
     @IBOutlet weak var anonymousLoginButton: UIButton!
-
+    var backgroundPlayer : BackgroundVideo? // Declare an instance of BackgroundVideo called backgroundPlayer
     
     
     override func viewDidLoad() {
@@ -24,6 +24,9 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDele
         makeAnonymousButtonBorder()
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
+        
+        
+        setUpBackgroundVideo()
         
         // Register for notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(userDidSignIn), name: Notifications.userDidLogIn, object: nil)
@@ -76,6 +79,12 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDele
     
     @IBAction func googleSignInDidTapped(sender: AnyObject) {
         GIDSignIn.sharedInstance().signIn()
+    }
+    
+    func setUpBackgroundVideo() {
+        backgroundPlayer = BackgroundVideo(onViewController: self, withVideoURL: "SpinningRecord.mp4") // Passing self and video name with extension
+        backgroundPlayer?.setUpBackground()
+        // Do any additional setup after loading the view, typically from a nib.
     }
 
     

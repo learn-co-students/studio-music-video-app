@@ -17,15 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundPhoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="eEg-pA-TKQ">
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZP5-cg-6HW">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwQ-5z-RRq">
                                 <rect key="frame" x="212" y="368" width="176" height="41"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="176" id="HHU-xW-vte"/>
+                                    <constraint firstAttribute="width" constant="176" id="Cef-s9-5f7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
                                 <state key="normal" title="Anonymous Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -36,13 +37,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OrLine.png" translatesAutoresizingMaskIntoConstraints="NO" id="nEP-Oz-IdE">
                                 <rect key="frame" x="157" y="292" width="287" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="287" id="cDP-As-v57"/>
-                                    <constraint firstAttribute="height" constant="16" id="hWO-6v-btz"/>
+                                    <constraint firstAttribute="height" constant="16" id="TVD-be-mam"/>
+                                    <constraint firstAttribute="width" constant="287" id="Yqe-wF-6lu"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2r-OE-9qI">
-                                <rect key="frame" x="193" y="184" width="214" height="48"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
+                                <rect key="frame" x="193" y="184" width="215" height="48"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
                                 <state key="normal" title="Sign In With Google" image="btn_google_dark_normal_ios"/>
                                 <state key="highlighted" image="btn_google_dark_pressed_ios"/>
                                 <connections>
@@ -51,18 +52,24 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="top" secondItem="T2r-OE-9qI" secondAttribute="bottom" constant="60" id="5kp-45-eYs"/>
-                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="centerX" secondItem="qwQ-5z-RRq" secondAttribute="centerX" id="6Lr-mb-Q7B"/>
-                            <constraint firstAttribute="trailing" secondItem="eEg-pA-TKQ" secondAttribute="trailing" id="FTb-OB-zLA"/>
-                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="top" secondItem="4AQ-Bw-pyF" secondAttribute="top" id="MyK-i1-K6h"/>
-                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leading" id="QYr-an-l1v"/>
-                            <constraint firstItem="T2r-OE-9qI" firstAttribute="centerX" secondItem="eEg-pA-TKQ" secondAttribute="centerX" id="YK9-Gq-gnx"/>
-                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="bottom" secondItem="GX4-Ts-8YP" secondAttribute="top" id="hBR-Vn-Wbe"/>
-                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="centerX" secondItem="qwQ-5z-RRq" secondAttribute="centerX" id="jVg-v4-mVP"/>
-                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="centerY" secondItem="nEP-Oz-IdE" secondAttribute="centerY" id="kow-u8-u90"/>
-                            <constraint firstItem="GX4-Ts-8YP" firstAttribute="top" secondItem="qwQ-5z-RRq" secondAttribute="bottom" constant="191" id="qar-2P-kps"/>
-                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="top" secondItem="nEP-Oz-IdE" secondAttribute="bottom" constant="60" id="tm1-S7-xid"/>
+                            <constraint firstItem="ZP5-cg-6HW" firstAttribute="width" secondItem="4AQ-Bw-pyF" secondAttribute="width" id="87t-T9-99D"/>
+                            <constraint firstItem="ZP5-cg-6HW" firstAttribute="top" secondItem="XKT-rC-gWe" secondAttribute="bottom" id="Dlz-yY-R4V"/>
+                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="centerX" secondItem="qwQ-5z-RRq" secondAttribute="centerX" id="SRh-Fb-j55"/>
+                            <constraint firstItem="ZP5-cg-6HW" firstAttribute="height" secondItem="4AQ-Bw-pyF" secondAttribute="height" id="VK2-3q-ZTw"/>
+                            <constraint firstItem="ZP5-cg-6HW" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leading" id="dBO-4m-AfU"/>
+                            <constraint firstItem="ZP5-cg-6HW" firstAttribute="top" secondItem="4AQ-Bw-pyF" secondAttribute="top" id="gFS-h1-nck"/>
+                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="top" secondItem="T2r-OE-9qI" secondAttribute="bottom" constant="60" id="jA9-71-ozj"/>
+                            <constraint firstItem="T2r-OE-9qI" firstAttribute="centerX" secondItem="4AQ-Bw-pyF" secondAttribute="centerX" id="lRo-Bg-JxJ"/>
+                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="centerY" secondItem="4AQ-Bw-pyF" secondAttribute="centerY" id="msd-lA-qpo"/>
+                            <constraint firstItem="GX4-Ts-8YP" firstAttribute="top" secondItem="qwQ-5z-RRq" secondAttribute="bottom" constant="191" id="o2p-tX-n7f"/>
+                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="top" secondItem="nEP-Oz-IdE" secondAttribute="bottom" constant="60" id="oCE-MD-US7"/>
+                            <constraint firstItem="T2r-OE-9qI" firstAttribute="centerX" secondItem="nEP-Oz-IdE" secondAttribute="centerX" id="smY-4R-Gs8"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Dlz-yY-R4V"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="anonymousLoginButton" destination="qwQ-5z-RRq" id="h3j-AA-9LL"/>
