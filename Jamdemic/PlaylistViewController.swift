@@ -12,6 +12,9 @@ import Alamofire
 import SwiftyJSON
 import NVActivityIndicatorView
 import SCLAlertView
+import QuartzCore
+
+
 
 class PlaylistViewController: UIViewController {
     
@@ -20,10 +23,27 @@ class PlaylistViewController: UIViewController {
     var artistThumbnails: [String : UIImage] = [:]
     var videoIDs: [String] = []
     
+    @IBOutlet weak var newSearchButton: UIButton!
+    
+    @IBOutlet weak var savePlaylistButton: UIButton!
+   
     let photoQueue = NSOperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     
+         view.backgroundColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0)
+        
+        newSearchButton.layer.cornerRadius = 2;
+        newSearchButton.layer.borderWidth = 3;
+        newSearchButton.layer.borderColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0).CGColor
+        
+        
+        savePlaylistButton.layer.cornerRadius = 2;
+        savePlaylistButton.layer.borderWidth = 3;
+        savePlaylistButton.layer.borderColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0).CGColor
+        
+        
         
         GIDSignIn.sharedInstance().uiDelegate = self
         
@@ -33,7 +53,36 @@ class PlaylistViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(savePlaylist), name: Notifications.userDidLogIn, object: nil)
         
         videoIDs = playlistData.map{ $0.videoID }
+        
+    
+       
     }
+    
+ 
+    
+//    override func viewWillAppear(animated: Bool) {
+//        let backgroundImage = UIImage(named: "black-background.png")
+//        
+//        let imageView = UIImageView(image: backgroundImage)
+//        playlistTableview.backgroundView = imageView
+//        imageView.contentMode = .ScaleAspectFill
+//    }
+    
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+      //  cell.backgroundColor = UIColor.blackColor()
+      //cell.contentView.backgroundColor = UIColor.darkGrayColor()
+        //cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
+      
+        let imageView = UIImageView(frame: CGRectMake(0, 0, cell.frame.width , cell.frame.height))
+        let image = UIImage(named: "black-background.png")
+        imageView.image = image
+        cell.backgroundView = UIView()
+        cell.backgroundView!.addSubview(imageView)
+        
+       
+    }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVideoFromPlayButton" {
@@ -55,15 +104,20 @@ class PlaylistViewController: UIViewController {
     }
     
     @IBAction func newSearchButtonTapped(sender: UIButton) {
-        
+       
         NSNotificationCenter.defaultCenter().postNotificationName(Notifications.newSearch, object: nil)
         self.navigationController?.popToRootViewControllerAnimated(true)
+   
+        
+        
     }
     
 }
 
 //MARK: Tableview Methods
 extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
+    
+  
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playlistData.count
@@ -73,14 +127,20 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("videoCell", forIndexPath: indexPath) as! PlaylistTableViewCell
         
         let playlistItem = playlistData[indexPath.row]
-        cell.artistSongTitleLabel.text = "\(playlistItem.name) - \(playlistItem.songTitle)"
+        cell.artistSongTitleLabel.text = "Artist: \(playlistItem.name) -\nSong: \(playlistItem.songTitle)"
+        cell.artistSongTitleLabel.textColor = UIColor.whiteColor()
+        cell.artistSongTitleLabel.font = UIFont.preferredFontForTextStyle("Avenir Next")
+    
+       
         
         cell.thumbnailImageView.image = nil
-        cell.thumbnailImageView.backgroundColor = UIColor.grayColor()
+        cell.thumbnailImageView.backgroundColor = UIColor.darkGrayColor()
         
         if let artistThumbnailImage = artistThumbnails[playlistItem.videoID] {
             // Artist thumbnail is cached
             cell.thumbnailImageView.image = artistThumbnailImage
+            
+           
         }
         else {
             // not cached, load image from the url on the photo queue
