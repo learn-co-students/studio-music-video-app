@@ -9,17 +9,66 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SCLAlertView
 
 class GenreViewController: UIViewController {
+
     
-    // Dictionary that holds the query parameters for Spotify. The is key is "seed_genres". The value is the "genreQueryString" string.
-    var genreParameterDictionary : [String : String] = [:]
+    let genreInfo = [
+        GenreInfo(displayTitle: "Alternative", spotifyTitle: "alternative", selectedImage: UIImage(named: "alternative-selected")!, deselectedImage: UIImage(named: "alternative-unselected")!),
+        GenreInfo(displayTitle: "Rock", spotifyTitle: "rock", selectedImage: UIImage(named: "rock-selected")!, deselectedImage: UIImage(named: "rock-unselected")!),
+        GenreInfo(displayTitle: "Pop", spotifyTitle: "pop", selectedImage: UIImage(named: "pop-selected")!, deselectedImage: UIImage(named: "pop-unselected")!),
+        GenreInfo(displayTitle: "Jazz", spotifyTitle: "jazz", selectedImage: UIImage(named: "jazz-selected")!, deselectedImage: UIImage(named: "jazz-unselected")!),
+        GenreInfo(displayTitle: "Metal", spotifyTitle: "metal", selectedImage: UIImage(named: "metal-selected")!, deselectedImage: UIImage(named: "metal-unselected")!),
+        GenreInfo(displayTitle: "Reggae", spotifyTitle: "reggae", selectedImage: UIImage(named: "reggae-selected")!, deselectedImage: UIImage(named: "reggae-unselected")!),
+        GenreInfo(displayTitle: "Country", spotifyTitle: "country", selectedImage: UIImage(named: "country-selected")!, deselectedImage: UIImage(named: "country-unselected")!),
+        GenreInfo(displayTitle: "EDM/Dance", spotifyTitle: "dance", selectedImage: UIImage(named: "edm-dance-selected")!, deselectedImage: UIImage(named: "edm-dance-unselected")!),
+        GenreInfo(displayTitle: "Hip-Hop", spotifyTitle: "hip-hop", selectedImage: UIImage(named: "hip-hop-selected")!, deselectedImage: UIImage(named: "hip-hop-unselected")!),
+        GenreInfo(displayTitle: "K-pop", spotifyTitle: "k-pop", selectedImage: UIImage(named: "k-pop-selected")!, deselectedImage: UIImage(named: "k-pop-unselected")!),
+        GenreInfo(displayTitle: "Christian", spotifyTitle: "gospel", selectedImage: UIImage(named: "christian-selected")!, deselectedImage: UIImage(named: "christian-unselected")!),
+        GenreInfo(displayTitle: "Funk", spotifyTitle: "funk", selectedImage: UIImage(named: "funk-selected")!, deselectedImage: UIImage(named: "funk-unselected")!),
+        GenreInfo(displayTitle: "Punk", spotifyTitle: "punk", selectedImage: UIImage(named: "punk-selected")!, deselectedImage: UIImage(named: "punk-unselected")!),
+        GenreInfo(displayTitle: "Blues", spotifyTitle: "blues", selectedImage: UIImage(named: "blues-selected")!, deselectedImage: UIImage(named: "blues-unselected")!),
+        GenreInfo(displayTitle: "Classical", spotifyTitle: "classical", selectedImage: UIImage(named: "classical-selected")!, deselectedImage: UIImage(named: "classical-unselected")!),
+        GenreInfo(displayTitle: "RnB", spotifyTitle: "r-n-b", selectedImage: UIImage(named: "rnb-selected")!, deselectedImage: UIImage(named: "rnb-unselected")!),
+        GenreInfo(displayTitle: "Indie", spotifyTitle: "indie", selectedImage: UIImage(named: "indie-selected")!, deselectedImage: UIImage(named: "indie-unselected")!),
+        GenreInfo(displayTitle: "Soul", spotifyTitle: "soul", selectedImage: UIImage(named: "soul-selected")!, deselectedImage: UIImage(named: "soul-unselected")!)
+    ]
+    
+    
+    let genreTitles = [
+        "Alternative", "Rock", "Pop",
+        "Jazz", "Metal", "Reggae",
+        "Country", "EDM/Dance", "Hip-Hop",
+        "K-pop", "Christian", "Funk",
+        "Punk", "Blues", "Classical",
+        "RnB", "Indie", "Soul"
+    ]
+    
+    let genreDictionary = [
+    "K-pop": "k-pop", "Christian": "gospel", "Classical": "classical",
+    "RnB": "r-n-b", "Hip-Hop": "hip-hop", "Indie": "indie",
+    "Reggae": "reggae", "Metal": "metal", "Blues": "blues",
+    "Rock": "rock", "Alternative": "alternative", "Punk": "punk",
+    "EDM/Dance": "dance", "Country": "country", "Funk": "funk",
+    "Jazz": "jazz", "Soul": "soul", "Pop": "pop"]
+    
+    var selectedGenres: [String] = []
     
     // String that holds the genre selections from the user. This string is used as the a parameter value to query the Spotify API.
     var genreQueryString = ""
     
     // Counter to keep track of how many genre buttons a user has selected.
-    var genreButtonPressedNumber = 0
+    var numberOfSelectedGenres = 0
+    
+    let numberOfColumns: CGFloat = 3.0
+    let cellSpacing: CGFloat = 5.0
+    var totalSpacing: CGFloat {
+       return numberOfColumns + 1
+    }
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     
     @IBOutlet weak var nextButton: UIBarButtonItem!
 
@@ -27,142 +76,25 @@ class GenreViewController: UIViewController {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
-        changeNagivationFontElements()
-        //print(genreQueryString)
+        
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.allowsMultipleSelection = true
         
         self.nextButton.enabled = false
-        
+        self.collectionView.contentInset = UIEdgeInsets(top: self.cellSpacing, left: self.cellSpacing, bottom: self.cellSpacing, right: self.cellSpacing)
         // Listen for new searches
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearSelection), name: Notifications.newSearch, object: nil)
+        
     }
     
-    func storeDifferentGenres(genres : String) {
+    func displayMaxGenreSelectedAlert() {
         
-        switch genres {
-            
-        case "Alternative":
-            self.genreQueryString = "\(self.genreQueryString)alternative,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Rock":
-            self.genreQueryString = "\(self.genreQueryString)rock,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Pop":
-            self.genreQueryString = "\(self.genreQueryString)pop,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Jazz":
-            self.genreQueryString = "\(self.genreQueryString)jazz,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Metal":
-            self.genreQueryString = "\(self.genreQueryString)metal,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Reggae":
-            self.genreQueryString = "\(self.genreQueryString)reggae,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Country":
-            self.genreQueryString = "\(self.genreQueryString)country,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "EDM/Dance":
-            self.genreQueryString = "\(self.genreQueryString)dance,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Hip-Hop":
-            self.genreQueryString = "\(self.genreQueryString)hip-hop,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "K-pop":
-            self.genreQueryString = "\(self.genreQueryString)k-pop,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Christian":
-            self.genreQueryString = "\(self.genreQueryString)gospel,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Funk":
-            self.genreQueryString = "\(self.genreQueryString)funk,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Punk":
-            self.genreQueryString = "\(self.genreQueryString)punk,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Blues":
-            self.genreQueryString = "\(self.genreQueryString)blues,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Classical":
-            self.genreQueryString = "\(self.genreQueryString)classical,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "RnB":
-            self.genreQueryString = "\(self.genreQueryString)r-n-b,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Indie":
-            self.genreQueryString = "\(self.genreQueryString)indie,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        case "Soul":
-            self.genreQueryString = "\(self.genreQueryString)soul,"
-            self.genreParameterDictionary["seed_genres"] = self.genreQueryString
-            print("Your music genre(s) are: \(self.genreParameterDictionary)")
-            
-        default:
-            print("Not a valid genre.")
-        }
-    }
-    
-    @IBAction func genreButtonDidTouchUpInside(sender: UIButton) {
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
         
-        guard let unwrappedGenreTitle = sender.titleLabel?.text else { fatalError("Error unwrapping genre button title.") }
+        let alert = SCLAlertView(appearance: alertAppearance)
         
-        // If the user chooses atleast one genre, then the can move forward to the ArtistViewController.
-        if self.genreButtonPressedNumber < 1 {
-            
-            self.nextButton.enabled = true
-        
-        }
-        
-        // As long as the user chooses at most 5 genres, we add each genre to the genreValues string and that string is added to the genreParameterDictionary's values.
-        if self.genreButtonPressedNumber < 5 {
-         
-            self.genreButtonPressedNumber = self.genreButtonPressedNumber + 1
-            
-            self.storeDifferentGenres(unwrappedGenreTitle)
-        
-        // If the user chooses more than five genres, they are presented with an alert view and no more genres are added to the genreValues string.
-        } else {
-            
-            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of genres selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            
-            self.presentViewController(notificationAlert, animated: true, completion: nil)
-        }
+        alert.showWarning("", subTitle: "Maximum number of genres selected")
     }
     
     // MARK: - Navigation:
@@ -171,34 +103,120 @@ class GenreViewController: UIViewController {
         
         if segue.identifier == "showArtistSegue" {
             
-            let destinationTVC = segue.destinationViewController as! ArtistTableViewController
+            let destinationTVC = segue.destinationViewController as! ArtistViewController
             
             // Passes the genreValues string to the ArtistsTableViewController to do the API call to Spotify in the viewDidLoad method.
-            destinationTVC.genreQueryString = self.genreQueryString
+            destinationTVC.genreQueryString = queryStringForSelectedGenres()
         }
-    }
-    
-    // MARK: - UI Element changes:
-    
-    func changeNagivationFontElements() {
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
-        
-        self.nextButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        let backButton = UIBarButtonItem(title: "Genres", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
-        
-        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        navigationItem.backBarButtonItem = backButton
     }
     
     // MARK: - Clearing Selection
     func clearSelection() {
-        self.genreParameterDictionary.removeAll()
-        self.genreQueryString = ""
-        self.genreButtonPressedNumber = 0
+//        self.selectedGenres.removeAll()
+//        self.genreQueryString = ""
+//        self.numberOfSelectedGenres = 0
         // Do anything else to reset the selection
         // ...
     }
+    
+    func queryStringForSelectedGenres() -> String {
+        var queryString: String = ""
+        for genre in selectedGenres {
+            queryString += "\(genre),"
+        }
+        print(queryString)
+        return queryString
+    }
+    
+    func toggleNextButton() {
+       self.nextButton.enabled = self.selectedGenres.count > 0 ? true : false
+    }
+}
+
+// MARK: Collection View
+extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return calculcateCellSize()
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return self.cellSpacing
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return self.cellSpacing
+    }
+    
+    func calculcateCellSize() -> CGSize {
+        let cellWidthAndHeight = (self.collectionView.bounds.size.width - (self.cellSpacing * self.totalSpacing)) / self.numberOfColumns
+        return CGSize(width: cellWidthAndHeight, height: cellWidthAndHeight)
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.genreInfo.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if self.numberOfSelectedGenres == 5 {
+            self.displayMaxGenreSelectedAlert()
+            return false
+        }
+        return true
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print("Cell # \(indexPath.row) selected")
+        
+        var genre = genreInfo[indexPath.row]
+        genre.isSelected = true
+        
+        selectedGenres.append(genre.spotifyTitle)
+        
+        self.numberOfSelectedGenres += 1
+        
+        if self.numberOfSelectedGenres > 0 {
+            self.nextButton.enabled = true
+        }
+        
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! GenreCollectionViewCell
+        cell.displayImageView.image = genre.displayImage
+        
+        self.toggleNextButton()
+        
+        print(selectedGenres)
+    }
+
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        print("Cell # \(indexPath.row) deselected")
+        
+        self.numberOfSelectedGenres -= 1
+        
+        var genre = genreInfo[indexPath.row]
+        genre.isSelected = false
+        
+        // remove from selected genres
+        if let indexToRemove = selectedGenres.indexOf(genre.spotifyTitle) {
+            selectedGenres.removeAtIndex(indexToRemove)
+        }
+        
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! GenreCollectionViewCell
+        cell.displayImageView.image = genre.displayImage
+    
+        print(selectedGenres)
+        
+        self.toggleNextButton()
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("genreCell", forIndexPath: indexPath) as! GenreCollectionViewCell
+        
+        let cellInfo = genreInfo[indexPath.row]
+        
+        cell.displayImageView.image = cellInfo.displayImage
+    
+        return cell
+    }
+    
 }

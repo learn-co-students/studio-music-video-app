@@ -7,21 +7,26 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseAuth
+import FirebaseDatabase
 import GoogleSignIn
 
 @objc(SignInViewController)
-class SignInViewController: UIViewController, GIDSignInUIDelegate {
+class SignInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var googleSignInButton: GIDSignInButton!
+    @IBOutlet weak var anonymousLoginButton: UIButton!
+    var backgroundPlayer : BackgroundVideo? // Declare an instance of BackgroundVideo called backgroundPlayer
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        makeAnonymousButtonBorder()
         GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+        
+        
+        setUpBackgroundVideo()
         
         // Register for notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(userDidSignIn), name: Notifications.userDidLogIn, object: nil)
@@ -30,9 +35,29 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         //GIDSignIn.sharedInstance().signInSilently()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        emailTextField.text = ""
-        passwordTextField.text = ""
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Keeps track of the authentication status
+        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth: FIRAuth, user: FIRUser?) in
+            if let user = user {
+                print(user)
+                Helper.helper.switchToNavigationViewController()
+            } else {
+                print("Unauthorized")
+            }
+        })
+
+    }
+    
+    // The sign-in flow has finished and was successful if |error| is |nil|.
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        print(user.authentication)
+        Helper.helper.loginWithGoogle(user.authentication)
     }
     
     
@@ -40,108 +65,28 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func didTapCreateAccount(sender: AnyObject) {
-        
-        // Create a new user
-        let email = emailTextField.text
-        let password = passwordTextField.text
-        
-        FIRAuth.auth()?.createUserWithEmail(email!, password: password!, completion: { (user, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            self.setDisplayName(user!)
-            self.dismissViewControllerAnimated(true, completion: nil)
-        })
+    
+    func makeAnonymousButtonBorder() {
+        anonymousLoginButton.layer.borderWidth = 1.0
+        anonymousLoginButton.layer.borderColor = UIColor.whiteColor().CGColor
     }
     
     
-    @IBAction func didTapSignIn(sender: AnyObject) {
-        // Sign In with credentials.
-        let email = emailTextField.text
-        let password = passwordTextField.text
-        
-        FIRAuth.auth()?.signInWithEmail(email!, password: password!, completion: { (user, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            self.setDisplayName(user!)
-            self.dismissViewControllerAnimated(true, completion: nil)
-        })
+    @IBAction func anonymousLoginDidTapped(sender: AnyObject) {
+        Helper.helper.anonymousLogin()
     }
     
     
-    @IBAction func didRequestPasswordReset(sender: AnyObject) {
-        let prompt = UIAlertController.init(title: nil, message: "Bitch, Insert New Email:", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-        let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.Default) { (action) in
-            let userInput = prompt.textFields![0].text
-            if (userInput!.isEmpty) {
-                return
-            }
-            FIRAuth.auth()?.sendPasswordResetWithEmail(userInput!, completion: { (error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-            })
-        }
-        prompt.addTextFieldWithConfigurationHandler(nil)
-        prompt.addAction(cancelAction)
-        prompt.addAction(okAction)
-        presentViewController(prompt, animated: true, completion: nil)
+    @IBAction func googleSignInDidTapped(sender: AnyObject) {
+        GIDSignIn.sharedInstance().signIn()
     }
     
-    //TODO: set user data on the RT Database
-    func setDisplayName(user: FIRUser?) {
-        
-        // Info on FIRUserProfileChangeRequest http://bit.ly/2bgRkjX
-        let changeRequest = user?.profileChangeRequest()
-        changeRequest?.displayName = user?.email!.componentsSeparatedByString("@")[0]
-        changeRequest?.commitChangesWithCompletion(){ (error) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            self.signedIn(FIRAuth.auth()?.currentUser)
-            
-        }
+    func setUpBackgroundVideo() {
+        backgroundPlayer = BackgroundVideo(onViewController: self, withVideoURL: "SpinningRecord.mp4") // Passing self and video name with extension
+        backgroundPlayer?.setUpBackground()
+        // Do any additional setup after loading the view, typically from a nib.
     }
-    
-    func signedIn(user: FIRUser?) {
-        MeasurementHelper.sendLoginEvent()
-        
-        AppState.sharedInstance.displayName = user?.displayName ?? user?.email
-        AppState.sharedInstance.photoUrl = user?.photoURL
-        AppState.sharedInstance.signedIn = true
-        NSNotificationCenter.defaultCenter().postNotificationName(Constants.NotificationKeys.SignedIn, object: nil, userInfo: nil)
-//        performSegueWithIdentifier(Constants.Segues.SignInToInitialView, sender: nil)
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
 }

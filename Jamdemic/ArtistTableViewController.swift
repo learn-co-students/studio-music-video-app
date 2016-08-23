@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SCLAlertView
 
 class ArtistTableViewController: UITableViewController {
     
@@ -30,7 +31,7 @@ class ArtistTableViewController: UITableViewController {
        
         super.viewDidLoad()
         
-        changeNavigationFontElements()
+        self.tableView.allowsMultipleSelection = true
         
         print(genreQueryString)
         
@@ -82,12 +83,15 @@ class ArtistTableViewController: UITableViewController {
             // If the Spotify API is unavailable, the user is presented with an alert view.
         }) { (error) in
             
+            
+            
             print("Error verifying access token in ArtistViewController.")
             
-            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, problem loading artists.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            notificationAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+            let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
             
-            self.presentViewController(notificationAlert, animated: true, completion: nil)
+            let alert = SCLAlertView(appearance: alertAppearance)
+            
+            alert.showError("Oh no!", subTitle: "Something went wrong!")
         }
     }
     
@@ -112,7 +116,7 @@ class ArtistTableViewController: UITableViewController {
         cell.separatorInset = UIEdgeInsetsZero
         cell.layoutMargins = UIEdgeInsetsZero
         cell.artistNameLabel.text = artistName
-        cell.likeIndicatorLabel.hidden = false
+      
         
         // we have the image, load from cache
         if let artistPhoto = photoCacheDictionary[artistName] {
@@ -194,13 +198,18 @@ class ArtistTableViewController: UITableViewController {
            
             // If the user chooses more than five artists, they are presented with an alert view and no more genres are added to the selectedArtist array.
         } else {
-            
-            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of artists selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            
-            self.presentViewController(notificationAlert, animated: true, completion: nil)
+            self.displayMaxArtistsSelectedAlert()
         }
+    }
+    
+    func displayMaxArtistsSelectedAlert() {
+        
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
+        
+        let alert = SCLAlertView(appearance: alertAppearance)
+        
+        alert.showWarning("", subTitle: "Maximum number of artists selected")
+
     }
     
     // MARK: - Navigation:
@@ -217,20 +226,5 @@ class ArtistTableViewController: UITableViewController {
             // Pass on the Artists array to further customize our final API call to Spotify.
             destinationVC.userSelectedArtists = self.userSelectedArtists
         }
-    }
-    
-    // MARK: - UI Element changes:
-    
-    func changeNavigationFontElements() {
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
-        
-        self.nextButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        let backButton = UIBarButtonItem(title: "Artists", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
-        
-        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        navigationItem.backBarButtonItem = backButton
     }
 }

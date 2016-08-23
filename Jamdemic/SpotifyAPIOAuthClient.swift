@@ -123,12 +123,19 @@ struct SpotifyAPIOAuthClient {
      */
     private static func loadSpotifyAccessToken(completion: (String?)->() ) {
         let tokenReference = FIRDatabase.database().referenceWithPath("/private_tokens/spotify_access_token")
-        tokenReference.observeEventType(.Value) { (snapshot: FIRDataSnapshot) in
-            let token = snapshot.value as? String
-            print("Retrived token from Firebase: \(token)")
-            // Observers need to be removed, otherwise they continue to sync data
-            tokenReference.removeAllObservers()
-            completion(token)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        if !appDelegate.isReachable() {
+            completion(nil)
+        }
+        else {
+            tokenReference.observeEventType(.Value) { (snapshot: FIRDataSnapshot) in
+                let token = snapshot.value as? String
+                print("Retrived token from Firebase: \(token)")
+                // Observers need to be removed, otherwise they continue to sync data
+                tokenReference.removeAllObservers()
+                completion(token)
+            }
         }
     }
 
@@ -143,7 +150,12 @@ struct SpotifyAPIOAuthClient {
         // Block to make a limited request to the Spotify API using the current access token loaded from Firebase
         let oauthTestTask: (oauthSuccess: String -> Void, oauthfailure: NSError -> Void) -> Void = {oauthSuccess, oauthFailure in
             SpotifyAPIOAuthClient.loadSpotifyAccessToken({ (token) in
-                guard let token = token else { fatalError("Unable to unwrap access token") }
+                guard let token = token else {
+                    print("Unable to unwrap token")
+                    let error = NSError(domain: "CannotLoadFirebaseToken", code: 1984, userInfo: nil)
+                    oauthFailure(error)
+                    return
+                }
                 
                 // Set up the parameters to get a list of categories. Limit set to 1 since we want a small request to test the token
                 let parameters = ["limit": 1]

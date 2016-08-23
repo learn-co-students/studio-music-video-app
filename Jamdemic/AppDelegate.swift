@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupReachability()
         
+        AppAppearance.setAppAppearance()
+        
         return true
         
   
@@ -58,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        postAlertForInitialNetworkStatus()
     }
     
     func applicationWillTerminate(application: UIApplication) {
@@ -125,8 +128,11 @@ extension AppDelegate {
                                                          selector: #selector(reachabilityChanged),
                                                          name: kReachabilityChangedNotification,
                                                          object: nil)
+    
         
         self.reach!.startNotifier()
+        
+        postAlertForInitialNetworkStatus()
     }
     
     func reachabilityChanged() {
@@ -137,6 +143,23 @@ extension AppDelegate {
             print("No service avalaible!!!")
             NSNotificationCenter.defaultCenter().postNotificationName(Notifications.networkUnavailable, object: nil)
         }
+    }
+    
+    func postAlertForInitialNetworkStatus() {
+        if !isReachable() {
+            print("No service avalaible!!!")
+            NSNotificationCenter.defaultCenter().postNotificationName(Notifications.networkUnavailable, object: nil)
+        }
+        else {
+            print("Service avalaible!!!")
+        }
+    }
+    
+    func isReachable() -> Bool {
+        if self.reach!.isReachableViaWWAN() || self.reach!.isReachableViaWiFi() {
+            return true
+        }
+        return false
     }
     
 }

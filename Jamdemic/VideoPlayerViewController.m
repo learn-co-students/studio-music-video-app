@@ -43,6 +43,7 @@ static NSString *kKeyPath = @"moviePlayer.contentURL";
 - (void)_playVideos
 {
     self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:self.videoIDs[self.currentVideoIndex]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.videoPlayerViewController name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
     [self.videoPlayerViewController presentInView:self.view];
     [self _registerNotifications];
     [self.videoPlayerViewController addObserver:self forKeyPath:kKeyPath options:0 context:kMoviePlayerContentURLContext];
@@ -51,7 +52,6 @@ static NSString *kKeyPath = @"moviePlayer.contentURL";
 
 - (void)_moviePlayerDidFinish:(NSNotification *)notification
 {
-    NSLog(@"Playing number %li", self.currentVideoIndex);
     if ([self _hasNextVideo]) {
         self.videoPlayerViewController.videoIdentifier = [self _nextVideoIdentifier];
     }
@@ -86,11 +86,11 @@ static NSString *kKeyPath = @"moviePlayer.contentURL";
     return self.videoIDs[self.currentVideoIndex];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)dealloc
 {
-    [super viewWillDisappear:animated];
-    
     [self.videoPlayerViewController removeObserver:self forKeyPath:kKeyPath context:kMoviePlayerContentURLContext];
+    
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:self.videoPlayerViewController.moviePlayer];
