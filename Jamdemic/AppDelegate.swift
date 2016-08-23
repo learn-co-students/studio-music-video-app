@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupReachability()
         
+        AppAppearance.setAppAppearance()
+        
         return true
         
   

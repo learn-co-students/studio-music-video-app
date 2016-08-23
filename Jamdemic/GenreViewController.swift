@@ -9,29 +9,30 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SCLAlertView
 
 class GenreViewController: UIViewController {
 
     
     let genreInfo = [
-        GenreInfo(displayTitle: "Alternative", spotifyTitle: "alternative", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Rock", spotifyTitle: "rock", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Pop", spotifyTitle: "pop", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Jazz", spotifyTitle: "jazz", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Metal", spotifyTitle: "metal", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Reggae", spotifyTitle: "reggae", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Country", spotifyTitle: "country", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "EDM/Dance", spotifyTitle: "dance", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Hip-Hop", spotifyTitle: "hip-hop", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "K-pop", spotifyTitle: "k-pop", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Christian", spotifyTitle: "gospel", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Funk", spotifyTitle: "funk", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Punk", spotifyTitle: "punk", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Blues", spotifyTitle: "blues", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Classical", spotifyTitle: "classical", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "RnB", spotifyTitle: "r-n-b", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Indie", spotifyTitle: "indie", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!),
-        GenreInfo(displayTitle: "Soul", spotifyTitle: "soul", selectedImage: UIImage(named: "Acoustic")!, deselectedImage: UIImage(named: "Acoustic-Highlighted")!)
+        GenreInfo(displayTitle: "Alternative", spotifyTitle: "alternative", selectedImage: UIImage(named: "alternative-selected")!, deselectedImage: UIImage(named: "alternative-unselected")!),
+        GenreInfo(displayTitle: "Rock", spotifyTitle: "rock", selectedImage: UIImage(named: "rock-selected")!, deselectedImage: UIImage(named: "rock-unselected")!),
+        GenreInfo(displayTitle: "Pop", spotifyTitle: "pop", selectedImage: UIImage(named: "pop-selected")!, deselectedImage: UIImage(named: "pop-unselected")!),
+        GenreInfo(displayTitle: "Jazz", spotifyTitle: "jazz", selectedImage: UIImage(named: "jazz-selected")!, deselectedImage: UIImage(named: "jazz-unselected")!),
+        GenreInfo(displayTitle: "Metal", spotifyTitle: "metal", selectedImage: UIImage(named: "metal-selected")!, deselectedImage: UIImage(named: "metal-unselected")!),
+        GenreInfo(displayTitle: "Reggae", spotifyTitle: "reggae", selectedImage: UIImage(named: "reggae-selected")!, deselectedImage: UIImage(named: "reggae-unselected")!),
+        GenreInfo(displayTitle: "Country", spotifyTitle: "country", selectedImage: UIImage(named: "country-selected")!, deselectedImage: UIImage(named: "country-unselected")!),
+        GenreInfo(displayTitle: "EDM/Dance", spotifyTitle: "dance", selectedImage: UIImage(named: "edm-dance-selected")!, deselectedImage: UIImage(named: "edm-dance-unselected")!),
+        GenreInfo(displayTitle: "Hip-Hop", spotifyTitle: "hip-hop", selectedImage: UIImage(named: "hip-hop-selected")!, deselectedImage: UIImage(named: "hip-hop-unselected")!),
+        GenreInfo(displayTitle: "K-pop", spotifyTitle: "k-pop", selectedImage: UIImage(named: "k-pop-selected")!, deselectedImage: UIImage(named: "k-pop-unselected")!),
+        GenreInfo(displayTitle: "Christian", spotifyTitle: "gospel", selectedImage: UIImage(named: "christian-selected")!, deselectedImage: UIImage(named: "christian-unselected")!),
+        GenreInfo(displayTitle: "Funk", spotifyTitle: "funk", selectedImage: UIImage(named: "funk-selected")!, deselectedImage: UIImage(named: "funk-unselected")!),
+        GenreInfo(displayTitle: "Punk", spotifyTitle: "punk", selectedImage: UIImage(named: "punk-selected")!, deselectedImage: UIImage(named: "punk-unselected")!),
+        GenreInfo(displayTitle: "Blues", spotifyTitle: "blues", selectedImage: UIImage(named: "blues-selected")!, deselectedImage: UIImage(named: "blues-unselected")!),
+        GenreInfo(displayTitle: "Classical", spotifyTitle: "classical", selectedImage: UIImage(named: "classical-selected")!, deselectedImage: UIImage(named: "classical-unselected")!),
+        GenreInfo(displayTitle: "RnB", spotifyTitle: "r-n-b", selectedImage: UIImage(named: "rnb-selected")!, deselectedImage: UIImage(named: "rnb-unselected")!),
+        GenreInfo(displayTitle: "Indie", spotifyTitle: "indie", selectedImage: UIImage(named: "indie-selected")!, deselectedImage: UIImage(named: "indie-unselected")!),
+        GenreInfo(displayTitle: "Soul", spotifyTitle: "soul", selectedImage: UIImage(named: "soul-selected")!, deselectedImage: UIImage(named: "soul-unselected")!)
     ]
     
     
@@ -61,7 +62,10 @@ class GenreViewController: UIViewController {
     var numberOfSelectedGenres = 0
     
     let numberOfColumns: CGFloat = 3.0
-    let cellSpacing: CGFloat = 1.0
+    let cellSpacing: CGFloat = 5.0
+    var totalSpacing: CGFloat {
+       return numberOfColumns + 1
+    }
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -72,16 +76,13 @@ class GenreViewController: UIViewController {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
-        changeNagivationFontElements()
-        //print(genreQueryString)
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.allowsMultipleSelection = true
         
         self.nextButton.enabled = false
-        
+        self.collectionView.contentInset = UIEdgeInsets(top: self.cellSpacing, left: self.cellSpacing, bottom: self.cellSpacing, right: self.cellSpacing)
         // Listen for new searches
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearSelection), name: Notifications.newSearch, object: nil)
         
@@ -89,12 +90,11 @@ class GenreViewController: UIViewController {
     
     func displayMaxGenreSelectedAlert() {
         
-        let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of genres selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
         
-        notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        let alert = SCLAlertView(appearance: alertAppearance)
         
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
-
+        alert.showWarning("", subTitle: "Maximum number of genres selected")
     }
     
     // MARK: - Navigation:
@@ -103,26 +103,11 @@ class GenreViewController: UIViewController {
         
         if segue.identifier == "showArtistSegue" {
             
-            let destinationTVC = segue.destinationViewController as! ArtistTableViewController
+            let destinationTVC = segue.destinationViewController as! ArtistViewController
             
             // Passes the genreValues string to the ArtistsTableViewController to do the API call to Spotify in the viewDidLoad method.
             destinationTVC.genreQueryString = queryStringForSelectedGenres()
         }
-    }
-    
-    // MARK: - UI Element changes:
-    
-    func changeNagivationFontElements() {
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!]
-        
-        self.nextButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        let backButton = UIBarButtonItem(title: "Genres", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
-        
-        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], forState: UIControlState.Normal)
-        
-        navigationItem.backBarButtonItem = backButton
     }
     
     // MARK: - Clearing Selection
@@ -141,6 +126,10 @@ class GenreViewController: UIViewController {
         }
         print(queryString)
         return queryString
+    }
+    
+    func toggleNextButton() {
+       self.nextButton.enabled = self.selectedGenres.count > 0 ? true : false
     }
 }
 
@@ -161,12 +150,20 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func calculcateCellSize() -> CGSize {
-        let cellWidthAndHeight = (self.collectionView.bounds.size.width - (self.cellSpacing * self.numberOfColumns)) / self.numberOfColumns
+        let cellWidthAndHeight = (self.collectionView.bounds.size.width - (self.cellSpacing * self.totalSpacing)) / self.numberOfColumns
         return CGSize(width: cellWidthAndHeight, height: cellWidthAndHeight)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.genreInfo.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if self.numberOfSelectedGenres == 5 {
+            self.displayMaxGenreSelectedAlert()
+            return false
+        }
+        return true
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -177,11 +174,6 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         selectedGenres.append(genre.spotifyTitle)
         
-        if self.numberOfSelectedGenres == 5 {
-            self.displayMaxGenreSelectedAlert()
-            return
-        }
-        
         self.numberOfSelectedGenres += 1
         
         if self.numberOfSelectedGenres > 0 {
@@ -190,6 +182,8 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! GenreCollectionViewCell
         cell.displayImageView.image = genre.displayImage
+        
+        self.toggleNextButton()
         
         print(selectedGenres)
     }
@@ -211,6 +205,8 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.displayImageView.image = genre.displayImage
     
         print(selectedGenres)
+        
+        self.toggleNextButton()
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
