@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0749F47E1D6B4C53002910DD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F47D1D6B4C53002910DD /* Secrets.swift */; };
 		07B07F801D6CA518005B79A3 /* CircledPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B07F7F1D6CA518005B79A3 /* CircledPlay.png */; };
 		07CEBE361D6BD4C90090FEAC /* black-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CEBE351D6BD4C90090FEAC /* black-background.png */; };
 		07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */; };
@@ -76,7 +75,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0749F47D1D6B4C53002910DD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		07B07F7F1D6CA518005B79A3 /* CircledPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CircledPlay.png; sourceTree = "<group>"; };
 		07CEBE351D6BD4C90090FEAC /* black-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-background.png"; sourceTree = "<group>"; };
 		07F31BD21D5D04CE005EA2B9 /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
@@ -627,7 +625,6 @@
 				C976AD531D67791900C40D9A /* MoodInfo.swift in Sources */,
 				C94E93B41D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift in Sources */,
 				C99A11E91D6B7BC100667282 /* AppAppearance.swift in Sources */,
-				0749F47E1D6B4C53002910DD /* Secrets.swift in Sources */,
 				C9C1F0EE1D5E8E1E00600D75 /* PlaylistTableViewCell.swift in Sources */,
 				C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */,
 				C99A11ED1D6B9C6000667282 /* ArtistCollectionViewCell.swift in Sources */,
