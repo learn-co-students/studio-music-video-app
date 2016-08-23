@@ -61,8 +61,8 @@ class Helper {
     }
     
     func switchToNavigationViewController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let navVC = storyboard.instantiateViewControllerWithIdentifier("NavigationVC") as! UINavigationController
+        let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
+        let navVC = storyboard.instantiateViewControllerWithIdentifier("GenreStoryBoard") 
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.window?.rootViewController = navVC
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ngi-nc-XDD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pkU-3H-eMh">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -17,11 +17,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eEg-pA-TKQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundPhoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="eEg-pA-TKQ">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwQ-5z-RRq">
+                                <rect key="frame" x="212" y="368" width="176" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="176" id="HHU-xW-vte"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
+                                <state key="normal" title="Anonymous Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="anonymousLoginDidTapped:" destination="pkU-3H-eMh" eventType="touchUpInside" id="55Y-Ie-B42"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OrLine.png" translatesAutoresizingMaskIntoConstraints="NO" id="nEP-Oz-IdE">
+                                <rect key="frame" x="157" y="292" width="287" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="287" id="cDP-As-v57"/>
+                                    <constraint firstAttribute="height" constant="16" id="hWO-6v-btz"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2r-OE-9qI">
+                                <rect key="frame" x="193" y="184" width="214" height="48"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
+                                <state key="normal" title="Sign In With Google" image="btn_google_dark_normal_ios"/>
+                                <state key="highlighted" image="btn_google_dark_pressed_ios"/>
+                                <connections>
+                                    <action selector="googleSignInDidTapped:" destination="pkU-3H-eMh" eventType="touchUpInside" id="Pe6-QC-TkR"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="top" secondItem="T2r-OE-9qI" secondAttribute="bottom" constant="60" id="5kp-45-eYs"/>
+                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="centerX" secondItem="qwQ-5z-RRq" secondAttribute="centerX" id="6Lr-mb-Q7B"/>
+                            <constraint firstAttribute="trailing" secondItem="eEg-pA-TKQ" secondAttribute="trailing" id="FTb-OB-zLA"/>
+                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="top" secondItem="4AQ-Bw-pyF" secondAttribute="top" id="MyK-i1-K6h"/>
+                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leading" id="QYr-an-l1v"/>
+                            <constraint firstItem="T2r-OE-9qI" firstAttribute="centerX" secondItem="eEg-pA-TKQ" secondAttribute="centerX" id="YK9-Gq-gnx"/>
+                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="bottom" secondItem="GX4-Ts-8YP" secondAttribute="top" id="hBR-Vn-Wbe"/>
+                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="centerX" secondItem="qwQ-5z-RRq" secondAttribute="centerX" id="jVg-v4-mVP"/>
+                            <constraint firstItem="eEg-pA-TKQ" firstAttribute="centerY" secondItem="nEP-Oz-IdE" secondAttribute="centerY" id="kow-u8-u90"/>
+                            <constraint firstItem="GX4-Ts-8YP" firstAttribute="top" secondItem="qwQ-5z-RRq" secondAttribute="bottom" constant="191" id="qar-2P-kps"/>
+                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="top" secondItem="nEP-Oz-IdE" secondAttribute="bottom" constant="60" id="tm1-S7-xid"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="anonymousLoginButton" destination="qwQ-5z-RRq" id="h3j-AA-9LL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zry-5h-wuW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -30,7 +75,7 @@
         <!--Home View Controller-->
         <scene sceneID="fwZ-CY-SB5">
             <objects>
-                <viewController id="Ngi-nc-XDD" customClass="HomeViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="Ngi-nc-XDD" customClass="HomeViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PbJ-Ma-Aub"/>
                         <viewControllerLayoutGuide type="bottom" id="Ve5-R8-sg3"/>
@@ -39,51 +84,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jamdemic" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szY-bY-76W">
-                                <rect key="frame" x="173" y="270" width="255" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="255" id="kCZ-Sv-U8m"/>
-                                    <constraint firstAttribute="height" constant="60" id="pBb-rQ-AHe"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRF-gS-beH">
-                                <rect key="frame" x="270" y="455" width="60" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="2l4-4y-0Mj"/>
-                                    <constraint firstAttribute="height" constant="30" id="c2W-Wq-iH9"/>
-                                </constraints>
-                                <state key="normal" title="Sign Out">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTapSignOut:" destination="Ngi-nc-XDD" eventType="touchUpInside" id="e1x-Ck-wrR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yas-1S-KDJ">
-                                <rect key="frame" x="245" y="338" width="110" height="30"/>
-                                <state key="normal" title="Create a Playlist">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="WcY-af-jom" kind="show" id="oO6-sC-QeY"/>
-                                </connections>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundPhoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="TgZ-ZD-m3k">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.54412005529336438" green="0.18528063970181102" blue="0.88319188399280579" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Yas-1S-KDJ" firstAttribute="centerX" secondItem="szY-bY-76W" secondAttribute="centerX" id="9DK-ck-J8l"/>
-                            <constraint firstItem="SRF-gS-beH" firstAttribute="centerX" secondItem="szY-bY-76W" secondAttribute="centerX" id="QxW-zB-3cq"/>
-                            <constraint firstItem="Ve5-R8-sg3" firstAttribute="top" secondItem="SRF-gS-beH" secondAttribute="bottom" constant="115" id="cd8-2i-AE6"/>
-                            <constraint firstItem="szY-bY-76W" firstAttribute="centerY" secondItem="rqV-9O-1Bj" secondAttribute="centerY" id="pn5-2j-Y2Y"/>
-                            <constraint firstItem="Yas-1S-KDJ" firstAttribute="top" secondItem="szY-bY-76W" secondAttribute="bottom" constant="8" id="q6V-x7-qBM"/>
-                            <constraint firstItem="szY-bY-76W" firstAttribute="centerX" secondItem="rqV-9O-1Bj" secondAttribute="centerX" id="wz6-tF-sRV"/>
+                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="top" secondItem="rqV-9O-1Bj" secondAttribute="top" id="B7h-fO-JaQ"/>
+                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="bottom" secondItem="Ve5-R8-sg3" secondAttribute="top" id="BtV-pl-TWZ"/>
+                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="leading" secondItem="rqV-9O-1Bj" secondAttribute="leading" id="L0q-TW-2cO"/>
+                            <constraint firstAttribute="trailing" secondItem="TgZ-ZD-m3k" secondAttribute="trailing" id="jgO-MK-8ev"/>
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="pkU-3H-eMh" kind="show" identifier="showLogin" id="I6d-Qv-2Nl"/>
+                        <segue destination="WcY-af-jom" kind="show" id="36h-D8-FAu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kaf-rP-CiG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -93,10 +106,16 @@
         <!--GenreStoryboard-->
         <scene sceneID="nEM-OT-XrC">
             <objects>
-                <viewControllerPlaceholder storyboardName="GenreStoryboard" id="WcY-af-jom" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="GenreStoryBoard" storyboardName="GenreStoryboard" id="WcY-af-jom" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q1f-Oz-MPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="890.5" y="300"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="OrLine.png" width="864" height="45"/>
+        <image name="backgroundPhoto.png" width="1125" height="2001"/>
+        <image name="btn_google_dark_normal_ios" width="48" height="48"/>
+        <image name="btn_google_dark_pressed_ios" width="48" height="48"/>
+    </resources>
 </document>
