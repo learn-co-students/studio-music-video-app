@@ -99,9 +99,12 @@ struct MoodInfo {
             attributes["max_tempo"] = 0.5
             attributes["max_energy"] = 0.5
             
-        case .Active: break
-        
-        case .Focused: break
+        case .Active:
+            attributes["min_energy"] = 0.7
+            attributes["min_danceability"] = 0.7
+            
+        case .Focused:
+            attributes["max_speechiness"] = 0.55
             
         }
         return attributes
