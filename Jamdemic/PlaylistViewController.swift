@@ -23,26 +23,26 @@ class PlaylistViewController: UIViewController {
     var artistThumbnails: [String : UIImage] = [:]
     var videoIDs: [String] = []
     
-    @IBOutlet weak var newSearchButton: UIButton!
+  @IBOutlet weak var newSearchButton: UIButton!
     
-    @IBOutlet weak var savePlaylistButton: UIButton!
+  @IBOutlet weak var savePlaylistButton: UIButton!
    
     let photoQueue = NSOperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
-         view.backgroundColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0)
-        
-        newSearchButton.layer.cornerRadius = 2;
-        newSearchButton.layer.borderWidth = 3;
-        newSearchButton.layer.borderColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0).CGColor
-        
-        
-        savePlaylistButton.layer.cornerRadius = 2;
-        savePlaylistButton.layer.borderWidth = 3;
-        savePlaylistButton.layer.borderColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0).CGColor
-        
+//         view.backgroundColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0)
+//        
+//        newSearchButton.layer.cornerRadius = 2;
+//        newSearchButton.layer.borderWidth = 3;
+//        newSearchButton.layer.borderColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0).CGColor
+//        
+//        
+//        savePlaylistButton.layer.cornerRadius = 2;
+//        savePlaylistButton.layer.borderWidth = 3;
+//        savePlaylistButton.layer.borderColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0).CGColor
+//        
         
         
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -73,12 +73,12 @@ class PlaylistViewController: UIViewController {
       //  cell.backgroundColor = UIColor.blackColor()
       //cell.contentView.backgroundColor = UIColor.darkGrayColor()
         //cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
-      
-        let imageView = UIImageView(frame: CGRectMake(0, 0, cell.frame.width , cell.frame.height))
-        let image = UIImage(named: "black-background.png")
-        imageView.image = image
-        cell.backgroundView = UIView()
-        cell.backgroundView!.addSubview(imageView)
+//      
+//        let imageView = UIImageView(frame: CGRectMake(0, 0, cell.frame.width , cell.frame.height))
+//        let image = UIImage(named: "black-background.png")
+//        imageView.image = image
+//        cell.backgroundView = UIView()
+//        cell.backgroundView!.addSubview(imageView)
         
        
     }
@@ -128,7 +128,7 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         
         let playlistItem = playlistData[indexPath.row]
         cell.artistSongTitleLabel.text = "Artist: \(playlistItem.name) -\nSong: \(playlistItem.songTitle)"
-        cell.artistSongTitleLabel.textColor = UIColor.whiteColor()
+        cell.artistSongTitleLabel.textColor = UIColor.blackColor()
         cell.artistSongTitleLabel.font = UIFont.preferredFontForTextStyle("Avenir Next")
     
        
