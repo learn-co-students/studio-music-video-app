@@ -52,6 +52,7 @@ class HomeViewController: UIViewController {
     }
 
     
+    
 
     func checkCurrentUser() {
         
@@ -63,18 +64,6 @@ class HomeViewController: UIViewController {
     }
     
     
-    @IBAction func didTapSignOut(sender: AnyObject) {
-        try! FIRAuth.auth()!.signOut()
-        checkCurrentUser()
-        GIDSignIn.sharedInstance().signOut()
-        let firebaseAuth = FIRAuth.auth()
-        do {
-            try firebaseAuth?.signOut()
-            AppState.sharedInstance.signedIn = false
-//            self.dismissViewControllerAnimated(true, completion: nil)
-        } catch let signOutError as NSError {
-            print ("Error signing out: \(signOutError)")
-        }
-    }
+
 
 }
