@@ -78,6 +78,7 @@ class ArtistViewController: UIViewController {
 // MARK: - Spotify Queries
 extension ArtistViewController {
     func querySpotifyForArtists() {
+        print("Seaching for artists matching genre: \(self.genreQueryString)")
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
             
             SpotifyAPIClient.generateArtists(withGenres: self.genreQueryString, withToken: token, completion: { (json) in

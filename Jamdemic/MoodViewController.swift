@@ -102,110 +102,7 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         }
         return eachArtistString
     }
-    
-    func storeDifferentMoods(moods : String) {
-        
-        switch moods {
-            
-        case "Acoustic":
-            self.moodParameterDictionary["min_acousticness"] = 0.7
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Most Played":
-            self.moodParameterDictionary["min_popularity"] = 70
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Live":
-            self.moodParameterDictionary["min_liveness"] = 0.7
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Slow Dance":
-            self.moodParameterDictionary["min_danceability"] = 0.7
-            self.moodParameterDictionary["max_energy"] = 0.4
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Energetic":
-            self.moodParameterDictionary["min_danceability"] = 0.7
-            self.moodParameterDictionary["max_energy"] = 0.7
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Instrumental":
-            self.moodParameterDictionary["min_instrumentalness"] = 0.6
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Happy":
-            self.moodParameterDictionary["min_valence"] = 0.7
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Chill":
-            self.moodParameterDictionary["min_energy"] = 0.6
-            self.moodParameterDictionary["min_valence"] = 0.7
-            self.moodParameterDictionary["max_danceability"] = 0.5
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Sad":
-            self.moodParameterDictionary["max_valence"] = 0.4
-            self.moodParameterDictionary["max_energy"] = 0.4
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Rage":
-            self.moodParameterDictionary["max_valence"] = 0.4
-            self.moodParameterDictionary["min_energy"] = 0.7
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Smooth":
-            self.moodParameterDictionary["min_energy"] = 0.5
-            self.moodParameterDictionary["min_valence"] = 0.5
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Reflective":
-            self.moodParameterDictionary["min_liveness"] = 0.7
-            self.moodParameterDictionary["min_valence"] = 0.6
-            self.moodParameterDictionary["max_energy"] = 0.5
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Awake":
-            self.moodParameterDictionary["max_energy"] = 0.5
-            self.moodParameterDictionary["min_valence"] = 0.7
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Motivational":
-            self.moodParameterDictionary["min_valence"] = 0.7
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Chaotic":
-            self.moodParameterDictionary["min_valence"] = 0.4
-            self.moodParameterDictionary["min_energy"] = 0.7
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        case "Sleepy":
-            //self.moodParameterDictionary["max_tempo"] = 0.5
-            self.moodParameterDictionary["max_energy"] = 0.5
-            print("Your music mood(s) are: \(self.moodParameterDictionary)")
-            
-        default:
-            print("Not a valid Mood.")
-        }
-    }
-    
-    @IBAction func moodButtonDidTouchUpInside(sender: UIButton) {
-    
-        guard let unwrappedMoodTitle = sender.titleLabel?.text else { fatalError("Error unwrapping moode button title.") }
-        
-        if self.numberOfSelectedMoods < 3 {
-            
-            self.storeDifferentMoods(unwrappedMoodTitle)
-        
-        // If the user chooses more than three moods, they are presented with an alert view and no more genres are added to the genreValues string.
-        } else {
-            
-            let notificationAlert : UIAlertController = UIAlertController(title: "Uh oh, maximum number of moods selected.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            
-            self.presentViewController(notificationAlert, animated: true, completion: nil)
-        }
-    }
+
 
     @IBAction func generatePlaylist(sender: AnyObject) {
         
@@ -234,7 +131,16 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
                         
                         self.finalQueryDictionary[artistsNames] = trackNames
                     }
-                    self.crossReferenceYoutubeSearch()
+                    
+                    if self.finalQueryDictionary.isEmpty {
+                        print("No results for the specified parameters")
+                        self.displayNoTracksAlert()
+                    }
+                    else {
+                        self.crossReferenceYoutubeSearch()
+                    }
+                    
+                    
                 }
               
             })
@@ -314,6 +220,17 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         else {
             alert.showError("Oh no!", subTitle: "Something went wrong!")
         }
+    }
+    
+    func displayNoTracksAlert() {
+        let alertAppearance = SCLAlertView.SCLAppearance(kTitleFont: UIFont(name: "Avenir Next", size: 20)!,
+                                                         kTextFont: UIFont(name: "Avenir Next", size: 14)!,
+                                                         kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
+        
+        let alert = SCLAlertView(appearance: alertAppearance)
+        
+        alert.showWarning("Oh no!", subTitle: "There aren't any tracks that meet these filters. Trying choosing a different mood or genre.")
+        self.stopActivityAnimating()
     }
     
     func flattenSelectedMoods() -> [String : AnyObject] {
