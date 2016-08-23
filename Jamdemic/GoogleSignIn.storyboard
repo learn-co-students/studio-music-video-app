@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pkU-3H-eMh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pkU-3H-eMh">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
@@ -26,7 +27,7 @@
                                     <constraint firstAttribute="width" constant="176" id="Cef-s9-5f7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                <state key="normal" title="Anonymous Login">
+                                <state key="normal" title="Start Exploring">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -78,49 +79,9 @@
             </objects>
             <point key="canvasLocation" x="539" y="-479"/>
         </scene>
-        <!--Home View Controller-->
-        <scene sceneID="fwZ-CY-SB5">
-            <objects>
-                <viewController storyboardIdentifier="HomeVC" id="Ngi-nc-XDD" customClass="HomeViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PbJ-Ma-Aub"/>
-                        <viewControllerLayoutGuide type="bottom" id="Ve5-R8-sg3"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rqV-9O-1Bj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundPhoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="TgZ-ZD-m3k">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="top" secondItem="rqV-9O-1Bj" secondAttribute="top" id="B7h-fO-JaQ"/>
-                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="bottom" secondItem="Ve5-R8-sg3" secondAttribute="top" id="BtV-pl-TWZ"/>
-                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="leading" secondItem="rqV-9O-1Bj" secondAttribute="leading" id="L0q-TW-2cO"/>
-                            <constraint firstAttribute="trailing" secondItem="TgZ-ZD-m3k" secondAttribute="trailing" id="jgO-MK-8ev"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <segue destination="WcY-af-jom" kind="show" id="36h-D8-FAu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Kaf-rP-CiG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="382" y="272"/>
-        </scene>
-        <!--GenreStoryboard-->
-        <scene sceneID="nEM-OT-XrC">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="GenreStoryBoard" storyboardName="GenreStoryboard" id="WcY-af-jom" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Q1f-Oz-MPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="890.5" y="300"/>
-        </scene>
     </scenes>
     <resources>
         <image name="OrLine.png" width="864" height="45"/>
-        <image name="backgroundPhoto.png" width="1125" height="2001"/>
         <image name="btn_google_dark_normal_ios" width="48" height="48"/>
         <image name="btn_google_dark_pressed_ios" width="48" height="48"/>
     </resources>

@@ -31,19 +31,6 @@ class PlaylistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-//         view.backgroundColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0)
-//        
-//        newSearchButton.layer.cornerRadius = 2;
-//        newSearchButton.layer.borderWidth = 3;
-//        newSearchButton.layer.borderColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0).CGColor
-//        
-//        
-//        savePlaylistButton.layer.cornerRadius = 2;
-//        savePlaylistButton.layer.borderWidth = 3;
-//        savePlaylistButton.layer.borderColor = UIColor(red:0.98, green:0.15, blue:0.32, alpha:1.0).CGColor
-//        
-        
         
         GIDSignIn.sharedInstance().uiDelegate = self
         
@@ -58,30 +45,7 @@ class PlaylistViewController: UIViewController {
        
     }
     
- 
-    
-//    override func viewWillAppear(animated: Bool) {
-//        let backgroundImage = UIImage(named: "black-background.png")
-//        
-//        let imageView = UIImageView(image: backgroundImage)
-//        playlistTableview.backgroundView = imageView
-//        imageView.contentMode = .ScaleAspectFill
-//    }
-    
-    
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-      //  cell.backgroundColor = UIColor.blackColor()
-      //cell.contentView.backgroundColor = UIColor.darkGrayColor()
-        //cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
-//      
-//        let imageView = UIImageView(frame: CGRectMake(0, 0, cell.frame.width , cell.frame.height))
-//        let image = UIImage(named: "black-background.png")
-//        imageView.image = image
-//        cell.backgroundView = UIView()
-//        cell.backgroundView!.addSubview(imageView)
-        
-       
-    }
+
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -127,9 +91,8 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("videoCell", forIndexPath: indexPath) as! PlaylistTableViewCell
         
         let playlistItem = playlistData[indexPath.row]
-        cell.artistSongTitleLabel.text = "Artist: \(playlistItem.name) -\nSong: \(playlistItem.songTitle)"
+        cell.artistSongTitleLabel.text = "\(playlistItem.name) - \(playlistItem.songTitle)"
         cell.artistSongTitleLabel.textColor = UIColor.blackColor()
-        cell.artistSongTitleLabel.font = UIFont.preferredFontForTextStyle("Avenir Next")
     
        
         
@@ -197,16 +160,25 @@ extension PlaylistViewController {
     }
     
     func presentPermissionsDialog() {
-        let alertcontroller = UIAlertController(title: "Allow Jamdemic to save playlists to your Youtube account?", message: nil, preferredStyle: .Alert)
         
-        let allowAction = UIAlertAction(title: "Allow", style: .Default, handler: { action in
-            self.googleSignInWithYoutubeScope()
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alertcontroller.addAction(allowAction)
-        alertcontroller.addAction(cancelAction)
-        self.presentViewController(alertcontroller, animated: true, completion: nil)
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
+        let alert = SCLAlertView(appearance: alertAppearance)
+        alert.addButton("Cancel") { }
+        alert.addButton("Allow") { 
+            print("Allow")
+        }
+
+        
+//        let alertcontroller = UIAlertController(title: "Allow Jamdemic to save playlists to your Youtube account?", message: nil, preferredStyle: .Alert)
+//        
+//        let allowAction = UIAlertAction(title: "Allow", style: .Default, handler: { action in
+//            self.googleSignInWithYoutubeScope()
+//            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
+//        })
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+//        alertcontroller.addAction(allowAction)
+//        alertcontroller.addAction(cancelAction)
+//        self.presentViewController(alertcontroller, animated: true, completion: nil)
     }
     
     func savePlaylist() {

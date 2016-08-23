@@ -10,9 +10,11 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import SCLAlertView
+import Firebase
 
 class GenreViewController: UIViewController {
 
+    let notification = CWStatusBarNotification()
     
     let genreInfo = [
         GenreInfo(displayTitle: "Alternative", spotifyTitle: "alternative", selectedImage: UIImage(named: "alternative-selected")!, deselectedImage: UIImage(named: "alternative-unselected")!),
@@ -84,8 +86,15 @@ class GenreViewController: UIViewController {
         self.nextButton.enabled = false
         self.collectionView.contentInset = UIEdgeInsets(top: self.cellSpacing, left: self.cellSpacing, bottom: self.cellSpacing, right: self.cellSpacing)
         // Listen for new searches
+        
+        registerNotifications()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearSelection), name: Notifications.newSearch, object: nil)
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        checkCurrentUser()
     }
     
     func displayMaxGenreSelectedAlert() {
@@ -219,4 +228,45 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return cell
     }
     
+}
+
+//MARK: Sign in
+extension GenreViewController {
+    
+    func checkCurrentUser() {
+        
+        if FIRAuth.auth()?.currentUser == nil {
+            // take user to login screen
+            performSegueWithIdentifier(Constants.Segues.ShowLogin, sender: nil)
+        }
+    }
+}
+
+//MARK: Network
+extension GenreViewController {
+    
+    func registerNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(networkUnavailable), name: Notifications.networkUnavailable, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(networkAvailable), name: Notifications.networkAvailable, object: nil)
+    }
+    
+    func networkUnavailable() {
+        self.notification.notificationLabelBackgroundColor = UIColor.redColor()
+        
+        let notificationFont = UIFont.systemFontOfSize(15)
+        
+        self.notification.notificationLabelFont = notificationFont
+        self.notification.displayNotificationWithMessage("No Internet Connection") {}
+    }
+    
+    func networkAvailable() {
+        self.notification.dismissNotificationWithCompletion {
+            let connectedNotification = CWStatusBarNotification()
+            connectedNotification.notificationLabelBackgroundColor = UIColor.greenColor()
+            connectedNotification.notificationLabelTextColor = UIColor.blackColor()
+            let notificationFont = UIFont.systemFontOfSize(15)
+            connectedNotification.notificationLabelFont = notificationFont
+            connectedNotification.displayNotificationWithMessage("Connected!", forDuration: 2.0)
+        }
+    }
 }
