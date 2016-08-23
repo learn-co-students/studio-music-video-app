@@ -20,8 +20,6 @@ protocol SearchModelDelegate {
 class SearchModel: NSObject {
     
     
-    private static var API_KEY: String = "AIzaSyByDaCLrNfiaF7a6i03JZZREtRcz9bHhBI"
-    
     private static var urlString: String = "https://www.googleapis.com/youtube/v3/search"
     
     //   private let channeId: String = "UC2pmfLm7iq6Ov1UwYrWYkZA"
@@ -37,7 +35,7 @@ class SearchModel: NSObject {
     
     class func getSearches(index: Int, searchText: String, completion: [String : String] -> Void) {
         
-        Alamofire.request(.GET, SearchModel.urlString, parameters: ["key":SearchModel.API_KEY,"q": searchText, "type":"video", "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
+        Alamofire.request(.GET, SearchModel.urlString, parameters: ["key":Secrets.youtubeAPIKey,"q": searchText, "type":"video", "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
             
             if let jsonResult = response.result.value {
                 
@@ -46,7 +44,7 @@ class SearchModel: NSObject {
                 
                 let searchVideoId = (json["items"][0]["id"]["videoId"].stringValue)
                 let videoTitle = (json["items"][0]["snippet"]["title"].stringValue)
-                let thumbnailUrl = (json["items"][0]["snippet"]["thumbnails"]["default"]["url"].stringValue)
+                let thumbnailUrl = (json["items"][0]["snippet"]["thumbnails"]["medium"]["url"].stringValue)
                 
                 let resultsDictionary = [
                     "videoID" : searchVideoId,

@@ -55,6 +55,11 @@
 		C9579D991D6630DB00169281 /* CWStatusBarNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9579D971D6630DB00169281 /* CWStatusBarNotification.swift */; };
 		C9579D9A1D6630DB00169281 /* CWStatusBarNotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9579D981D6630DB00169281 /* CWStatusBarNotificationUtils.swift */; };
 		C976AD511D674C9300C40D9A /* GenreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976AD501D674C9300C40D9A /* GenreInfo.swift */; };
+		C976AD531D67791900C40D9A /* MoodInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976AD521D67791900C40D9A /* MoodInfo.swift */; };
+		C976AD551D67879300C40D9A /* MoodCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976AD541D67879300C40D9A /* MoodCollectionViewCell.swift */; };
+		C99A11E91D6B7BC100667282 /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99A11E81D6B7BC100667282 /* AppAppearance.swift */; };
+		C99A11EB1D6B967A00667282 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99A11EA1D6B967A00667282 /* ArtistViewController.swift */; };
+		C99A11ED1D6B9C6000667282 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99A11EC1D6B9C6000667282 /* ArtistCollectionViewCell.swift */; };
 		C99CECE51D665C3300427F16 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99CECE41D665C3300427F16 /* GenreCollectionViewCell.swift */; };
 		C99E23FE8884C695C0F15292 /* Pods_Jamdemic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4F7CDAAA23EF60705D56B4 /* Pods_Jamdemic.framework */; };
 		C9C1F0E91D5E8A2200600D75 /* VideoPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9C1F0E81D5E8A2200600D75 /* VideoPlaylist.storyboard */; };
@@ -121,6 +126,11 @@
 		C9579D971D6630DB00169281 /* CWStatusBarNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotification.swift; sourceTree = "<group>"; };
 		C9579D981D6630DB00169281 /* CWStatusBarNotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotificationUtils.swift; sourceTree = "<group>"; };
 		C976AD501D674C9300C40D9A /* GenreInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreInfo.swift; sourceTree = "<group>"; };
+		C976AD521D67791900C40D9A /* MoodInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoodInfo.swift; sourceTree = "<group>"; };
+		C976AD541D67879300C40D9A /* MoodCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoodCollectionViewCell.swift; sourceTree = "<group>"; };
+		C99A11E81D6B7BC100667282 /* AppAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
+		C99A11EA1D6B967A00667282 /* ArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
+		C99A11EC1D6B9C6000667282 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		C99CECE41D665C3300427F16 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9C1F0E81D5E8A2200600D75 /* VideoPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = VideoPlaylist.storyboard; sourceTree = "<group>"; };
 		C9C1F0EB1D5E8A9200600D75 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +165,7 @@
 				2CE04EC41D64ADC900B7681C /* PlaylistDetailInfo.swift */,
 				2C0C9B931D5B7EB500ACA02D /* SpotifyQueryInfo.swift */,
 				C976AD501D674C9300C40D9A /* GenreInfo.swift */,
+				C976AD521D67791900C40D9A /* MoodInfo.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -166,6 +177,7 @@
 				2CE04EC11D63A52700B7681C /* ArtistWithHeadersTableViewController.swift */,
 				2C0C9B911D5B6E1C00ACA02D /* ArtistTableViewController.swift */,
 				2C0C9B951D5B83F200ACA02D /* MoodViewController.swift */,
+				C99A11EA1D6B967A00667282 /* ArtistViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -175,6 +187,8 @@
 			children = (
 				2CE04E7D1D6391DF00B7681C /* ArtistTableViewCell.swift */,
 				C99CECE41D665C3300427F16 /* GenreCollectionViewCell.swift */,
+				C976AD541D67879300C40D9A /* MoodCollectionViewCell.swift */,
+				C99A11EC1D6B9C6000667282 /* ArtistCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -214,6 +228,7 @@
 				C9579D931D662B8500169281 /* Reachability.m */,
 				C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */,
 				2C4A0C8E1D5CF3B500EA9105 /* SpotifyAPIClient.swift */,
+				C99A11E81D6B7BC100667282 /* AppAppearance.swift */,
 			);
 			name = "Utility (Spotify API)";
 			sourceTree = "<group>";
@@ -592,19 +607,24 @@
 				07F31BD31D5D04CE005EA2B9 /* SearchModel.swift in Sources */,
 				A7FD519B1D6B41BF0015711B /* Secrets.swift in Sources */,
 				A7FD51871D6784610015711B /* Helper.swift in Sources */,
+				C99A11EB1D6B967A00667282 /* ArtistViewController.swift in Sources */,
 				C9EDBEDC1D53D08F0033BBAD /* ViewController.swift in Sources */,
 				A7FEB9551D5D8D1500DA632E /* HomeViewController.swift in Sources */,
 				C9579D941D662B8500169281 /* Reachability.m in Sources */,
 				C90BA3F51D5FB21200A80937 /* PlaylistTestData.swift in Sources */,
 				2C0C9B901D5B6BE400ACA02D /* Artist.swift in Sources */,
+				C976AD531D67791900C40D9A /* MoodInfo.swift in Sources */,
 				C94E93B41D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift in Sources */,
+				C99A11E91D6B7BC100667282 /* AppAppearance.swift in Sources */,
 				C9C1F0EE1D5E8E1E00600D75 /* PlaylistTableViewCell.swift in Sources */,
 				C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */,
+				C99A11ED1D6B9C6000667282 /* ArtistCollectionViewCell.swift in Sources */,
 				2CE04E7E1D6391DF00B7681C /* ArtistTableViewCell.swift in Sources */,
 				2C0C9B961D5B83F200ACA02D /* MoodViewController.swift in Sources */,
 				2C0C9B8C1D5B699400ACA02D /* GenreViewController.swift in Sources */,
 				C9579D9A1D6630DB00169281 /* CWStatusBarNotificationUtils.swift in Sources */,
 				C926A17E1D66074600C86C27 /* VideoPlayerViewController.m in Sources */,
+				C976AD551D67879300C40D9A /* MoodCollectionViewCell.swift in Sources */,
 				2C0C9B921D5B6E1C00ACA02D /* ArtistTableViewController.swift in Sources */,
 				2C0C9B941D5B7EB500ACA02D /* SpotifyQueryInfo.swift in Sources */,
 				C9C1F0EC1D5E8A9200600D75 /* PlaylistViewController.swift in Sources */,
