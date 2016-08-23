@@ -21,7 +21,6 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        makeAnonymousButtonBorder()
         GIDSignIn.sharedInstance().uiDelegate = self
         
         
@@ -29,20 +28,15 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         
         // Register for notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(userDidSignIn), name: Notifications.userDidLogIn, object: nil)
+        
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "ViewedStartPage")
     }
     
     
     func userDidSignIn() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    
-    func makeAnonymousButtonBorder() {
-        anonymousLoginButton.layer.borderWidth = 1.0
-        anonymousLoginButton.layer.borderColor = UIColor.whiteColor().CGColor
-    }
-    
-    
+
     @IBAction func anonymousLoginDidTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }

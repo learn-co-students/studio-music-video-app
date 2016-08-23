@@ -235,8 +235,11 @@ extension GenreViewController {
     
     func checkCurrentUser() {
         
-        if FIRAuth.auth()?.currentUser == nil {
-            // take user to login screen
+        // If it's the user's first time using the app, present the home page
+        
+        let isFirstTime = NSUserDefaults.standardUserDefaults().boolForKey("ViewedStartPage")
+        
+        if !isFirstTime {
             performSegueWithIdentifier(Constants.Segues.ShowLogin, sender: nil)
         }
     }

@@ -165,44 +165,26 @@ extension PlaylistViewController {
         let alert = SCLAlertView(appearance: alertAppearance)
         alert.addButton("Cancel") { }
         alert.addButton("Allow") { 
-            print("Allow")
+            self.googleSignInWithYoutubeScope()
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
         }
-
         
-//        let alertcontroller = UIAlertController(title: "Allow Jamdemic to save playlists to your Youtube account?", message: nil, preferredStyle: .Alert)
-//        
-//        let allowAction = UIAlertAction(title: "Allow", style: .Default, handler: { action in
-//            self.googleSignInWithYoutubeScope()
-//            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
-//        })
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-//        alertcontroller.addAction(allowAction)
-//        alertcontroller.addAction(cancelAction)
-//        self.presentViewController(alertcontroller, animated: true, completion: nil)
+        alert.showInfo("", subTitle: "Allow Studio to save playlists to your Youtube account?")
     }
     
     func savePlaylist() {
         
-        // Prompt user for title
-        let alertController = UIAlertController(title: "Enter a title", message: nil, preferredStyle: .Alert)
-        alertController.addTextFieldWithConfigurationHandler {_ in }
-        
-
-        
-        let saveAction = UIAlertAction(title: "Save", style: .Default) { (alertAction) in
-            if let title = alertController.textFields?.first?.text {
-                self.savePlaylistWithTitle(title)
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!, showCloseButton: false)
+        let alert = SCLAlertView(appearance: alertAppearance)
+        let title = alert.addTextField("Enter a title")
+        alert.addButton("Cancel") { }
+        alert.addButton("Save") {
+            print("saving...")
+            if let text = title.text {
+                self.savePlaylistWithTitle(text)
             }
         }
-        
-        alertController.addAction(saveAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        presentViewController(alertController, animated: true, completion: nil)
-        
-
+        alert.showNotice("Save Playlist", subTitle: "")
     }
     
     func savePlaylistWithTitle(title: String) {
