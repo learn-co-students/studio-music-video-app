@@ -23,8 +23,10 @@ class AppAppearance {
     class func setBarButtonItemAppearance() {
         UIBarButtonItem.appearance().setTitleTextAttributes(
             [NSFontAttributeName: UIFont.navigationItemFont(),
-            NSForegroundColorAttributeName: UIColor.mainAppColor()],
-                forState: .Normal)
+            NSForegroundColorAttributeName: UIColor.mainAppColor()],forState: .Normal)
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.navigationItemFont(),
+            NSForegroundColorAttributeName: UIColor.lightGrayColor()], forState: .Disabled)
         
     }
     

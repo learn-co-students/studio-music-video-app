@@ -127,6 +127,10 @@ class GenreViewController: UIViewController {
         print(queryString)
         return queryString
     }
+    
+    func toggleNextButton() {
+       self.nextButton.enabled = self.selectedGenres.count > 0 ? true : false
+    }
 }
 
 // MARK: Collection View
@@ -179,6 +183,8 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! GenreCollectionViewCell
         cell.displayImageView.image = genre.displayImage
         
+        self.toggleNextButton()
+        
         print(selectedGenres)
     }
 
@@ -199,6 +205,8 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.displayImageView.image = genre.displayImage
     
         print(selectedGenres)
+        
+        self.toggleNextButton()
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
