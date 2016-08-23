@@ -211,6 +211,8 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? ArtistCollectionViewCell {
             cell.selectedImageView.hidden = false
+            cell.artistHighlightedState.hidden = false
+            
         }
         
 
@@ -227,6 +229,7 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? ArtistCollectionViewCell {
             cell.selectedImageView.hidden = true
+            cell.artistHighlightedState.hidden = true
         }
 
         

@@ -134,33 +134,49 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="artist-heart-selected" translatesAutoresizingMaskIntoConstraints="NO" id="b7t-hw-MdX">
-                                                    <rect key="frame" x="56" y="74" width="28" height="25"/>
+                                                    <rect key="frame" x="56" y="94" width="28" height="25"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Line" translatesAutoresizingMaskIntoConstraints="NO" id="e0W-qE-zry">
+                                                    <rect key="frame" x="60" y="80" width="20" height="2"/>
+                                                </imageView>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-artist-highlighted-background" translatesAutoresizingMaskIntoConstraints="NO" id="FCX-Rt-vTP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="124"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="e0W-qE-zry" firstAttribute="leading" secondItem="N5i-E9-Pq2" secondAttribute="leading" constant="60" id="1g2-5W-DLK"/>
                                             <constraint firstItem="b7t-hw-MdX" firstAttribute="width" secondItem="1LK-W2-ang" secondAttribute="width" multiplier="0.2" id="5WK-eo-dzz"/>
                                             <constraint firstItem="N5i-E9-Pq2" firstAttribute="top" secondItem="1LK-W2-ang" secondAttribute="top" id="AXI-nC-Btb"/>
                                             <constraint firstItem="b7t-hw-MdX" firstAttribute="centerX" secondItem="1LK-W2-ang" secondAttribute="centerX" id="B16-fd-3EC"/>
+                                            <constraint firstItem="FCX-Rt-vTP" firstAttribute="leading" secondItem="1LK-W2-ang" secondAttribute="leading" id="B41-nx-sUJ"/>
                                             <constraint firstItem="N5i-E9-Pq2" firstAttribute="height" secondItem="1LK-W2-ang" secondAttribute="height" id="H7b-RW-eOT"/>
                                             <constraint firstItem="R36-d4-L1f" firstAttribute="centerX" secondItem="1LK-W2-ang" secondAttribute="centerX" id="HPc-vs-kpM"/>
+                                            <constraint firstItem="FCX-Rt-vTP" firstAttribute="width" secondItem="1LK-W2-ang" secondAttribute="width" id="Icy-Tr-PXS"/>
+                                            <constraint firstItem="FCX-Rt-vTP" firstAttribute="height" secondItem="1LK-W2-ang" secondAttribute="height" id="QzA-aJ-Y9p"/>
                                             <constraint firstItem="IU6-z2-kzC" firstAttribute="top" secondItem="1LK-W2-ang" secondAttribute="top" id="Sda-UT-bO1"/>
+                                            <constraint firstItem="e0W-qE-zry" firstAttribute="top" secondItem="R36-d4-L1f" secondAttribute="bottom" constant="6" id="VLY-Yl-n9d"/>
                                             <constraint firstItem="b7t-hw-MdX" firstAttribute="height" secondItem="1LK-W2-ang" secondAttribute="height" multiplier="0.2" id="ZJ7-Uo-L62"/>
-                                            <constraint firstItem="b7t-hw-MdX" firstAttribute="top" secondItem="R36-d4-L1f" secondAttribute="bottom" id="djY-pt-Jdb"/>
+                                            <constraint firstItem="b7t-hw-MdX" firstAttribute="top" secondItem="R36-d4-L1f" secondAttribute="bottom" constant="20" id="djY-pt-Jdb"/>
                                             <constraint firstItem="IU6-z2-kzC" firstAttribute="width" secondItem="1LK-W2-ang" secondAttribute="width" id="fk6-nX-g9n"/>
+                                            <constraint firstItem="e0W-qE-zry" firstAttribute="trailing" secondItem="N5i-E9-Pq2" secondAttribute="trailing" constant="-60" id="fn8-IJ-lLr"/>
                                             <constraint firstItem="N5i-E9-Pq2" firstAttribute="leading" secondItem="1LK-W2-ang" secondAttribute="leading" id="hiW-zp-4oR"/>
                                             <constraint firstItem="IU6-z2-kzC" firstAttribute="leading" secondItem="1LK-W2-ang" secondAttribute="leading" id="iQA-Wq-0oe"/>
                                             <constraint firstItem="IU6-z2-kzC" firstAttribute="height" secondItem="1LK-W2-ang" secondAttribute="height" id="k5W-9y-jrt"/>
                                             <constraint firstItem="N5i-E9-Pq2" firstAttribute="centerY" secondItem="1LK-W2-ang" secondAttribute="centerY" id="mfc-qB-bnJ"/>
+                                            <constraint firstItem="b7t-hw-MdX" firstAttribute="top" secondItem="e0W-qE-zry" secondAttribute="bottom" constant="12" id="nAB-uh-kUO"/>
                                             <constraint firstAttribute="leadingMargin" secondItem="R36-d4-L1f" secondAttribute="leading" id="qiq-Wb-zy0"/>
                                             <constraint firstItem="N5i-E9-Pq2" firstAttribute="centerX" secondItem="1LK-W2-ang" secondAttribute="centerX" id="s97-04-KOA"/>
                                             <constraint firstItem="R36-d4-L1f" firstAttribute="centerY" secondItem="1LK-W2-ang" secondAttribute="centerY" id="tp4-tG-vdp"/>
+                                            <constraint firstItem="FCX-Rt-vTP" firstAttribute="top" secondItem="1LK-W2-ang" secondAttribute="top" id="uxw-nh-BEy"/>
                                             <constraint firstItem="N5i-E9-Pq2" firstAttribute="width" secondItem="1LK-W2-ang" secondAttribute="width" id="vgE-ME-gty"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="artistHighlightedState" destination="FCX-Rt-vTP" id="0NZ-C8-MCC"/>
                                             <outlet property="artistImageView" destination="IU6-z2-kzC" id="V8X-tr-AjW"/>
                                             <outlet property="artistNameLabel" destination="R36-d4-L1f" id="ck2-fC-yk7"/>
+                                            <outlet property="artistsSeperatorLine" destination="e0W-qE-zry" id="aT9-yo-YuK"/>
                                             <outlet property="selectedImageView" destination="b7t-hw-MdX" id="wyV-q2-jdO"/>
                                         </connections>
                                     </collectionViewCell>
@@ -310,6 +326,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Line" width="180" height="2"/>
         <image name="artist-heart-selected" width="82" height="82"/>
+        <image name="empty-artist-highlighted-background" width="244" height="244"/>
     </resources>
 </document>

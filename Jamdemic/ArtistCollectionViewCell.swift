@@ -13,5 +13,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var selectedImageView: UIImageView!
+    @IBOutlet weak var artistsSeperatorLine: UIImageView!
+    @IBOutlet weak var artistHighlightedState: UIImageView!
     
 }
