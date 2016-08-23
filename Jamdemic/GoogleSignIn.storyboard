@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pkU-3H-eMh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pkU-3H-eMh">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Sign In View Controller-->
@@ -16,53 +19,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZP5-cg-6HW">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZP5-cg-6HW">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwQ-5z-RRq">
-                                <rect key="frame" x="212" y="368" width="176" height="41"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="176" id="Cef-s9-5f7"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
+                                <color key="backgroundColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                <state key="normal" title="Anonymous Login">
+                                <state key="normal" title="Start Exploring">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="anonymousLoginDidTapped:" destination="pkU-3H-eMh" eventType="touchUpInside" id="55Y-Ie-B42"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OrLine.png" translatesAutoresizingMaskIntoConstraints="NO" id="nEP-Oz-IdE">
-                                <rect key="frame" x="157" y="292" width="287" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="TVD-be-mam"/>
-                                    <constraint firstAttribute="width" constant="287" id="Yqe-wF-6lu"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="studio-logo-name" translatesAutoresizingMaskIntoConstraints="NO" id="Jw5-cG-xNI">
+                                <rect key="frame" x="202" y="70" width="195" height="52"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2r-OE-9qI">
-                                <rect key="frame" x="193" y="184" width="215" height="48"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                <state key="normal" title="Sign In With Google" image="btn_google_dark_normal_ios"/>
-                                <state key="highlighted" image="btn_google_dark_pressed_ios"/>
-                                <connections>
-                                    <action selector="googleSignInDidTapped:" destination="pkU-3H-eMh" eventType="touchUpInside" id="Pe6-QC-TkR"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore music videos based on personalized genre, artists, and mood." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-Rb-9Xe">
+                                <rect key="frame" x="149" y="450" width="301" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="301" id="Nqw-mT-lBY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="width" secondItem="4AQ-Bw-pyF" secondAttribute="width" id="87t-T9-99D"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="top" secondItem="XKT-rC-gWe" secondAttribute="bottom" id="Dlz-yY-R4V"/>
-                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="centerX" secondItem="qwQ-5z-RRq" secondAttribute="centerX" id="SRh-Fb-j55"/>
+                            <constraint firstItem="Lsy-Rb-9Xe" firstAttribute="centerX" secondItem="4AQ-Bw-pyF" secondAttribute="centerX" id="Fgd-S2-8Cm"/>
+                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="top" secondItem="Lsy-Rb-9Xe" secondAttribute="bottom" constant="50" id="HJh-oE-ufF"/>
+                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leading" id="PPX-cQ-zTB"/>
+                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="height" secondItem="4AQ-Bw-pyF" secondAttribute="height" multiplier="0.1" id="TgJ-wg-jZb"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="height" secondItem="4AQ-Bw-pyF" secondAttribute="height" id="VK2-3q-ZTw"/>
+                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="width" secondItem="4AQ-Bw-pyF" secondAttribute="width" id="bD7-7p-LDZ"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leading" id="dBO-4m-AfU"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="qwQ-5z-RRq" secondAttribute="bottom" id="f56-fv-s6z"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="top" secondItem="4AQ-Bw-pyF" secondAttribute="top" id="gFS-h1-nck"/>
-                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="top" secondItem="T2r-OE-9qI" secondAttribute="bottom" constant="60" id="jA9-71-ozj"/>
-                            <constraint firstItem="T2r-OE-9qI" firstAttribute="centerX" secondItem="4AQ-Bw-pyF" secondAttribute="centerX" id="lRo-Bg-JxJ"/>
-                            <constraint firstItem="nEP-Oz-IdE" firstAttribute="centerY" secondItem="4AQ-Bw-pyF" secondAttribute="centerY" id="msd-lA-qpo"/>
-                            <constraint firstItem="GX4-Ts-8YP" firstAttribute="top" secondItem="qwQ-5z-RRq" secondAttribute="bottom" constant="191" id="o2p-tX-n7f"/>
-                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="top" secondItem="nEP-Oz-IdE" secondAttribute="bottom" constant="60" id="oCE-MD-US7"/>
-                            <constraint firstItem="T2r-OE-9qI" firstAttribute="centerX" secondItem="nEP-Oz-IdE" secondAttribute="centerX" id="smY-4R-Gs8"/>
+                            <constraint firstItem="Jw5-cG-xNI" firstAttribute="centerX" secondItem="4AQ-Bw-pyF" secondAttribute="centerX" id="n9f-Og-FVP"/>
+                            <constraint firstItem="Jw5-cG-xNI" firstAttribute="top" secondItem="4AQ-Bw-pyF" secondAttribute="topMargin" constant="70" id="zod-gt-RKf"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -78,50 +76,8 @@
             </objects>
             <point key="canvasLocation" x="539" y="-479"/>
         </scene>
-        <!--Home View Controller-->
-        <scene sceneID="fwZ-CY-SB5">
-            <objects>
-                <viewController storyboardIdentifier="HomeVC" id="Ngi-nc-XDD" customClass="HomeViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PbJ-Ma-Aub"/>
-                        <viewControllerLayoutGuide type="bottom" id="Ve5-R8-sg3"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rqV-9O-1Bj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundPhoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="TgZ-ZD-m3k">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="top" secondItem="rqV-9O-1Bj" secondAttribute="top" id="B7h-fO-JaQ"/>
-                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="bottom" secondItem="Ve5-R8-sg3" secondAttribute="top" id="BtV-pl-TWZ"/>
-                            <constraint firstItem="TgZ-ZD-m3k" firstAttribute="leading" secondItem="rqV-9O-1Bj" secondAttribute="leading" id="L0q-TW-2cO"/>
-                            <constraint firstAttribute="trailing" secondItem="TgZ-ZD-m3k" secondAttribute="trailing" id="jgO-MK-8ev"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <segue destination="WcY-af-jom" kind="show" id="36h-D8-FAu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Kaf-rP-CiG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="382" y="272"/>
-        </scene>
-        <!--GenreStoryboard-->
-        <scene sceneID="nEM-OT-XrC">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="GenreStoryBoard" storyboardName="GenreStoryboard" id="WcY-af-jom" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Q1f-Oz-MPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="890.5" y="300"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="OrLine.png" width="864" height="45"/>
-        <image name="backgroundPhoto.png" width="1125" height="2001"/>
-        <image name="btn_google_dark_normal_ios" width="48" height="48"/>
-        <image name="btn_google_dark_pressed_ios" width="48" height="48"/>
+        <image name="studio-logo-name" width="195" height="52"/>
     </resources>
 </document>

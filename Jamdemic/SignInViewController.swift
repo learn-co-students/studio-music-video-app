@@ -12,7 +12,7 @@ import FirebaseDatabase
 import GoogleSignIn
 
 @objc(SignInViewController)
-class SignInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
+class SignInViewController: UIViewController, GIDSignInUIDelegate {
     
     @IBOutlet weak var anonymousLoginButton: UIButton!
     var backgroundPlayer : BackgroundVideo? // Declare an instance of BackgroundVideo called backgroundPlayer
@@ -21,9 +21,7 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        makeAnonymousButtonBorder()
         GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().delegate = self
         
         
         setUpBackgroundVideo()
@@ -31,51 +29,17 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDele
         // Register for notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(userDidSignIn), name: Notifications.userDidLogIn, object: nil)
         
-        // Uncomment to automatically sign in the user.
-        //GIDSignIn.sharedInstance().signInSilently()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // Keeps track of the authentication status
-        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth: FIRAuth, user: FIRUser?) in
-            if let user = user {
-                print(user)
-                Helper.helper.switchToNavigationViewController()
-            } else {
-                print("Unauthorized")
-            }
-        })
-
-    }
-    
-    // The sign-in flow has finished and was successful if |error| is |nil|.
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
-        if let error = error {
-            print(error.localizedDescription)
-            return
-        }
-        print(user.authentication)
-        Helper.helper.loginWithGoogle(user.authentication)
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "ViewedStartPage")
     }
     
     
     func userDidSignIn() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    
-    func makeAnonymousButtonBorder() {
-        anonymousLoginButton.layer.borderWidth = 1.0
-        anonymousLoginButton.layer.borderColor = UIColor.whiteColor().CGColor
-    }
-    
-    
+
     @IBAction func anonymousLoginDidTapped(sender: AnyObject) {
-        Helper.helper.anonymousLogin()
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
     
     @IBAction func googleSignInDidTapped(sender: AnyObject) {
         GIDSignIn.sharedInstance().signIn()
@@ -86,7 +50,4 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDele
         backgroundPlayer?.setUpBackground()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-    
-    
 }

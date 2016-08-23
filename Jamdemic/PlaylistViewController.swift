@@ -12,6 +12,9 @@ import Alamofire
 import SwiftyJSON
 import NVActivityIndicatorView
 import SCLAlertView
+import QuartzCore
+
+
 
 class PlaylistViewController: UIViewController {
     
@@ -20,6 +23,10 @@ class PlaylistViewController: UIViewController {
     var artistThumbnails: [String : UIImage] = [:]
     var videoIDs: [String] = []
     
+  @IBOutlet weak var newSearchButton: UIButton!
+    
+  @IBOutlet weak var savePlaylistButton: UIButton!
+   
     let photoQueue = NSOperationQueue()
     
     override func viewDidLoad() {
@@ -33,7 +40,13 @@ class PlaylistViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(savePlaylist), name: Notifications.userDidLogIn, object: nil)
         
         videoIDs = playlistData.map{ $0.videoID }
+        
+    
+       
     }
+    
+
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVideoFromPlayButton" {
@@ -55,15 +68,20 @@ class PlaylistViewController: UIViewController {
     }
     
     @IBAction func newSearchButtonTapped(sender: UIButton) {
-        
+       
         NSNotificationCenter.defaultCenter().postNotificationName(Notifications.newSearch, object: nil)
         self.navigationController?.popToRootViewControllerAnimated(true)
+   
+        
+        
     }
     
 }
 
 //MARK: Tableview Methods
 extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
+    
+  
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playlistData.count
@@ -74,13 +92,18 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         
         let playlistItem = playlistData[indexPath.row]
         cell.artistSongTitleLabel.text = "\(playlistItem.name) - \(playlistItem.songTitle)"
+        cell.artistSongTitleLabel.textColor = UIColor.blackColor()
+    
+       
         
         cell.thumbnailImageView.image = nil
-        cell.thumbnailImageView.backgroundColor = UIColor.grayColor()
+        cell.thumbnailImageView.backgroundColor = UIColor.darkGrayColor()
         
         if let artistThumbnailImage = artistThumbnails[playlistItem.videoID] {
             // Artist thumbnail is cached
             cell.thumbnailImageView.image = artistThumbnailImage
+            
+           
         }
         else {
             // not cached, load image from the url on the photo queue
@@ -137,40 +160,31 @@ extension PlaylistViewController {
     }
     
     func presentPermissionsDialog() {
-        let alertcontroller = UIAlertController(title: "Allow Jamdemic to save playlists to your Youtube account?", message: nil, preferredStyle: .Alert)
         
-        let allowAction = UIAlertAction(title: "Allow", style: .Default, handler: { action in
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
+        let alert = SCLAlertView(appearance: alertAppearance)
+        alert.addButton("Cancel") { }
+        alert.addButton("Allow") { 
             self.googleSignInWithYoutubeScope()
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "YoutubeAuthScope")
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alertcontroller.addAction(allowAction)
-        alertcontroller.addAction(cancelAction)
-        self.presentViewController(alertcontroller, animated: true, completion: nil)
+        }
+        
+        alert.showInfo("", subTitle: "Allow Studio to save playlists to your Youtube account?")
     }
     
     func savePlaylist() {
         
-        // Prompt user for title
-        let alertController = UIAlertController(title: "Enter a title", message: nil, preferredStyle: .Alert)
-        alertController.addTextFieldWithConfigurationHandler {_ in }
-        
-
-        
-        let saveAction = UIAlertAction(title: "Save", style: .Default) { (alertAction) in
-            if let title = alertController.textFields?.first?.text {
-                self.savePlaylistWithTitle(title)
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!, showCloseButton: false)
+        let alert = SCLAlertView(appearance: alertAppearance)
+        let title = alert.addTextField("Enter a title")
+        alert.addButton("Cancel") { }
+        alert.addButton("Save") {
+            print("saving...")
+            if let text = title.text {
+                self.savePlaylistWithTitle(text)
             }
         }
-        
-        alertController.addAction(saveAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        presentViewController(alertController, animated: true, completion: nil)
-        
-
+        alert.showNotice("Save Playlist", subTitle: "")
     }
     
     func savePlaylistWithTitle(title: String) {

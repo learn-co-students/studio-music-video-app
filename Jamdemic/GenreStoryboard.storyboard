@@ -7,6 +7,14 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--GoogleSignIn-->
+        <scene sceneID="DxG-lf-ss1">
+            <objects>
+                <viewControllerPlaceholder storyboardName="GoogleSignIn" id="scH-u7-Ndg" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f1k-Ib-kIF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2173.5" y="-148"/>
+        </scene>
         <!--Choose up to 5-->
         <scene sceneID="bIl-yZ-wbm">
             <objects>
@@ -76,99 +84,12 @@
                     <connections>
                         <outlet property="collectionView" destination="GOp-hc-Wdu" id="x07-Pa-sBB"/>
                         <outlet property="nextButton" destination="uWd-Vd-Pd2" id="dnB-3C-pMT"/>
+                        <segue destination="scH-u7-Ndg" kind="presentation" identifier="showLogin" id="TeP-hi-HQV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xJq-l9-jL9" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1844" y="374"/>
-        </scene>
-        <!--Choose up to 5-->
-        <scene sceneID="KO1-Y8-GbX">
-            <objects>
-                <tableViewController id="dHm-y5-cXf" customClass="ArtistTableViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="320" sectionHeaderHeight="28" sectionFooterHeight="28" id="WqD-pb-aKg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="artistCell" rowHeight="320" id="qnT-VQ-47s" customClass="ArtistTableViewCell" customModule="Jamdemic" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="320"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qnT-VQ-47s" id="t8n-Aw-Tat">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="319.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lEM-ug-3Um">
-                                            <rect key="frame" x="0.0" y="-1" width="320" height="320"/>
-                                        </imageView>
-                                        <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tPW-Rv-1o6">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="319"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unP-1L-ixm">
-                                            <rect key="frame" x="34" y="148.5" width="251" height="23.5"/>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="leadingMargin" secondItem="lEM-ug-3Um" secondAttribute="leading" id="1Cy-Jg-8fT"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="lEM-ug-3Um" secondAttribute="bottom" constant="-5.5" id="7hI-z6-b3c"/>
-                                        <constraint firstAttribute="trailing" secondItem="unP-1L-ixm" secondAttribute="trailing" constant="35" id="CwQ-uc-MQu"/>
-                                        <constraint firstAttribute="bottom" secondItem="unP-1L-ixm" secondAttribute="bottom" constant="147.5" id="EKk-mg-85Y"/>
-                                        <constraint firstItem="lEM-ug-3Um" firstAttribute="top" secondItem="t8n-Aw-Tat" secondAttribute="top" constant="-1" id="HrH-Ey-hwS"/>
-                                        <constraint firstItem="unP-1L-ixm" firstAttribute="top" secondItem="t8n-Aw-Tat" secondAttribute="top" constant="148.5" id="S1m-rq-JSV"/>
-                                        <constraint firstItem="unP-1L-ixm" firstAttribute="leading" secondItem="t8n-Aw-Tat" secondAttribute="leading" constant="34" id="Ykh-cS-Ujl"/>
-                                        <constraint firstAttribute="bottom" secondItem="tPW-Rv-1o6" secondAttribute="bottom" id="Zml-3b-4rG"/>
-                                        <constraint firstItem="lEM-ug-3Um" firstAttribute="top" secondItem="t8n-Aw-Tat" secondAttribute="top" constant="2" id="cg2-A7-2T1"/>
-                                        <constraint firstItem="lEM-ug-3Um" firstAttribute="leading" secondItem="t8n-Aw-Tat" secondAttribute="leading" constant="8" id="dA5-zN-uNC"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="lEM-ug-3Um" secondAttribute="trailing" constant="259" id="dP6-jf-QJ1"/>
-                                        <constraint firstAttribute="trailing" secondItem="lEM-ug-3Um" secondAttribute="trailing" id="dg6-vp-rDz"/>
-                                        <constraint firstItem="tPW-Rv-1o6" firstAttribute="top" secondItem="t8n-Aw-Tat" secondAttribute="top" id="g48-aK-noe"/>
-                                        <constraint firstItem="lEM-ug-3Um" firstAttribute="leading" secondItem="t8n-Aw-Tat" secondAttribute="leading" id="k0F-ad-S6I"/>
-                                        <constraint firstAttribute="trailing" secondItem="tPW-Rv-1o6" secondAttribute="trailing" id="lSK-hN-eLw"/>
-                                        <constraint firstAttribute="bottom" secondItem="lEM-ug-3Um" secondAttribute="bottom" id="mA2-bW-2aA"/>
-                                        <constraint firstItem="tPW-Rv-1o6" firstAttribute="leading" secondItem="t8n-Aw-Tat" secondAttribute="leading" id="mRO-a6-J18"/>
-                                        <constraint firstAttribute="bottom" secondItem="lEM-ug-3Um" secondAttribute="bottom" constant="2" id="tQc-DT-dhf"/>
-                                        <constraint firstItem="lEM-ug-3Um" firstAttribute="top" secondItem="t8n-Aw-Tat" secondAttribute="topMargin" constant="-6" id="tyG-H1-lk5"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="1Cy-Jg-8fT"/>
-                                            <exclude reference="7hI-z6-b3c"/>
-                                            <exclude reference="cg2-A7-2T1"/>
-                                            <exclude reference="dA5-zN-uNC"/>
-                                            <exclude reference="dP6-jf-QJ1"/>
-                                            <exclude reference="tQc-DT-dhf"/>
-                                            <exclude reference="tyG-H1-lk5"/>
-                                        </mask>
-                                    </variation>
-                                </tableViewCellContentView>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <connections>
-                                    <outlet property="albumArtImageView" destination="lEM-ug-3Um" id="AvT-ZD-0Rz"/>
-                                    <outlet property="artistNameLabel" destination="unP-1L-ixm" id="1NX-x7-eqh"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="dHm-y5-cXf" id="9kU-30-zOB"/>
-                            <outlet property="delegate" destination="dHm-y5-cXf" id="L7v-lL-Aib"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Choose up to 5" id="7b2-4g-739">
-                        <barButtonItem key="backBarButtonItem" title="Artist" id="79A-Qn-Fnd"/>
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="I1B-Fc-awo"/>
-                    </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="nextButton" destination="I1B-Fc-awo" id="XIE-9m-J4Y"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="10R-JS-Giv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2070" y="1132"/>
         </scene>
         <!--Choose up to 5-->
         <scene sceneID="dwd-hV-UsH">
@@ -359,7 +280,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2e-s3-V5V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2760" y="374"/>
+            <point key="canvasLocation" x="2861" y="368"/>
         </scene>
         <!--PlaylistViewController-->
         <scene sceneID="zTY-IZ-QyU">
