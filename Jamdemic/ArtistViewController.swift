@@ -10,8 +10,9 @@ import UIKit
 import SCLAlertView
 import Alamofire
 import SwiftyJSON
+import NVActivityIndicatorView
 
-class ArtistViewController: UIViewController {
+class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
     
     var genreQueryString = ""
     
@@ -78,12 +79,16 @@ class ArtistViewController: UIViewController {
 // MARK: - Spotify Queries
 extension ArtistViewController {
     func querySpotifyForArtists() {
+        startActivityAnimating(message: "Loading...", type: .LineScalePulseOutRapid)
         print("Seaching for artists matching genre: \(self.genreQueryString)")
         SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
-            
+        
             SpotifyAPIClient.generateArtists(withGenres: self.genreQueryString, withToken: token, completion: { (json) in
                 
-                guard let unwrappedJSON = json else { fatalError("Error unwrapping JSON object in ArtistTableViewController.") }
+                guard let unwrappedJSON = json else {
+                    print("Error unwrapping JSON object in ArtistTableViewController.")
+                    return
+                }
                 
                 let tracks = unwrappedJSON["tracks"].arrayValue
                 
@@ -115,7 +120,7 @@ extension ArtistViewController {
                 
                 // After populating the table view, jump back on to the mainthread to reload the table view.
                 NSOperationQueue.mainQueue().addOperationWithBlock({
-                    
+                    self.stopActivityAnimating()
                     self.collectionView.reloadData()
                     
                 })
@@ -123,7 +128,7 @@ extension ArtistViewController {
             
             // If the Spotify API is unavailable, the user is presented with an alert view.
         }) { (error) in
-            
+            self.stopActivityAnimating()
             print("Error verifying access token in ArtistViewController.")
             
             let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
