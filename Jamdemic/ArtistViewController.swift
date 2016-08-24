@@ -180,9 +180,11 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         if cell.selected {
             cell.selectedImageView.hidden = false
+            cell.artistHighlightedState.hidden = false
         }
         else {
             cell.selectedImageView.hidden = true
+            cell.artistHighlightedState.hidden = true
         }
         
         self.loadPhotosForArtist(artistObj, cell: cell, indexPath: indexPath)

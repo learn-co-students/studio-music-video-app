@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GenreInfo {
+class GenreInfo {
     
     let displayTitle: String
     let spotifyTitle: String
