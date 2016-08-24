@@ -21,6 +21,8 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
         GIDSignIn.sharedInstance().uiDelegate = self
         
         
@@ -32,6 +34,10 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "ViewedStartPage")
     }
     
+    
+    override func viewWillDisappear(animated: Bool) {
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+    }
     
     func userDidSignIn() {
         self.dismissViewControllerAnimated(true, completion: nil)
