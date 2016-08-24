@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -10,13 +11,34 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="5yI-6t-JMT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tm0-eC-AlC"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="HZ9-CY-1iY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="studio-logo-name" translatesAutoresizingMaskIntoConstraints="NO" id="HmS-Sf-A0H">
+                                <rect key="frame" x="202.5" y="273.5" width="195" height="52"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.14509803921568626" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="HmS-Sf-A0H" firstAttribute="top" secondItem="5yI-6t-JMT" secondAttribute="bottom" constant="242" id="9g6-6f-aWi"/>
+                            <constraint firstItem="HmS-Sf-A0H" firstAttribute="leading" secondItem="HZ9-CY-1iY" secondAttribute="leadingMargin" constant="160" id="9vM-Nc-vJZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="HmS-Sf-A0H" secondAttribute="trailing" constant="160" id="BlI-Mr-iD1"/>
+                            <constraint firstItem="HmS-Sf-A0H" firstAttribute="centerY" secondItem="HZ9-CY-1iY" secondAttribute="centerY" id="HTJ-0V-Vc4"/>
+                            <constraint firstItem="HmS-Sf-A0H" firstAttribute="centerX" secondItem="HZ9-CY-1iY" secondAttribute="centerX" id="bfT-Nr-ZI5"/>
+                            <constraint firstItem="Tm0-eC-AlC" firstAttribute="top" secondItem="HmS-Sf-A0H" secondAttribute="bottom" constant="263" id="koc-4J-WNn"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9g6-6f-aWi"/>
+                                <exclude reference="9vM-Nc-vJZ"/>
+                                <exclude reference="BlI-Mr-iD1"/>
+                                <exclude reference="koc-4J-WNn"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +46,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="studio-logo-name" width="195" height="52"/>
+    </resources>
 </document>
