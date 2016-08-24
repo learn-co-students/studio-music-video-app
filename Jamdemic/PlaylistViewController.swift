@@ -161,7 +161,7 @@ extension PlaylistViewController {
     
     func presentPermissionsDialog() {
         
-        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!,showCloseButton: false)
         let alert = SCLAlertView(appearance: alertAppearance)
         alert.addButton("Cancel") { }
         alert.addButton("Allow") { 
@@ -237,10 +237,17 @@ extension PlaylistViewController {
     }
     
     func displayFinishedAlert() {
-        let alertController = UIAlertController(title: "Playlist Saved to Youtube", message: nil, preferredStyle: .Alert)
-        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
-        alertController.addAction(okayAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        
+        let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!, showCloseButton: false)
+        let alert = SCLAlertView(appearance: alertAppearance)
+        alert.addButton("Okay") {}
+        
+        alert.showInfo("", subTitle: "Playlist saved to Youtube")
+        
+//        let alertController = UIAlertController(title: "Playlist Saved to Youtube", message: nil, preferredStyle: .Alert)
+//        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+//        alertController.addAction(okayAction)
+//        presentViewController(alertController, animated: true, completion: nil)
         
     }
 }

@@ -12,7 +12,7 @@ enum MoodType {
     case Acoustic, Trendy, Live, SlowDance, Energetic, Instrumental, Happy, Chill, Sad, Rage, Smooth, Reflective, Awake, Motivational, Chaotic, Sleepy, Active, Focused
 }
 
-struct MoodInfo {
+class MoodInfo {
     
     let type: MoodType
     var attributes: [String : AnyObject] {

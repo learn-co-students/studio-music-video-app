@@ -178,7 +178,7 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("Cell # \(indexPath.row) selected")
         
-        var genre = genreInfo[indexPath.row]
+        let genre = genreInfo[indexPath.row]
         genre.isSelected = true
         
         selectedGenres.append(genre.spotifyTitle)
@@ -202,7 +202,7 @@ extension GenreViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         self.numberOfSelectedGenres -= 1
         
-        var genre = genreInfo[indexPath.row]
+        let genre = genreInfo[indexPath.row]
         genre.isSelected = false
         
         // remove from selected genres
