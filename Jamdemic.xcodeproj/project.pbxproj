@@ -23,7 +23,6 @@
 		2CE04EC51D64ADC900B7681C /* PlaylistDetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE04EC41D64ADC900B7681C /* PlaylistDetailInfo.swift */; };
 		2CE04ECA1D64C28000B7681C /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE04EC91D64C28000B7681C /* like.png */; };
 		2CE04ECC1D64D6F700B7681C /* musicPlaceholderImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CE04ECB1D64D6F700B7681C /* musicPlaceholderImage.jpg */; };
-		A7F8AA641D5A1A4B00EDC18A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */; };
 		A7FD51871D6784610015711B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD51861D6784610015711B /* Helper.swift */; };
 		A7FD51891D6788080015711B /* backgroundPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FD51881D6788080015711B /* backgroundPhoto.png */; };
 		A7FD518B1D6788140015711B /* googleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FD518A1D6788140015711B /* googleButton.png */; };
@@ -47,6 +46,7 @@
 		C90BA3F21D5F9C9000A80937 /* hqdefault-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90BA3E81D5F9C9000A80937 /* hqdefault-2.jpg */; };
 		C90BA3F31D5F9C9000A80937 /* hqdefault-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90BA3E91D5F9C9000A80937 /* hqdefault-1.jpg */; };
 		C90BA3F51D5FB21200A80937 /* PlaylistTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90BA3F41D5FB21200A80937 /* PlaylistTestData.swift */; };
+		C9246A5D1D6DF783007DF865 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9246A5C1D6DF783007DF865 /* GoogleService-Info.plist */; };
 		C926A17E1D66074600C86C27 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C926A17D1D66074600C86C27 /* VideoPlayerViewController.m */; };
 		C94E93AE1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */; };
 		C94E93B01D58D70000CA3323 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E93AF1D58D70000CA3323 /* Notifications.swift */; };
@@ -91,7 +91,6 @@
 		2CE04EC41D64ADC900B7681C /* PlaylistDetailInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDetailInfo.swift; sourceTree = "<group>"; };
 		2CE04EC91D64C28000B7681C /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
 		2CE04ECB1D64D6F700B7681C /* musicPlaceholderImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = musicPlaceholderImage.jpg; sourceTree = "<group>"; };
-		A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A7FD51861D6784610015711B /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		A7FD51881D6788080015711B /* backgroundPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundPhoto.png; sourceTree = "<group>"; };
 		A7FD518A1D6788140015711B /* googleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = googleButton.png; sourceTree = "<group>"; };
@@ -118,6 +117,7 @@
 		C90BA3E81D5F9C9000A80937 /* hqdefault-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hqdefault-2.jpg"; sourceTree = "<group>"; };
 		C90BA3E91D5F9C9000A80937 /* hqdefault-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hqdefault-1.jpg"; sourceTree = "<group>"; };
 		C90BA3F41D5FB21200A80937 /* PlaylistTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTestData.swift; sourceTree = "<group>"; };
+		C9246A5C1D6DF783007DF865 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C926A17C1D66074600C86C27 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		C926A17D1D66074600C86C27 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
 		C94E93AD1D58C9D200CA3323 /* SpotifyAPIOAuthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAPIOAuthClient.swift; sourceTree = "<group>"; };
@@ -281,8 +281,8 @@
 				A7FD518A1D6788140015711B /* googleButton.png */,
 				A7FD518C1D67881F0015711B /* OrLine.png */,
 				A7FD518E1D67883B0015711B /* profileImage.png */,
+				C9246A5C1D6DF783007DF865 /* GoogleService-Info.plist */,
 				C9EDBEE51D53D08F0033BBAD /* Info.plist */,
-				A7F8AA631D5A1A4B00EDC18A /* GoogleService-Info.plist */,
 				A7FD51B11D6C99BB0015711B /* SpinningRecord.mp4 */,
 				C94E93B31D58FA3C00CA3323 /* AccessTokenGeneratorViewController.swift */,
 				A7FEB9511D5D8C0D00DA632E /* Jamdemic-Bridging-Header.h */,
@@ -416,7 +416,12 @@
 				TargetAttributes = {
 					C9EDBED51D53D08F0033BBAD = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = L2ZX9TUBNA;
+						DevelopmentTeam = KXY9EDFTF5;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -454,9 +459,9 @@
 				C9C1F0E91D5E8A2200600D75 /* VideoPlaylist.storyboard in Resources */,
 				07B07F801D6CA518005B79A3 /* CircledPlay.png in Resources */,
 				2C0C9B8E1D5B6A6500ACA02D /* GenreStoryboard.storyboard in Resources */,
-				A7F8AA641D5A1A4B00EDC18A /* GoogleService-Info.plist in Resources */,
 				A7FD518B1D6788140015711B /* googleButton.png in Resources */,
 				C90BA3ED1D5F9C9000A80937 /* hqdefault-7.jpg in Resources */,
+				C9246A5D1D6DF783007DF865 /* GoogleService-Info.plist in Resources */,
 				C90BA3EF1D5F9C9000A80937 /* hqdefault-5.jpg in Resources */,
 				A7FD518D1D67881F0015711B /* OrLine.png in Resources */,
 				C90BA3F21D5F9C9000A80937 /* hqdefault-2.jpg in Resources */,
@@ -759,7 +764,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Jamdemic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.crocodile.Jamdemic;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-crocodile";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jamdemic/Jamdemic-Bridging-Header.h";
@@ -777,7 +782,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Jamdemic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.crocodile.Jamdemic;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-crocodile";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jamdemic/Jamdemic-Bridging-Header.h";
