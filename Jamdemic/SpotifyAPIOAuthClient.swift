@@ -157,21 +157,12 @@ struct SpotifyAPIOAuthClient {
                     return
                 }
                 
-                // Set up the parameters to get a list of categories. Limit set to 1 since we want a small request to test the token
-                let parameters = ["limit": 1]
-                let headers = ["Authorization" : "Bearer \(token)"]
-                let baseURL = "https://api.spotify.com/v1/browse/categories"
-                
-                Alamofire.request(.GET, baseURL, parameters: parameters, encoding: .URL, headers: headers).validate().responseJSON(completionHandler: { (response) in
-                    switch response.result {
-                    case .Success:
+                SpotifyAPIOAuthClient.tryAccessToken(token, completion: { (error) in
+                    if let error = error {
+                        oauthFailure(error)
+                    }
+                    else {
                         oauthSuccess(token)
-                    case .Failure(let error):
-                        // TODO: Test for the invalid token error
-                        // Refresh the token and report the failure
-                        SpotifyAPIOAuthClient.refreshSpotifyAccessToken({ (_) in
-                            oauthFailure(error)
-                        })
                     }
                 })
             })
@@ -186,6 +177,26 @@ struct SpotifyAPIOAuthClient {
             failure: { error in
                 print("Failed to validate access token. Error: \(error.localizedDescription)")
                 failure(error)
+        })
+    }
+    
+    private static func tryAccessToken(token: String, completion:(NSError?) -> () ) {
+        // Set up the parameters to get a list of categories. Limit set to 1 since we want a small request to test the token
+        let parameters = ["limit": 1]
+        let headers = ["Authorization" : "Bearer \(token)"]
+        let baseURL = "https://api.spotify.com/v1/browse/categories"
+        
+        Alamofire.request(.GET, baseURL, parameters: parameters, encoding: .URL, headers: headers).validate().responseJSON(completionHandler: { (response) in
+            switch response.result {
+            case .Success:
+                completion(nil)
+            case .Failure(let error):
+                // TODO: Test for the invalid token error
+                // Refresh the token and report the failure
+                SpotifyAPIOAuthClient.refreshSpotifyAccessToken({ (_) in
+                    completion(error)
+                })
+            }
         })
     }
     
