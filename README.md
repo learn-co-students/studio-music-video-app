@@ -25,7 +25,7 @@ Download this project and run using the latest version of Xcode.
 * Spotify iOS SDK 
 * Youtube iOS SDK 
 * Xcode 8.2.1 
-* Written Swift 2.2 
+* Written Swift 2.2 and Objective-C
 
 ## Description
 Built in about 2 weeks, this simplified version of a music video playlist app allows a user to view have a personalized music video playlist based your pick of genre music, artist and mood/feelings! 
