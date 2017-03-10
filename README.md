@@ -4,6 +4,7 @@
 
 
 A music video playlist generator based of your personalized pick of genre music, artist and mood/feelings!
+Apple Store Link: https://itunes.apple.com/us/app/studio-explore-personalized/id1146526235?mt=8
 
 
 
