@@ -35,4 +35,4 @@ Matt Amerige, Erica Gutierrez, Ishmael Barry, Joseph Ugowe
 
 ## Acknowledgements
 Capstone group project for Flatiron School for Vevo!
-Thanks to Vevo for teh help and support into making a music app!
+Thanks to Vevo, our sponsored company, for the help, guidance and support into making a music app!
