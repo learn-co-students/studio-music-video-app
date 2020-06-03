@@ -38,7 +38,7 @@ class ArtistTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 320
         
         // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
-        SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
+        SpotifyAPIOAuthClient.verifyAccessToken(success: { (token) in
             
             SpotifyAPIClient.generateArtists(withGenres: self.genreQueryString, withToken: token, completion: { (json) in
                 
@@ -61,7 +61,7 @@ class ArtistTableViewController: UITableViewController {
                     let artistSpotifyID = i["artists"][0]["uri"].stringValue
                     
                     // Since each spotifyID has a specific format, we can seperate the ID number.
-                    let separatedSpotifyID = artistSpotifyID.componentsSeparatedByString("spotify:artist:")[1]
+                    let separatedSpotifyID = artistSpotifyID.components(separatedBy: "spotify:artist:")[1]
                     
                     // Sets each artists that is returned back to the Artist Object we created.
                     let eachArtist = Artist(name: artistsNames, spotifyID: separatedSpotifyID, artistAlbumArtwork: albumImageURL, artistArtworkURLString: artistArtworkURLString)
@@ -73,7 +73,7 @@ class ArtistTableViewController: UITableViewController {
                 }
                 
                 // After populating the table view, jump back on to the mainthread to reload the table view.
-                NSOperationQueue.mainQueue().addOperationWithBlock({
+                OperationQueue.main.addOperation({
                     
                     self.tableView.reloadData()
                     
@@ -98,23 +98,23 @@ class ArtistTableViewController: UITableViewController {
     // MARK: - Table view data source:
     
     // Required for Alphabetical Header Sections:
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         // Displays every artists that is returned from the API call.
         return self.artists.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("artistCell") as! ArtistTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "artistCell") as! ArtistTableViewCell
         let artistName = self.artists[indexPath.row].name
         
         
         // Clears the cell before we start using it. This way we don't get multiple pictures loaded in cells.
         cell.albumArtImageView.image = nil
         cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsetsZero
-        cell.layoutMargins = UIEdgeInsetsZero
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
         cell.artistNameLabel.text = artistName
       
         
@@ -124,8 +124,8 @@ class ArtistTableViewController: UITableViewController {
             cell.albumArtImageView.image = artistPhoto
         
         } else {
-            
-            Alamofire.request(.GET, self.artists[indexPath.row].artistArtworkURLString).validate().responseJSON { (response) in
+
+            Alamofire.request(self.artists[indexPath.row].artistArtworkURLString, method: .get).validate().responseJSON { (response) in
                 
                 guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
                 
@@ -148,18 +148,18 @@ class ArtistTableViewController: UITableViewController {
                         guard let unwrappedURLString = NSURL(string: imageURLString) else { fatalError("Error unwrapping NSUL when converting String to NSURL.") }
                         
                         // Create a background queue because NSData(contentsOFURL:) is a network request call. This needs to happen on the background thread.
-                        let queue = NSOperationQueue()
-                        queue.addOperationWithBlock({
+                        let queue = OperationQueue()
+                        queue.addOperation({
                             
-                            guard let imageData = NSData(contentsOfURL: unwrappedURLString) else { fatalError("Error unwrapping data from image URL.") }
+                            guard let imageData = NSData(contentsOf: unwrappedURLString as URL) else { fatalError("Error unwrapping data from image URL.") }
                             
                             // On the main thread, we will add the image to the imageView and cache our dictionary.
-                            NSOperationQueue.mainQueue().addOperationWithBlock({
+                            OperationQueue.main.addOperation({
                                 
-                                guard let artistImage = UIImage(data: imageData) else { fatalError("unable to unwrap image data") }
+                                guard let artistImage = UIImage(data: imageData as Data) else { fatalError("unable to unwrap image data") }
                                 
                                 // As long as the cell is not nil, we will load each artist's image into its respective cell.
-                                if tableView.cellForRowAtIndexPath(indexPath) != nil {
+                                if tableView.cellForRow(at: indexPath as IndexPath) != nil {
                                     
                                     cell.albumArtImageView.image = artistImage
                                 }
@@ -178,7 +178,7 @@ class ArtistTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+ func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if self.artistButtonPressedNumber < 5 {
         
@@ -214,11 +214,11 @@ class ArtistTableViewController: UITableViewController {
     
     // MARK: - Navigation:
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+   func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "showMoodSegue" {
             
-            let destinationVC = segue.destinationViewController as! MoodViewController
+            let destinationVC = segue.destination as! MoodViewController
             
             // Pass on the genre query string to further customize our final API call to Spotify.
             destinationVC.genreQueryString = self.genreQueryString

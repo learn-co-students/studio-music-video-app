@@ -12,39 +12,46 @@ import FirebaseDatabase
 import GoogleSignIn
 
 @objc(SignInViewController)
-class SignInViewController: UIViewController, GIDSignInUIDelegate {
+class SignInViewController: UIViewController, GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        print("log in")
+    }
+    
+    
     
     @IBOutlet weak var anonymousLoginButton: UIButton!
+    
+    
     var backgroundPlayer : BackgroundVideo? // Declare an instance of BackgroundVideo called backgroundPlayer
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        UIApplication.shared.statusBarStyle = .lightContent
         
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
-        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
         
         
         setUpBackgroundVideo()
         
         // Register for notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(userDidSignIn), name: Notifications.userDidLogIn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userDidSignIn), name: NSNotification.Name(rawValue: Notifications.userDidLogIn), object: nil)
         
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "ViewedStartPage")
+        UserDefaults.standard.set(true, forKey: "ViewedStartPage")
     }
     
     
-    override func viewWillDisappear(animated: Bool) {
-        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+    override func viewWillDisappear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
     }
     
-    func userDidSignIn() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @objc func userDidSignIn() {
+        self.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func anonymousLoginDidTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+       self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func googleSignInDidTapped(sender: AnyObject) {

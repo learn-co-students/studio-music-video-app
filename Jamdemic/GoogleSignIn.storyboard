@@ -1,37 +1,40 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pkU-3H-eMh">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pkU-3H-eMh">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Sign In View Controller-->
         <scene sceneID="zb3-OB-xTm">
             <objects>
-                <viewController storyboardIdentifier="SignInViewController" id="pkU-3H-eMh" customClass="SignInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="pkU-3H-eMh" customClass="SignInViewController" customModule="Jamdemic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XKT-rC-gWe"/>
                         <viewControllerLayoutGuide type="bottom" id="GX4-Ts-8YP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4AQ-Bw-pyF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZP5-cg-6HW">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <view clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZP5-cg-6HW">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Explore music videos based on personalized genres, artists, and moods." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-Rb-9Xe">
-                                <rect key="frame" x="22" y="410" width="557" height="70"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="studio-logo-name" translatesAutoresizingMaskIntoConstraints="NO" id="Jw5-cG-xNI">
+                                <rect key="frame" x="109" y="171" width="196" height="52"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore music videos based on personalized genres, artists, and moods." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-Rb-9Xe">
+                                <rect key="frame" x="22" y="433.5" width="372" height="46.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="212" id="Die-W6-5an"/>
+                                    <constraint firstAttribute="width" constant="372" id="Die-W6-5an"/>
                                     <constraint firstAttribute="width" constant="250" id="Nqw-mT-lBY"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="212" id="sdo-Hk-Zbx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -40,34 +43,36 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwQ-5z-RRq">
-                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
-                                <color key="backgroundColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="772.5" width="414" height="89.5"/>
+                                <color key="backgroundColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
                                 <state key="normal" title="Start Exploring">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="anonymousLoginDidTapped:" destination="pkU-3H-eMh" eventType="touchUpInside" id="55Y-Ie-B42"/>
+                                    <action selector="anonymousLoginDidTappedWithSender:" destination="pkU-3H-eMh" eventType="touchUpInside" id="DRf-XN-FHZ"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="studio-logo-name" translatesAutoresizingMaskIntoConstraints="NO" id="Jw5-cG-xNI">
-                                <rect key="frame" x="202" y="70" width="195" height="52"/>
-                            </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Lsy-Rb-9Xe" firstAttribute="centerX" secondItem="4AQ-Bw-pyF" secondAttribute="centerX" id="7ab-0M-JHA"/>
+                            <constraint firstItem="ZP5-cg-6HW" firstAttribute="top" secondItem="4AQ-Bw-pyF" secondAttribute="top" id="3fC-PT-lYD"/>
+                            <constraint firstItem="Jw5-cG-xNI" firstAttribute="top" secondItem="XKT-rC-gWe" secondAttribute="bottom" constant="127" id="4EQ-vr-ZTU"/>
+                            <constraint firstItem="Lsy-Rb-9Xe" firstAttribute="centerX" secondItem="4AQ-Bw-pyF" secondAttribute="centerX" constant="1" id="7ab-0M-JHA"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="width" secondItem="4AQ-Bw-pyF" secondAttribute="width" id="87t-T9-99D"/>
+                            <constraint firstItem="Jw5-cG-xNI" firstAttribute="centerX" secondItem="qwQ-5z-RRq" secondAttribute="centerX" id="DCc-kq-qhJ"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="top" secondItem="XKT-rC-gWe" secondAttribute="bottom" id="Dlz-yY-R4V"/>
                             <constraint firstItem="qwQ-5z-RRq" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leading" id="PPX-cQ-zTB"/>
-                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="top" secondItem="Lsy-Rb-9Xe" secondAttribute="bottom" constant="60" id="SyI-y3-6wU"/>
+                            <constraint firstItem="qwQ-5z-RRq" firstAttribute="top" secondItem="Lsy-Rb-9Xe" secondAttribute="bottom" constant="292.5" id="SyI-y3-6wU"/>
                             <constraint firstItem="qwQ-5z-RRq" firstAttribute="height" secondItem="4AQ-Bw-pyF" secondAttribute="height" multiplier="0.1" id="TgJ-wg-jZb"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="height" secondItem="4AQ-Bw-pyF" secondAttribute="height" id="VK2-3q-ZTw"/>
+                            <constraint firstItem="Jw5-cG-xNI" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leadingMargin" constant="89" id="Zaq-5P-2X1"/>
                             <constraint firstItem="qwQ-5z-RRq" firstAttribute="width" secondItem="4AQ-Bw-pyF" secondAttribute="width" id="bD7-7p-LDZ"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leading" id="dBO-4m-AfU"/>
                             <constraint firstAttribute="bottomMargin" secondItem="qwQ-5z-RRq" secondAttribute="bottom" id="f56-fv-s6z"/>
                             <constraint firstItem="ZP5-cg-6HW" firstAttribute="top" secondItem="4AQ-Bw-pyF" secondAttribute="top" id="gFS-h1-nck"/>
-                            <constraint firstItem="Jw5-cG-xNI" firstAttribute="centerX" secondItem="4AQ-Bw-pyF" secondAttribute="centerX" id="n9f-Og-FVP"/>
-                            <constraint firstItem="Jw5-cG-xNI" firstAttribute="top" secondItem="4AQ-Bw-pyF" secondAttribute="topMargin" constant="70" id="zod-gt-RKf"/>
+                            <constraint firstAttribute="trailing" secondItem="ZP5-cg-6HW" secondAttribute="trailing" id="gZT-Wq-aUR"/>
+                            <constraint firstAttribute="bottom" secondItem="ZP5-cg-6HW" secondAttribute="bottom" id="vGN-iO-NaM"/>
+                            <constraint firstItem="ZP5-cg-6HW" firstAttribute="leading" secondItem="4AQ-Bw-pyF" secondAttribute="leading" id="yUB-2I-hbX"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -76,12 +81,12 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="anonymousLoginButton" destination="qwQ-5z-RRq" id="h3j-AA-9LL"/>
+                        <outlet property="anonymousLoginButton" destination="qwQ-5z-RRq" id="wlb-Sd-bH4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zry-5h-wuW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="539" y="-479"/>
+            <point key="canvasLocation" x="537.68115942028987" y="-479.46428571428567"/>
         </scene>
     </scenes>
     <resources>

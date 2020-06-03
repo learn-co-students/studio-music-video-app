@@ -25,7 +25,7 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
     
     // Counter to keep track of how many artist buttons a user has selected.
     var artistButtonPressedNumber = 0
-
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -39,14 +39,15 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.allowsMultipleSelection = true
         
         self.setCollectionViewPadding()
-        
         self.querySpotifyForArtists()
     }
+    
     
     
     func displayMaxArtistsSelectedAlert() {
@@ -61,11 +62,11 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
     
     // MARK: - Navigation:
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "showMoodSegue" {
             
-            let destinationVC = segue.destinationViewController as! MoodViewController
+            let destinationVC = segue.destination as! MoodViewController
             
             // Pass on the genre query string to further customize our final API call to Spotify.
             destinationVC.genreQueryString = self.genreQueryString
@@ -79,10 +80,11 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
 // MARK: - Spotify Queries
 extension ArtistViewController {
     func querySpotifyForArtists() {
-        startActivityAnimating(message: "Loading...", type: .LineScalePulseOutRapid)
-        print("Seaching for artists matching genre: \(self.genreQueryString)")
-        SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
         
+        self.startAnimating(message: "Loading...", type: .lineScalePulseOutRapid)
+        print("Seaching for artists matching genre: \(self.genreQueryString)")
+        SpotifyAPIOAuthClient.verifyAccessToken(success: { (token) in
+            
             SpotifyAPIClient.generateArtists(withGenres: self.genreQueryString, withToken: token, completion: { (json) in
                 
                 guard let unwrappedJSON = json else {
@@ -107,7 +109,7 @@ extension ArtistViewController {
                     let artistSpotifyID = i["artists"][0]["uri"].stringValue
                     
                     // Since each spotifyID has a specific format, we can seperate the ID number.
-                    let separatedSpotifyID = artistSpotifyID.componentsSeparatedByString("spotify:artist:")[1]
+                    let separatedSpotifyID = artistSpotifyID.components(separatedBy: "spotify:artist:")[1]
                     
                     // Sets each artists that is returned back to the Artist Object we created.
                     let eachArtist = Artist(name: artistsNames, spotifyID: separatedSpotifyID, artistAlbumArtwork: albumImageURL, artistArtworkURLString: artistArtworkURLString)
@@ -119,8 +121,8 @@ extension ArtistViewController {
                 }
                 
                 // After populating the table view, jump back on to the mainthread to reload the table view.
-                NSOperationQueue.mainQueue().addOperationWithBlock({
-                    self.stopActivityAnimating()
+                OperationQueue.main.addOperation({
+                    self.stopAnimating()
                     self.collectionView.reloadData()
                     
                 })
@@ -128,7 +130,7 @@ extension ArtistViewController {
             
             // If the Spotify API is unavailable, the user is presented with an alert view.
         }) { (error) in
-            self.stopActivityAnimating()
+            self.stopAnimating()
             print("Error verifying access token in ArtistViewController.")
             
             let alertAppearance = SCLAlertView.SCLAppearance(kTextFont: UIFont(name: "Avenir Next", size: 14)!, kButtonFont: UIFont(name: "Avenir Next", size: 14)!)
@@ -137,7 +139,7 @@ extension ArtistViewController {
             
             alert.showError("Oh no!", subTitle: "Something went wrong!")
         }
-
+        
     }
 }
 
@@ -145,16 +147,16 @@ extension ArtistViewController {
 extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: Cell Layout & Sizing
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    private func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return calculcateCellSize()
         
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    private func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return self.cellSpacing
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    private func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return self.cellSpacing
     }
     
@@ -167,33 +169,33 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
         self.collectionView.contentInset = UIEdgeInsets(top: self.cellSpacing, left: self.cellSpacing, bottom: self.cellSpacing, right: self.cellSpacing)
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.artists.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("artistCell", forIndexPath: indexPath) as! ArtistCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell  {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "artistCell", for: indexPath as IndexPath) as! ArtistCollectionViewCell
         
         let artistObj = self.artists[indexPath.row]
         
         cell.artistNameLabel.text = artistObj.name
         
-        if cell.selected {
-            cell.selectedImageView.hidden = false
-            cell.artistHighlightedState.hidden = false
+        if cell.isSelected {
+            cell.selectedImageView.isHidden = false
+            cell.artistHighlightedState.isHidden = false
         }
         else {
-            cell.selectedImageView.hidden = true
-            cell.artistHighlightedState.hidden = true
+            cell.selectedImageView.isHidden = true
+            cell.artistHighlightedState.isHidden = true
         }
         
-        self.loadPhotosForArtist(artistObj, cell: cell, indexPath: indexPath)
-
+        self.loadPhotosForArtist(artist: artistObj, cell: cell, indexPath: indexPath as NSIndexPath)
+        
         
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    private func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         if self.userSelectedArtists.count == 5 {
             self.displayMaxArtistsSelectedAlert()
             return false
@@ -201,7 +203,7 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return true
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    private func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedArtist = self.artists[indexPath.row]
         
         self.userSelectedArtists.append(selectedArtist)
@@ -211,29 +213,27 @@ extension ArtistViewController: UICollectionViewDelegate, UICollectionViewDataSo
             print("The selected artist(s) name: \(artist.name) -- SpotifyID: \(artist.spotifyID)\n")
         }
         
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? ArtistCollectionViewCell {
-            cell.selectedImageView.hidden = false
-            cell.artistHighlightedState.hidden = false
-            
+        if let cell = collectionView.cellForItem(at: indexPath as IndexPath) as? ArtistCollectionViewCell {
+            cell.selectedImageView.isHidden = false
+            cell.artistHighlightedState.isHidden = false            
         }
         
-
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+    private func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedArtist = self.artists[indexPath.row]
         
-        let indexToRemove = self.userSelectedArtists.indexOf { $0.name == selectedArtist.name}
+        let indexToRemove = self.userSelectedArtists.firstIndex(where: { $0.name == selectedArtist.name} )
         
         if let indexToRemove = indexToRemove {
-            self.userSelectedArtists.removeAtIndex(indexToRemove)
+            self.userSelectedArtists.remove(at:indexToRemove)
         }
         
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? ArtistCollectionViewCell {
-            cell.selectedImageView.hidden = true
-            cell.artistHighlightedState.hidden = true
+        if let cell = collectionView.cellForItem(at: indexPath as IndexPath) as? ArtistCollectionViewCell {
+            cell.selectedImageView.isHidden = true
+            cell.artistHighlightedState.isHidden = true
         }
-
+        
         
         
     }
@@ -254,57 +254,58 @@ extension ArtistViewController {
             
         } else {
             
-            Alamofire.request(.GET, artist.artistArtworkURLString).validate().responseJSON { (response) in
-                
-                guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
-                
-                if responseValue == 200 {
+            Alamofire.request(artist.artistArtworkURLString, method: .get)
+                .validate().responseJSON { response in
                     
-                    let responseValue = response.result.value
+                    guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
                     
-                    guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping JSON response.") }
-                    
-                    let json = JSON(unwrappedResponseValue)
-                    
-                    let imageURLString = json["images"][0]["url"].stringValue
-                    
-                    if imageURLString == "" {
+                    if responseValue == 200 {
                         
-                        cell.artistImageView.image = UIImage(named: "musicPlaceholderImage")
+                        let responseValue = response.result.value
+                        
+                        guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping JSON response.") }
+                        
+                        let json = JSON(unwrappedResponseValue)
+                        
+                        let imageURLString = json["images"][0]["url"].stringValue
+                        
+                        if imageURLString == "" {
+                            
+                            cell.artistImageView.image = UIImage(named: "musicPlaceholderImage")
+                            
+                        } else {
+                            
+                            guard let unwrappedURLString = NSURL(string: imageURLString) else { fatalError("Error unwrapping NSUL when converting String to NSURL.") }
+                            
+                            // Create a background queue because NSData(contentsOFURL:) is a network request call. This needs to happen on the background thread.
+                            let queue = OperationQueue()
+                            queue.addOperation({
+                                
+                                guard let imageData = NSData(contentsOf: unwrappedURLString as URL) else { fatalError("Error unwrapping data from image URL.") }
+                                
+                                // On the main thread, we will add the image to the imageView and cache our dictionary.
+                                OperationQueue.main.addOperation({
+                                    
+                                    guard let artistImage = UIImage(data: imageData as Data) else { fatalError("unable to unwrap image data") }
+                                    
+                                    
+                                    // As long as the cell is not nil, we will load each artist's image into its respective cell.
+                                    if self.collectionView.cellForItem(at: indexPath as IndexPath) != nil {
+                                        
+                                        cell.artistImageView.image = artistImage
+                                    }
+                                    // Load each artist's image into our photoCacheDictionary so we only make a network call to get images once for each artist.
+                                    self.photoCacheDictionary[artist.name] = artistImage
+                                })
+                            })
+                        }
                         
                     } else {
                         
-                        guard let unwrappedURLString = NSURL(string: imageURLString) else { fatalError("Error unwrapping NSUL when converting String to NSURL.") }
-                        
-                        // Create a background queue because NSData(contentsOFURL:) is a network request call. This needs to happen on the background thread.
-                        let queue = NSOperationQueue()
-                        queue.addOperationWithBlock({
-                            
-                            guard let imageData = NSData(contentsOfURL: unwrappedURLString) else { fatalError("Error unwrapping data from image URL.") }
-                            
-                            // On the main thread, we will add the image to the imageView and cache our dictionary.
-                            NSOperationQueue.mainQueue().addOperationWithBlock({
-                                
-                                guard let artistImage = UIImage(data: imageData) else { fatalError("unable to unwrap image data") }
-                                
-                                
-                                // As long as the cell is not nil, we will load each artist's image into its respective cell.
-                                if self.collectionView.cellForItemAtIndexPath(indexPath) != nil {
-                                    
-                                    cell.artistImageView.image = artistImage
-                                }
-                                // Load each artist's image into our photoCacheDictionary so we only make a network call to get images once for each artist.
-                                self.photoCacheDictionary[artist.name] = artistImage
-                            })
-                        })
+                        print("Error Code: \(responseValue)")
                     }
-                    
-                } else {
-                    
-                    print("Error Code: \(responseValue)")
-                }
             }
         }
-
+        
     }
 }

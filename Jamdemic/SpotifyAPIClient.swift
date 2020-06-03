@@ -31,13 +31,14 @@ class SpotifyAPIClient {
     }
     
     // Genre and token are placeholders here. When we call the function in the controller, we then pass these values in.
-    class func generateArtists(withGenres genre: String, withToken token: String, completion: (JSON?) -> ()) {
+    class func generateArtists(withGenres genre: String, withToken token: String, completion: @escaping (JSON?) -> ()) {
         
         let genreParameterDictionary = [spotifyParameter.seedGenre : genre]
         
         let authorizationDictionary = [spotifyParameter.authorization : "Bearer \(token)"]
         
-        Alamofire.request(.GET, URLRouter.baseURLString, parameters: genreParameterDictionary, encoding: ParameterEncoding.URL, headers: authorizationDictionary).validate().responseJSON { (response) in
+        
+        Alamofire.request(URLRouter.baseURLString, method:.get, parameters: genreParameterDictionary, encoding: URLEncoding(destination: .queryString), headers: authorizationDictionary).validate().responseJSON { (response) in
             
             guard let responseValue = response.response?.statusCode else { fatalError("Error converting response value.") }
             
@@ -61,9 +62,9 @@ class SpotifyAPIClient {
     }
     
     // Artist, Genre, Mood and token are placeholders here. When we call the function in the controller, we then pass these values in.
-    class func generateArtistsAndSongs(withUserSelectedArtists selectedArtists : String, withGenre genre : String,  withMood mood: [String : AnyObject], withToken token: String, completion:(JSON?, NSError?) -> ()) {
+    class func generateArtistsAndSongs(withUserSelectedArtists selectedArtists : String, withGenre genre : String,  withMood mood: [String : AnyObject], withToken token: String, completion:@escaping (JSON?, NSError?) -> ()) {
         
-        var parameterDictionary : [String : AnyObject] = [spotifyParameter.seedArtists : selectedArtists, spotifyParameter.seedGenre : genre, spotifyParameter.seedLimit : 80]
+        var parameterDictionary : [String : AnyObject] = ([spotifyParameter.seedArtists : selectedArtists, spotifyParameter.seedGenre : genre, spotifyParameter.seedLimit : 80] as AnyObject) as! [String : AnyObject]
         
         let authorizationDictionary = [spotifyParameter.authorization : "Bearer \(token)"]
         
@@ -71,12 +72,15 @@ class SpotifyAPIClient {
             
             parameterDictionary[key] = value
         }
-        
-        Alamofire.request(.GET, URLRouter.baseURLString, parameters: parameterDictionary, encoding: ParameterEncoding.URL, headers: authorizationDictionary).validate().responseJSON { (response) in
+     
+        Alamofire.request(URLRouter.baseURLString,method: .get, parameters: parameterDictionary, encoding: URLEncoding(destination: .queryString), headers: authorizationDictionary).validate().responseJSON { (response) in
+                 let responseValue = response.result.value
+            guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping response value.") }
             
             switch response.result {
-            case .Success:
-                let responseValue = response.result.value
+             
+            case .success(let _)://.Sucess
+               let responseValue = response.result.value
                 
                 guard let unwrappedResponseValue = responseValue else { fatalError("Error unwrapping response value.") }
                 
@@ -84,10 +88,11 @@ class SpotifyAPIClient {
                 
                 completion(json, nil)
                 
-            case .Failure(let error):
+            case .failure(let error):
+            //.Failure(let error):
                 
                 print(error.localizedDescription)
-                completion(nil, error)
+                completion(nil, error as NSError)
             }
             
         }

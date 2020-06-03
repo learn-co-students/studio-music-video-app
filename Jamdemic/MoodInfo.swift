@@ -15,7 +15,8 @@ enum MoodType {
 class MoodInfo {
     
     let type: MoodType
-    var attributes: [String : AnyObject] {
+    //AnyObject
+    var attributes: [String : Any] {
         return attributesForMoodType()
     }
     
@@ -35,9 +36,9 @@ class MoodInfo {
         self.deselectedImage = deselectedImage
     }
     
-    func attributesForMoodType() -> [String : AnyObject] {
+    func attributesForMoodType() -> [String : Any] {
         
-        var attributes: [String : AnyObject] = [:]
+        var attributes: [String : Any] = [:]
         
         switch self.type {
         case .Acoustic:

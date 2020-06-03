@@ -12,7 +12,7 @@ extension NSURL {
     
     func getQueryItemValue(named name: String) -> String? {
         
-        let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)
+        let components = NSURLComponents(url: self as URL, resolvingAgainstBaseURL: false)
         let query = components?.queryItems
         return query?.filter({$0.name == name}).first?.value
         
@@ -23,15 +23,15 @@ extension NSURL {
 
 extension String {
     var base64EncodedString: String? {
-        let utf8Data = self.dataUsingEncoding(NSUTF8StringEncoding)
-        let encodedString = utf8Data?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let utf8Data = self.data(using: .utf8)
+        let encodedString = utf8Data?.base64EncodedString(options: .init(rawValue: 0))
         return encodedString
     }
 }
 
 extension Array {
     
-    func contains<T where T : Equatable>(obj: T) -> Bool {
+    func contains<T>(obj: T) -> Bool where T : Equatable {
         return self.filter({ $0 as? T == obj}).count > 0
     }
 }

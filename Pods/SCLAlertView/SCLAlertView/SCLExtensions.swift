@@ -20,7 +20,7 @@ extension Int {
     }
     
     func toCGColor() -> CGColor {
-        return self.toUIColor().CGColor
+        return self.toUIColor().cgColor
     }
 }
 
@@ -36,6 +36,18 @@ extension UInt {
     }
     
     func toCGColor() -> CGColor {
-        return self.toUIColor().CGColor
+        return self.toUIColor().cgColor
     }
+}
+
+extension String {
+    
+    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        
+        let boundingBox = self.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        
+        return boundingBox.height
+    }
+    
 }

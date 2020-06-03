@@ -49,12 +49,12 @@
 	return self;
 }
 
-- (id<XCDYouTubeOperation>) getVideoWithIdentifier:(NSString *)videoIdentifier completionHandler:(void (^)(XCDYouTubeVideo * __nullable video, NSError * __nullable error))completionHandler
+- (id<XCDYouTubeOperation>) getVideoWithIdentifier:(NSString *)videoIdentifier cookies:(NSArray<NSHTTPCookie *> *)cookies customPatterns:(NSArray<NSString *> *)customPatterns completionHandler:(void (^)(XCDYouTubeVideo * _Nullable, NSError * _Nullable))completionHandler
 {
 	if (!completionHandler)
 		@throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"The `completionHandler` argument must not be nil." userInfo:nil];
 	
-	XCDYouTubeVideoOperation *operation = [[XCDYouTubeVideoOperation alloc] initWithVideoIdentifier:videoIdentifier languageIdentifier:self.languageIdentifier];
+	XCDYouTubeVideoOperation *operation = [[XCDYouTubeVideoOperation alloc] initWithVideoIdentifier:videoIdentifier languageIdentifier:self.languageIdentifier cookies:cookies customPatterns:customPatterns];
 	operation.completionBlock = ^{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 #pragma clang diagnostic push
@@ -72,6 +72,48 @@
 #pragma clang diagnostic pop
 		}];
 	};
+	[self.queue addOperation:operation];
+	return operation;
+}
+
+- (id<XCDYouTubeOperation>) getVideoWithIdentifier:(NSString *)videoIdentifier completionHandler:(void (^)(XCDYouTubeVideo * __nullable video, NSError * __nullable error))completionHandler
+{
+	return [self getVideoWithIdentifier:videoIdentifier cookies:nil customPatterns:nil  completionHandler:completionHandler];
+}
+
+- (id<XCDYouTubeOperation>) getVideoWithIdentifier:(NSString *)videoIdentifier cookies:(NSArray<NSHTTPCookie *> *)cookies completionHandler:(void (^)(XCDYouTubeVideo * _Nullable, NSError * _Nullable))completionHandler
+{
+	return [self getVideoWithIdentifier:videoIdentifier cookies:cookies customPatterns:nil  completionHandler:completionHandler];
+}
+
+- (XCDYouTubeVideoQueryOperation *)queryVideo:(XCDYouTubeVideo *)video cookies:(NSArray<NSHTTPCookie *> *)cookies completionHandler:(void (^)(NSDictionary * _Nonnull, NSError * _Nullable, NSDictionary<id,NSError *> * _Nonnull))completionHandler
+{
+	return [self queryVideo:video streamURLsToQuery:nil options:nil cookies:cookies completionHandler:completionHandler];
+}
+
+- (XCDYouTubeVideoQueryOperation *)queryVideo:(XCDYouTubeVideo *)video streamURLsToQuery:(NSDictionary<id,NSURL *> *)streamURLsToQuery options:(NSDictionary *)options cookies:(NSArray<NSHTTPCookie *> *)cookies completionHandler:(void (^)(NSDictionary * _Nullable, NSError * _Nullable, NSDictionary<id,NSError *> * _Nullable))completionHandler
+{
+	if (!completionHandler)
+		@throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"The `completionHandler` argument must not be nil." userInfo:nil];
+	
+	XCDYouTubeVideoQueryOperation *operation = [[XCDYouTubeVideoQueryOperation alloc]initWithVideo:video streamURLsToQuery:streamURLsToQuery options:options cookies:cookies];
+	operation.completionBlock = ^{
+		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+			if (operation.streamURLs || operation.error)
+			{
+				NSAssert(!(operation.streamURLs && operation.error), @"One of `streamURLs` or `error` must be nil.");
+				completionHandler(operation.streamURLs, operation.error, operation.streamErrors);
+			} else
+			{
+				NSAssert(operation.isCancelled, @"Both `streamURLs` and `error` can not be nil if the operation was not canceled.");
+			}
+			operation.completionBlock = nil;
+#pragma clang diagnostic pop
+		}];
+	};
+	
 	[self.queue addOperation:operation];
 	return operation;
 }

@@ -9,6 +9,10 @@
 #define null_resettable
 #endif
 
+#import <TargetConditionals.h>
+
+#if TARGET_OS_IOS
+
 #import <MediaPlayer/MediaPlayer.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -44,6 +48,7 @@ MP_EXTERN NSString *const XCDYouTubeVideoUserInfoKey;
  */
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+DEPRECATED_MSG_ATTRIBUTE("Use `AVFoundation` or `AVKit` APIs instead.")
 @interface XCDYouTubeVideoPlayerViewController : MPMoviePlayerViewController
 #pragma clang diagnostic pop
 
@@ -123,3 +128,5 @@ MP_EXTERN NSString *const XCDMetadataKeyMediumThumbnailURL DEPRECATED_MSG_ATTRIB
 MP_EXTERN NSString *const XCDMetadataKeyLargeThumbnailURL DEPRECATED_MSG_ATTRIBUTE("Use XCDYouTubeVideoUserInfoKey instead.");
 
 NS_ASSUME_NONNULL_END
+
+#endif

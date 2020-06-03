@@ -17,37 +17,40 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        GIDSignIn.sharedInstance().signInSilently()
+        GIDSignIn.sharedInstance()?.signIn()
+        //signInSilently()
+        
+
         
         registerNotifications()
     }
     
     func registerNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(networkUnavailable), name: Notifications.networkUnavailable, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(networkAvailable), name: Notifications.networkAvailable, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(networkUnavailable), name: NSNotification.Name(rawValue: Notifications.networkUnavailable), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(networkAvailable), name: NSNotification.Name(rawValue: Notifications.networkAvailable), object: nil)
     }
     
-    func networkUnavailable() {
-        self.notification.notificationLabelBackgroundColor = UIColor.redColor()
+    @objc func networkUnavailable() {
+        self.notification.notificationLabelBackgroundColor = UIColor.red
         
-        let notificationFont = UIFont.systemFontOfSize(15)
+        let notificationFont = UIFont.systemFont(ofSize: 15)
         
         self.notification.notificationLabelFont = notificationFont
-        self.notification.displayNotificationWithMessage("No Internet Connection") {}
+        self.notification.displayNotificationWithMessage(message: "No Internet Connection") {}
     }
     
-    func networkAvailable() {
+    @objc func networkAvailable() {
         self.notification.dismissNotificationWithCompletion { 
             let connectedNotification = CWStatusBarNotification()
-            connectedNotification.notificationLabelBackgroundColor = UIColor.greenColor()
-            connectedNotification.notificationLabelTextColor = UIColor.blackColor()
-             let notificationFont = UIFont.systemFontOfSize(15)
+            connectedNotification.notificationLabelBackgroundColor = UIColor.green
+            connectedNotification.notificationLabelTextColor = UIColor.black
+            let notificationFont = UIFont.systemFont(ofSize: 15)
             connectedNotification.notificationLabelFont = notificationFont
-            connectedNotification.displayNotificationWithMessage("Connected!", forDuration: 2.0)
+            connectedNotification.displayNotificationWithMessage(message: "Connected!", forDuration: 2.0)
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         checkCurrentUser()
     }
 
@@ -56,9 +59,9 @@ class HomeViewController: UIViewController {
 
     func checkCurrentUser() {
         
-        if FIRAuth.auth()?.currentUser == nil {
+        if Auth.auth().currentUser == nil {
             // take user to login screen
-            performSegueWithIdentifier(Constants.Segues.ShowLogin, sender: nil)
+            performSegue(withIdentifier: Constants.Segues.ShowLogin, sender: nil)
         }
 
     }

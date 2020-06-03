@@ -13,7 +13,12 @@ import Firebase
 
 struct SpotifyAPIOAuthClient {
     
-    static let encodedRedirectURI = "jamdemicApp%3A%2F%2F"
+
+    
+    static let encodedRedirectURI =
+    //jamdemicApp://callback"
+    
+    "jamdemicApp%3A%2F%2Fcallback"
     
     enum URLRouter {
         static let token = "https://accounts.spotify.com/api/token"
@@ -53,8 +58,8 @@ struct SpotifyAPIOAuthClient {
         ]
         
         
-        Alamofire.request(.POST, SpotifyAPIOAuthClient.URLRouter.token, parameters: parameters, encoding: .URL, headers: headers).responseJSON { (response) in
-            print(response.result.value)
+        Alamofire.request(SpotifyAPIOAuthClient.URLRouter.token, method: .post, parameters: parameters, encoding: URLEncoding(destination: .queryString), headers: headers).responseJSON { (response) in
+            print(response.result.value!)
         }
         
     }
@@ -63,7 +68,7 @@ struct SpotifyAPIOAuthClient {
     /**
      Refreshes an expired access token by sending a **POST** request to https://accounts.spotify.com/api/token along with a valid refresh token
      */
-    private static func refreshSpotifyAccessToken(completed: (String?) -> ()) {
+    private static func refreshSpotifyAccessToken(completed: @escaping (String?) -> ()) {
         
         let parameters = [
             "grant_type" : "refresh_token",
@@ -78,8 +83,8 @@ struct SpotifyAPIOAuthClient {
             "Authorization" : "Basic \(combinedEncodedString)"
         ]
         
-        Alamofire.request(.POST, SpotifyAPIOAuthClient.URLRouter.token, parameters: parameters, encoding: .URL, headers: headers).responseJSON { (response) in
-            print("New access token info: \(response.result.value)")
+        Alamofire.request(SpotifyAPIOAuthClient.URLRouter.token, method: .post, parameters: parameters, encoding: URLEncoding(destination: .queryString), headers: headers).responseJSON { (response) in
+            print("New access token info: \(String(describing: response.result.value))")
             
             if let value = response.result.value {
                 let json = JSON(value)
@@ -88,7 +93,7 @@ struct SpotifyAPIOAuthClient {
                     fatalError("Unable to unwrap access token")
                 }
                 
-                SpotifyAPIOAuthClient.saveTokenToFirebase(token)
+                SpotifyAPIOAuthClient.saveTokenToFirebase(token: token)
                 
                 completed(token)
             }
@@ -101,13 +106,13 @@ struct SpotifyAPIOAuthClient {
     
     /** Saves the specified token to Firebase */
     private static func saveTokenToFirebase(token: String) {
-        let databaseReference = FIRDatabase.database().referenceWithPath("/private_tokens").child("spotify_access_token")
+        let databaseReference = Database.database().reference(withPath: "/private_tokens").child("spotify_access_token")
         databaseReference.setValue(token) { (error, reference) in
             if error == nil {
                 print("successfully saved token to Firebase at reference: \(reference)")
             }
             else {
-                print("Error saving token to Firebase: \(error?.localizedDescription)")
+                print("Error saving token to Firebase: \(String(describing: error?.localizedDescription))")
             }
         }
     }
@@ -121,17 +126,17 @@ struct SpotifyAPIOAuthClient {
      - parameters:
      - completion: A completion block that passes back the access token stored on Firebase
      */
-    private static func loadSpotifyAccessToken(completion: (String?)->() ) {
-        let tokenReference = FIRDatabase.database().referenceWithPath("/private_tokens/spotify_access_token")
+    private static func loadSpotifyAccessToken(completion: @escaping (String?)->() ) {
+        let tokenReference = Database.database().reference(withPath: "/private_tokens/spotify_access_token")
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if !appDelegate.isReachable() {
             completion(nil)
         }
         else {
-            tokenReference.observeEventType(.Value) { (snapshot: FIRDataSnapshot) in
+            tokenReference.observe(.value) { (snapshot: DataSnapshot) in
                 let token = snapshot.value as? String
-                print("Retrived token from Firebase: \(token)")
+                print("Retrived token from Firebase: \(String(describing: token))")
                 // Observers need to be removed, otherwise they continue to sync data
                 tokenReference.removeAllObservers()
                 completion(token)
@@ -145,48 +150,50 @@ struct SpotifyAPIOAuthClient {
      
      - important: Use this function before making any API calls to Spotify to ensure you have a valid access token.
      */
-    static func verifyAccessToken( success: String -> Void, failure: NSError -> Void) {
+    static func verifyAccessToken( success: (String) -> Void, failure: (NSError) -> Void) {
         
-        // Block to make a limited request to the Spotify API using the current access token loaded from Firebase
-        let oauthTestTask: (oauthSuccess: String -> Void, oauthfailure: NSError -> Void) -> Void = {oauthSuccess, oauthFailure in
-            SpotifyAPIOAuthClient.loadSpotifyAccessToken({ (token) in
-                guard let token = token else {
-                    print("Unable to unwrap token")
-                    let error = NSError(domain: "CannotLoadFirebaseToken", code: 1984, userInfo: nil)
-                    oauthFailure(error)
-                    return
-                }
-                
-                // Set up the parameters to get a list of categories. Limit set to 1 since we want a small request to test the token
-                let parameters = ["limit": 1]
-                let headers = ["Authorization" : "Bearer \(token)"]
-                let baseURL = "https://api.spotify.com/v1/browse/categories"
-                
-                Alamofire.request(.GET, baseURL, parameters: parameters, encoding: .URL, headers: headers).validate().responseJSON(completionHandler: { (response) in
-                    switch response.result {
-                    case .Success:
-                        oauthSuccess(token)
-                    case .Failure(let error):
-                        // TODO: Test for the invalid token error
-                        // Refresh the token and report the failure
-                        SpotifyAPIOAuthClient.refreshSpotifyAccessToken({ (_) in
-                            oauthFailure(error)
-                        })
-                    }
-                })
-            })
+
+  // Block to make a limited request to the Spotify API using the current access token loaded from Firebase
+        let oauthTestTask:  ((String) -> Void, ( NSError) -> Void) -> Void  = { oauthSuccess, oauthFailure in
+    SpotifyAPIOAuthClient.loadSpotifyAccessToken(completion: {  (token) in
+    
+          guard let token = token else {
+              print("Unable to unwrap token")
+              let error = NSError(domain: "CannotLoadFirebaseToken", code: 1984, userInfo: nil)
+              oauthFailure(error)
+             return
+          }
+          
+          // Set up the parameters to get a list of categories. Limit set to 1 since we want a small request to test the token
+          let parameters = ["limit": 1]
+          let headers = ["Authorization" : "Bearer \(token)"]
+          let baseURL = "https://api.spotify.com/v1/browse/categories"
+          
+        Alamofire.request(baseURL, method: .get, parameters: parameters, encoding: URLEncoding.methodDependent , headers: headers).validate().responseJSON(completionHandler: { (response) in
+              switch response.result {
+              case .success(let token):
+                oauthSuccess( token as! String)
+              case .failure(let error):
+                  // TODO: Test for the invalid token error
+                  // Refresh the token and report the failure
+                SpotifyAPIOAuthClient.refreshSpotifyAccessToken( completed: { (_) in
+                    oauthFailure(error as NSError)
+                  })
+              }
+          })
+      })
+  }
+  
+        SpotifyAPIOAuthClient.retry(numberOfTimes: 3, task:  oauthTestTask
+            , success: { (token) in
+            print("Access token validation successful")
+                     success(token)
+        }) { (error ) in
+            print("Failed to validate access token. Error: \(error.localizedDescription)")
+                     failure(error)
         }
         
-        SpotifyAPIOAuthClient.retry(
-            3, task: oauthTestTask,
-            success: { token in
-                print("Access token validation successful")
-                success(token)
-            },
-            failure: { error in
-                print("Failed to validate access token. Error: \(error.localizedDescription)")
-                failure(error)
-        })
+        
     }
     
     /**
@@ -195,15 +202,15 @@ struct SpotifyAPIOAuthClient {
      - parameter numberOfTimes: The number of times the task should be tried in the event of failure.
      - parameter task: A function whose only parameters are two closures -- one for success and one for failure. The success closure accepts a string and returns nothing. The failure closure accepts an NSError object and returns nothing.
     */
-    private static func retry(numberOfTimes: Int, task: (success: String -> Void, failure: NSError -> Void) -> Void, success: String -> Void, failure: NSError -> Void) {
-        task(success: { token in
-                success(token)
-            },
-             failure: { error in
+    private static func retry(numberOfTimes: Int, task: @escaping ((_ success: (String) -> Void, _ failure: (NSError) -> Void) -> Void), success: @escaping (String) -> Void, failure: @escaping (NSError) -> Void) {
+        task({ token in
+            success(token)
+        },
+             { error in
                 // do we have retries left? if yes, call retry again
                 // if not, report error
                 if numberOfTimes > 1 {
-                    self.retry(numberOfTimes - 1, task: task, success: success, failure: failure)
+                    self.retry(numberOfTimes: numberOfTimes - 1, task: task, success: success, failure: failure)
                 } else {
                     failure(error)
                 }

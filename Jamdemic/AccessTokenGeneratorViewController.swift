@@ -17,20 +17,20 @@ class AccessTokenGeneratorViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleCallback), name: Notifications.receivedSpotifyCode, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCallback), name: NSNotification.Name(rawValue: Notifications.receivedSpotifyCode), object: nil)
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         guard let url = NSURL(string: SpotifyAPIOAuthClient.URLRouter.oauth) else { fatalError("Unable to create url") }
         
-        let safariVC = SFSafariViewController(URL: url)
-        presentViewController(safariVC, animated: true, completion: nil)
+        let safariVC = SFSafariViewController(url: url as URL)
+        present(safariVC, animated: true, completion: nil)
         
     }
     
-    func handleCallback(notification: NSNotification) {
-        self.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    @objc func handleCallback(notification: NSNotification) {
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
 //        guard let url = notification.object as? NSURL else { fatalError("unable to unwrap notification object") }
         // Start request for token using the code. This is set to private for normal use so no one accidentally calls it.
 //        SpotifyAPIOAuthClient.startSpotifyAccessTokenRequest(withURL: url)

@@ -1,16 +1,13 @@
 framework module GoogleSignIn {
-
-  export *
-
   umbrella header "GoogleSignIn.h"
-
-  header "GIDAuthentication.h"
-  header "GIDGoogleUser.h"
-  header "GIDProfileData.h"
-  header "GIDSignIn.h"
-  header "GIDSignInButton.h"
-
+  export *
+  module * { export * }
+  link framework "AuthenticationServices"
+  link framework "CoreGraphics"
   link framework "CoreText"
+  link framework "Foundation"
+  link framework "LocalAuthentication"
   link framework "SafariServices"
   link framework "Security"
+  link framework "UIKit"
 }

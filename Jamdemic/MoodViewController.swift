@@ -91,7 +91,7 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         
         var eachArtistString = ""
         
-        for (index, eachArtist) in userSelectedArtists.enumerate() {
+        for (index, eachArtist) in userSelectedArtists.enumerated() {
             
             eachArtistString += "\(eachArtist.spotifyID)"
             
@@ -106,10 +106,10 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
 
     @IBAction func generatePlaylist(sender: AnyObject) {
         
-        startActivityAnimating(message: "Loading...", type: .LineScalePulseOutRapid)
+        startAnimating(message: "Loading...", type: .lineScalePulseOutRapid)
         
         // Before hitting Spotify API, we check if the access token is valid. If it is not, we get a new one before the API call.
-        SpotifyAPIOAuthClient.verifyAccessToken({ (token) in
+        SpotifyAPIOAuthClient.verifyAccessToken(success: { (token) in
             
             let moodParamater = self.flattenSelectedMoods()
             
@@ -147,7 +147,7 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
             
             // If the Spotify API is unavailable, the user is presented with an alert view.
         }) { (error) in
-            self.stopActivityAnimating()
+            self.stopAnimating()
             self.displayErrorMessage(forError: error)
         }
     }
@@ -155,19 +155,21 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
     func crossReferenceYoutubeSearch() {
         
         // Setting an asynchronous queue with a high priority.
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+       DispatchQueue.global(qos: .background).async {
+
+
             
             // Create an asynchronous request group because we multiple requests to make to each artist and song to search youtube.
-            let requestGroup = dispatch_group_create()
+        let requestGroup = DispatchGroup()
             
             for (artist, song) in self.finalQueryDictionary {
                 
                 let searchText = artist + "-" + song
                 
                 // Is a tally holder that adds up all of the request groups. We do this before the Youtube API call.
-                dispatch_group_enter(requestGroup)
+                requestGroup.enter()
                 
-                SearchModel.getSearches(0, searchText: searchText, completion: { (infoDictionary) in
+                SearchModel.getSearches(index: 0, searchText: searchText, completion: { (infoDictionary) in
                     
                     guard let videoID = infoDictionary["videoID"] else { fatalError("Error unwrapping videoID from infoDictionary.") }
                     
@@ -178,30 +180,32 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
                     self.playlistDetailInfoArray.append(playlistItemInfo)
                     
                     // When we are done with every request for artist and song, the dispatch group leaves.
-                    dispatch_group_leave(requestGroup)
+                    requestGroup.leave()
                 })
             }
             
             // Wait for all request groups to finish before proceeding.
-            dispatch_group_wait(requestGroup, DISPATCH_TIME_FOREVER)
+
+      //  dispatch_group_wait(requestGroup, dispatch_time_t(DISPATCH_TIME_FOREVER))
+         requestGroup.wait(timeout: .distantFuture)
             
-            dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async {
                 
-                self.stopActivityAnimating()
+                self.stopAnimating()
                 for playlistItem in self.playlistDetailInfoArray {
                     print("\(playlistItem.name) - \(playlistItem.songTitle)\n\(playlistItem.videoID)\n\(playlistItem.thumnailURLString)")
                 }
-                self.stopActivityAnimating()
+                self.stopAnimating()
                 // TODO: manual segue to next view controller.
-                self.performSegueWithIdentifier("showPlaylist", sender: nil)
-            })
-        })
+            self.performSegue(withIdentifier: "showPlaylist", sender: nil)
+            }
+        }
     }
     
     // MARK: Segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+ func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showPlaylist" {
-            let destinationVC = segue.destinationViewController as! PlaylistViewController
+            let destinationVC = segue.destination as! PlaylistViewController
             destinationVC.playlistData = playlistDetailInfoArray
         }
     }
@@ -230,7 +234,7 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         let alert = SCLAlertView(appearance: alertAppearance)
         
         alert.showWarning("Oh no!", subTitle: "There aren't any tracks that meet these filters. Trying choosing a different mood or genre.")
-        self.stopActivityAnimating()
+        self.stopAnimating()
     }
     
     func flattenSelectedMoods() -> [String : AnyObject] {
@@ -240,7 +244,7 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
         for mood in selectedMoods {
             let moodAttributes = mood.attributes
             for (key, value) in moodAttributes {
-                flattenedMoods[key] = value
+                flattenedMoods[key] = value as AnyObject
             }
         }
         return flattenedMoods
@@ -250,16 +254,27 @@ class MoodViewController: UIViewController, NVActivityIndicatorViewable {
 //MARK: - CollectionView
 extension MoodViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "moodCell", for: indexPath as IndexPath) as! MoodCollectionViewCell
+        
+        cell.displayImageView.image = moods[indexPath.row].displayImage
+        
+        return cell
+    }
+    
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return calculcateCellSize()
         
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return self.cellSpacing
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return self.cellSpacing
     }
 
@@ -269,54 +284,47 @@ extension MoodViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return CGSize(width: cellWidthAndHeight, height: cellWidthAndHeight)
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if self.selectedMoods.count >= self.maxMoodsAllowed {
             // display alert saying max moods already selected
             return
         }
         
-        var mood = moods[indexPath.row]
+        let mood = moods[indexPath.row]
         mood.isSelected = true
         
         self.selectedMoods.append(mood)
         
-        setCellDisplayImageForIndexPath(indexPath, mood: mood)
+        setCellDisplayImageForIndexPath(indexPath: indexPath as NSIndexPath, mood: mood)
         print(selectedMoods)
 
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
-        var mood = moods[indexPath.row]
+        let mood = moods[indexPath.row]
          mood.isSelected = false
-        let indexToRemove = selectedMoods.indexOf { $0.type == mood.type }
+        let indexToRemove = selectedMoods.firstIndex(where: { $0.type == mood.type })
         
         if let indexToRemove = indexToRemove {
-            selectedMoods.removeAtIndex(indexToRemove)
+            selectedMoods.remove(at: indexToRemove)
         }
         
        
         
-        setCellDisplayImageForIndexPath(indexPath, mood: mood)
+        setCellDisplayImageForIndexPath(indexPath: indexPath as NSIndexPath, mood: mood)
     }
     
     func setCellDisplayImageForIndexPath(indexPath: NSIndexPath, mood: MoodInfo) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MoodCollectionViewCell
+        let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! MoodCollectionViewCell
         cell.displayImageView.image = mood.displayImage
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.moods.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("moodCell", forIndexPath: indexPath) as! MoodCollectionViewCell
-        
-         cell.displayImageView.image = moods[indexPath.row].displayImage
-        
-        return cell
-    }
     
 }
 

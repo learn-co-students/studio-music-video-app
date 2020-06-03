@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Foundation
 
 // MARK: - helper functions
 
 func systemVersionLessThan(value : String) -> Bool {
-    return UIDevice.currentDevice().systemVersion.compare(value,
-        options: NSStringCompareOptions.NumericSearch) == .OrderedAscending
+    return UIDevice.current.systemVersion.compare(value,
+                                                  options: NSString.CompareOptions.numeric) == .orderedAscending
 }
 
 // MARK: - ScrollLabel
@@ -38,10 +39,12 @@ public class ScrollLabel : UILabel {
         super.init(coder: aDecoder)
     }
     
-    override public func drawTextInRect(rect: CGRect) {
+    override public func drawText(in rect: CGRect) {
         guard self.scrollOffset() > 0 else {
             self.textImage = nil
-            super.drawTextInRect(CGRectInset(rect, padding, 0))
+            super.drawText(in: rect.insetBy(dx: padding, dy: 0))
+           // CGRect.insetBy(dx:dy:)'
+           // super.drawText(in: CGRectInset(rect, padding, 0))
             return
         }
         guard let textImage = self.textImage else {
@@ -50,20 +53,20 @@ public class ScrollLabel : UILabel {
         var frame = rect // because rect is immutable
         frame.size.width = self.fullWidth() + padding * 2
         UIGraphicsBeginImageContextWithOptions(frame.size, false,
-            UIScreen.mainScreen().scale)
-        super.drawTextInRect(frame)
+                                               UIScreen.main.scale)
+        super.drawText(in: frame)
         textImage.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         textImage.sizeToFit()
-        UIView.animateWithDuration(NSTimeInterval(self.scrollTime()
+        UIView.animate(withDuration: TimeInterval(self.scrollTime()
             - scrollDelay),
-            delay: NSTimeInterval(scrollDelay),
-            options: UIViewAnimationOptions(arrayLiteral:
-                UIViewAnimationOptions.BeginFromCurrentState,
-                UIViewAnimationOptions.CurveEaseInOut),
+                                   delay: TimeInterval(scrollDelay),
+                                   options: UIView.AnimationOptions(arrayLiteral:
+                                    UIView.AnimationOptions.beginFromCurrentState,
+                                                                    UIView.AnimationOptions.curveEaseInOut),
             animations: { () -> () in
-                textImage.transform = CGAffineTransformMakeTranslation(-1
-                    * self.scrollOffset(), 0)
+                textImage.transform = CGAffineTransform(translationX: -1
+                    * self.scrollOffset(), y: 0)
             }, completion: nil)
     }
     
@@ -73,8 +76,8 @@ public class ScrollLabel : UILabel {
         guard let content = self.text else {
             return 0.0
         }
-        let size = NSString(string: content).sizeWithAttributes(
-            [NSFontAttributeName: self.font])
+        let size = NSString(string: content).size(
+            withAttributes: [NSAttributedString.Key.font: self.font ??  self.font])
         return size.width
     }
     
@@ -82,7 +85,8 @@ public class ScrollLabel : UILabel {
         guard self.numberOfLines == 1 else {
             return 0.0
         }
-        let insetRect = CGRectInset(self.bounds, padding, 0.0)
+        let insetRect = self.bounds.insetBy(dx: padding, dy: 0.0)
+      //  (self.bounds, padding, 0.0)
         return max(0, self.fullWidth() - insetRect.size.width)
     }
     
@@ -97,18 +101,19 @@ public class ScrollLabel : UILabel {
 public class CWWindowContainer : UIWindow {
     var notificationHeight : CGFloat = 0.0
     
-    override public func hitTest(pt: CGPoint, withEvent event: UIEvent?) -> UIView? {
+    override public func hitTest(_ pt: CGPoint, with event: UIEvent?) -> UIView? {
         var height : CGFloat = 0.0
-        if systemVersionLessThan("8.0.0") && UIInterfaceOrientationIsLandscape(
-            UIApplication.sharedApplication().statusBarOrientation) {
-                height = UIApplication.sharedApplication().statusBarFrame.size.width
+        if systemVersionLessThan(value: "8.0.0") && (UIInterfaceOrientation.landscapeLeft.isLandscape || UIInterfaceOrientation.landscapeRight.isLandscape) //(
+        // UIApplication.shared.statusBarOrientation) {
+        {
+            height = UIApplication.shared.statusBarFrame.size.width
         } else {
-            height = UIApplication.sharedApplication().statusBarFrame.size
+            height = UIApplication.shared.statusBarFrame.size
                 .height
         }
         if pt.y > 0 && pt.y < (self.notificationHeight != 0.0 ?
             self.notificationHeight : height) {
-                return super.hitTest(pt, withEvent: event)
+            return super.hitTest(pt, with: event)
         }
         
         return nil
@@ -117,19 +122,19 @@ public class CWWindowContainer : UIWindow {
 
 // MARK: - CWViewController
 class CWViewController : UIViewController {
-    var localPreferredStatusBarStyle : UIStatusBarStyle = .Default
+    var localPreferredStatusBarStyle : UIStatusBarStyle = .default
     var localSupportedInterfaceOrientations : UIInterfaceOrientationMask = []
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+   func preferredStatusBarStyle() -> UIStatusBarStyle {
         return self.localPreferredStatusBarStyle
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+   func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return self.localSupportedInterfaceOrientations
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame
+   func prefersStatusBarHidden() -> Bool {
+        let statusBarHeight = UIApplication.shared.statusBarFrame
             .size.height
         return !(statusBarHeight > 0)
     }
@@ -138,29 +143,36 @@ class CWViewController : UIViewController {
 // MARK: - delayed closure handle
 
 typealias CWDelayedClosureHandle = (Bool) -> ()
-
-func performClosureAfterDelay(seconds : Double, closure: dispatch_block_t?) -> CWDelayedClosureHandle? {
+//dispatch_block_t
+func performClosureAfterDelay(seconds : Double, closure: @escaping ()->Void?) -> CWDelayedClosureHandle? {
     guard closure != nil else {
         return nil
     }
     
-    var closureToExecute : dispatch_block_t! = closure // copy?
+    var closureToExecute : ()->Void? = closure // copy?
     var delayHandleCopy : CWDelayedClosureHandle! = nil
     
     let delayHandle : CWDelayedClosureHandle = {
         (cancel : Bool) -> () in
         if !cancel && closureToExecute != nil {
-            dispatch_async(dispatch_get_main_queue(), closureToExecute)
-        }
-        closureToExecute = nil
+          //  dispatch_async(dispatch_get_main_queue(), closureToExecute)
+       // }
+            DispatchQueue.main.async(execute: {
+    //    closureToExecute //= nil
         delayHandleCopy = nil
     }
+        )}
+    }
+    
     
     delayHandleCopy = delayHandle
     
-    let delay = Int64(Double(seconds) * Double(NSEC_PER_SEC))
-    let after = dispatch_time(DISPATCH_TIME_NOW, delay)
-    dispatch_after(after, dispatch_get_main_queue()) {
+//    let delay = Int64(Double(seconds) * Double(NSEC_PER_SEC))
+  //  let after = dispatch_time_t.zero
+       // dispatch_time(DispatchTime.now(), delay)
+    
+  // let after = DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() , delay)
+     DispatchQueue.main.async {
         if delayHandleCopy != nil {
             delayHandleCopy(false)
         }

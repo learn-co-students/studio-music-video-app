@@ -19,13 +19,14 @@ class Helper {
         print("Anonymous Login Did Tapped")
         //Switch view by setting navigation controller as root view controller
         
-        FIRAuth.auth()?.signInAnonymouslyWithCompletion({ (anonymousUser:FIRUser?, error: NSError?) in
+        Auth.auth().signInAnonymously(completion: { (anonymousUser, error) in
+            //(anonymousUser:User?, error: NSError?) in
             if error == nil {
-                print("UserID: \(anonymousUser!.uid)")
+                print("UserID: \(anonymousUser!.user.uid)")
                 
                 
-                let newUser = FIRDatabase.database().reference().child("users").child(anonymousUser!.uid)
-                newUser.setValue(["displayname" : "Anonymous", "id" : "\(anonymousUser!.uid)", "profileUrl": ""])
+                let newUser = Database.database().reference().child("users").child(anonymousUser!.user.uid)
+                newUser.setValue(["displayname" : "Anonymous", "id" : "\(anonymousUser!.user.uid)", "profileUrl": ""])
                 
                 self.switchToNavigationViewController()
                 
@@ -40,20 +41,21 @@ class Helper {
     
     func loginWithGoogle(authentication: GIDAuthentication) {
         
-        let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken,
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                                      accessToken: authentication.accessToken)
         
-        FIRAuth.auth()?.signInWithCredential(credential, completion: { (user: FIRUser?, error: NSError?) in
+        Auth.auth().signIn(with: credential, completion:{ (user , error) in
+            //{ (user: User?, error: NSError?) in
             if let error = error {
                 print(error.localizedDescription)
                 return
             } else {
-                print(user?.email)
-                print(user?.displayName)
-                print(user?.photoURL)
+                print(user?.user.email! )
+                print(user?.user.displayName!)
+                print(user?.user.photoURL!)
                 
-                let newUser = FIRDatabase.database().reference().child("users").child(user!.uid)
-                newUser.setValue(["displayname" : "\(user!.displayName)", "id" : "\(user!.uid)", "profileUrl": "\(user!.photoURL!)"])
+                let newUser = Database.database().reference().child("users").child((user?.user.uid)!)
+                newUser.setValue(["displayname" : "\(user!.user.displayName)", "id" : "\(user!.user.uid)", "profileUrl": "\(user!.user.photoURL!)"])
                 
                 self.switchToNavigationViewController()
             }
@@ -62,8 +64,8 @@ class Helper {
     
     func switchToNavigationViewController() {
         let storyboard = UIStoryboard(name: "GoogleSignIn", bundle: nil)
-        let navVC = storyboard.instantiateViewControllerWithIdentifier("GenreStoryBoard") 
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let navVC = storyboard.instantiateViewController(withIdentifier: "GenreStoryBoard")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = navVC
     }
     

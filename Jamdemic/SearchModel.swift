@@ -33,9 +33,9 @@ class SearchModel: NSObject {
     
     
     
-    class func getSearches(index: Int, searchText: String, completion: [String : String] -> Void) {
+    class func getSearches(index: Int, searchText: String, completion: @escaping ([String : String]) -> Void) {
         
-        Alamofire.request(.GET, SearchModel.urlString, parameters: ["key":Secrets.youtubeAPIKey,"q": searchText, "type":"video", "part":"snippet"],encoding: ParameterEncoding.URL, headers: nil).responseJSON {(response) in
+        Alamofire.request(SearchModel.urlString, method: .get, parameters: ["key":Secrets.youtubeAPIKey,"q": searchText, "type":"video", "part":"snippet"],encoding: URLEncoding(destination: .queryString), headers: nil).responseJSON {(response) in
             
             if let jsonResult = response.result.value {
                 

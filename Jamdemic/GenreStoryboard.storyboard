@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GcU-YW-N0w">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GcU-YW-N0w">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--GoogleSignIn-->
@@ -24,12 +24,12 @@
                         <viewControllerLayoutGuide type="bottom" id="t2F-rJ-99h"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2k0-42-eFX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GOp-hc-Wdu">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b6v-v7-ksL">
                                     <size key="itemSize" width="104" height="97"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -38,7 +38,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="genreCell" id="CBh-Wq-uAI" customClass="GenreCollectionViewCell" customModule="Jamdemic" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="104" height="97"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="104" height="97"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="104" height="97"/>
@@ -48,9 +48,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="104" height="97"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="b9e-Gr-5v3" firstAttribute="height" secondItem="CBh-Wq-uAI" secondAttribute="height" id="O0A-gl-juj"/>
                                             <constraint firstItem="b9e-Gr-5v3" firstAttribute="top" secondItem="CBh-Wq-uAI" secondAttribute="topMargin" constant="-8" id="ahD-rn-OTn"/>
@@ -64,12 +63,12 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GOp-hc-Wdu" firstAttribute="leading" secondItem="2k0-42-eFX" secondAttribute="leading" id="Djl-mE-A2I"/>
                             <constraint firstItem="GOp-hc-Wdu" firstAttribute="top" secondItem="2k0-42-eFX" secondAttribute="topMargin" id="TKI-w0-Jyu"/>
                             <constraint firstItem="GOp-hc-Wdu" firstAttribute="width" secondItem="2k0-42-eFX" secondAttribute="width" id="hhL-gP-crq"/>
-                            <constraint firstItem="GOp-hc-Wdu" firstAttribute="height" secondItem="2k0-42-eFX" secondAttribute="height" id="iVg-uK-efE"/>
+                            <constraint firstItem="GOp-hc-Wdu" firstAttribute="height" secondItem="2k0-42-eFX" secondAttribute="height" constant="-88" id="iVg-uK-efE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Choose up to 5" id="9e7-Mn-2Dd">
@@ -80,16 +79,15 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="collectionView" destination="GOp-hc-Wdu" id="x07-Pa-sBB"/>
+                        <outlet property="collectionView" destination="GOp-hc-Wdu" id="Cyp-4d-pkR"/>
                         <outlet property="nextButton" destination="uWd-Vd-Pd2" id="dnB-3C-pMT"/>
-                        <segue destination="scH-u7-Ndg" kind="presentation" identifier="showLogin" id="TeP-hi-HQV"/>
+                        <segue destination="scH-u7-Ndg" kind="presentation" identifier="showLogin" modalPresentationStyle="fullScreen" id="TeP-hi-HQV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xJq-l9-jL9" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1844" y="374"/>
+            <point key="canvasLocation" x="1410.144927536232" y="385.71428571428572"/>
         </scene>
         <!--Choose up to 5-->
         <scene sceneID="dwd-hV-UsH">
@@ -100,12 +98,12 @@
                         <viewControllerLayoutGuide type="bottom" id="eAa-r2-TDS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="88U-I9-2Qa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yNK-Ot-wSN">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sZ8-uW-Aso">
                                     <size key="itemSize" width="140" height="124"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -125,16 +123,16 @@
                                                 </imageView>
                                                 <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N5i-E9-Pq2">
                                                     <rect key="frame" x="0.0" y="0.0" width="140" height="124"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R36-d4-L1f">
-                                                    <rect key="frame" x="8" y="50" width="124" height="24"/>
+                                                    <rect key="frame" x="8" y="50.5" width="124" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="artist-heart-selected" translatesAutoresizingMaskIntoConstraints="NO" id="b7t-hw-MdX">
-                                                    <rect key="frame" x="56" y="94" width="28" height="25"/>
+                                                    <rect key="frame" x="56" y="94" width="28" height="24.5"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Line" translatesAutoresizingMaskIntoConstraints="NO" id="e0W-qE-zry">
                                                     <rect key="frame" x="60" y="80" width="20" height="2"/>
@@ -143,7 +141,6 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="140" height="124"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="e0W-qE-zry" firstAttribute="leading" secondItem="N5i-E9-Pq2" secondAttribute="leading" constant="60" id="1g2-5W-DLK"/>
@@ -183,7 +180,7 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="yNK-Ot-wSN" firstAttribute="height" secondItem="88U-I9-2Qa" secondAttribute="height" id="8na-df-y5h"/>
                             <constraint firstItem="eAa-r2-TDS" firstAttribute="top" secondItem="yNK-Ot-wSN" secondAttribute="bottom" id="Xms-gQ-NIx"/>
@@ -223,12 +220,12 @@
                         <viewControllerLayoutGuide type="bottom" id="hiO-hW-XOL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vUI-nH-x2p">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EY9-Ro-kkU">
-                                <rect key="frame" x="0.0" y="64" width="320" height="447"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EY9-Ro-kkU">
+                                <rect key="frame" x="0.0" y="78" width="320" height="447"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8Xj-gc-V3s">
                                     <size key="itemSize" width="118" height="110"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -247,7 +244,6 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="118" height="110"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="sAP-fW-lIK" firstAttribute="leading" secondItem="E36-WM-3zM" secondAttribute="leading" id="Rmr-1h-7Oo"/>
@@ -262,18 +258,18 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yH8-e1-WSW">
-                                <rect key="frame" x="0.0" y="511" width="320" height="57"/>
-                                <color key="backgroundColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="772.5" width="414" height="89.5"/>
+                                <color key="backgroundColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                 <state key="normal" title="Generate Playlist">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="generatePlaylist:" destination="g6n-eO-eaP" eventType="touchUpInside" id="AkD-GY-wD0"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EY9-Ro-kkU" firstAttribute="top" secondItem="rl4-Iw-hfj" secondAttribute="bottom" id="1G1-pR-gKT"/>
                             <constraint firstItem="yH8-e1-WSW" firstAttribute="top" secondItem="EY9-Ro-kkU" secondAttribute="bottom" id="3rs-7P-XsL"/>
@@ -288,7 +284,6 @@
                     <navigationItem key="navigationItem" title="How are you feeling?" id="rv7-Fe-Ker">
                         <barButtonItem key="backBarButtonItem" title="Moods" id="Yng-4G-5Ml"/>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionView" destination="EY9-Ro-kkU" id="hCu-iy-fMc"/>
                         <segue destination="mjp-Pu-2iq" kind="show" identifier="showPlaylist" id="c6S-9b-kMl"/>
@@ -296,7 +291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2e-s3-V5V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2861" y="368"/>
+            <point key="canvasLocation" x="3528" y="417"/>
         </scene>
         <!--PlaylistViewController-->
         <scene sceneID="zTY-IZ-QyU">
@@ -304,7 +299,7 @@
                 <viewControllerPlaceholder storyboardName="VideoPlaylist" referencedIdentifier="PlaylistViewController" id="mjp-Pu-2iq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xY5-08-nTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3140.5" y="374"/>
+            <point key="canvasLocation" x="2940" y="94"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="z0F-LC-c6Q">
@@ -312,7 +307,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GcU-YW-N0w" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tvm-Bp-gms">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -322,7 +317,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BUh-hq-dmy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1241" y="390"/>
+            <point key="canvasLocation" x="590" y="386"/>
         </scene>
     </scenes>
     <resources>

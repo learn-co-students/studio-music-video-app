@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8WZ-Yl-Y7o">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8WZ-Yl-Y7o">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Playlist-->
@@ -16,39 +18,39 @@
                         <viewControllerLayoutGuide type="bottom" id="FJ2-Mg-90I"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Tti-gH-ldD">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="suI-Yn-fV6">
-                                <rect key="frame" x="0.0" y="482" width="600" height="54"/>
+                                <rect key="frame" x="0.0" y="542.5" width="375" height="60.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ZEF-bP-DmM">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYk-wL-wht">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="54"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="125" height="60.5"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                                 <state key="normal" title="New Playlist">
-                                                    <color key="titleColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="newSearchButtonTapped:" destination="Zc4-Bj-P7f" eventType="touchUpInside" id="WZb-y4-pOh"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJr-IA-pFh">
-                                                <rect key="frame" x="200" y="0.0" width="200" height="54"/>
-                                                <color key="backgroundColor" red="0.98039215686274506" green="0.14509803921568626" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <rect key="frame" x="125" y="0.0" width="125" height="60.5"/>
+                                                <color key="backgroundColor" red="0.98039215686274506" green="0.14509803921568626" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="Play-104"/>
                                                 <connections>
                                                     <segue destination="H0k-8R-KZv" kind="show" identifier="showVideoFromPlayButton" id="UCa-OR-Krh"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jJF-fZ-Qlx">
-                                                <rect key="frame" x="400" y="0.0" width="200" height="54"/>
+                                                <rect key="frame" x="250" y="0.0" width="125" height="60.5"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                                 <state key="normal" title="Save Playlist">
-                                                    <color key="titleColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.98039215690000003" green="0.1450980392" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="savePlaylistButtonTapped:" destination="Zc4-Bj-P7f" eventType="touchUpInside" id="eRp-F0-x71"/>
@@ -57,7 +59,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="ZEF-bP-DmM" firstAttribute="top" secondItem="suI-Yn-fV6" secondAttribute="top" id="VKG-Dq-M58"/>
                                     <constraint firstItem="ZEF-bP-DmM" firstAttribute="height" secondItem="suI-Yn-fV6" secondAttribute="height" id="enK-al-edM"/>
@@ -66,23 +68,23 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="106" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s5p-If-AlO">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="482"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="542.5"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="videoCell" rowHeight="106" id="sAJ-Zw-eJb" customClass="PlaylistTableViewCell" customModule="Jamdemic" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="106"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="106"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sAJ-Zw-eJb" id="7FS-bm-H6P">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="106"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-HG-Hgz">
-                                                    <rect key="frame" x="8" y="12" width="240" height="82"/>
+                                                    <rect key="frame" x="15" y="15" width="165.5" height="76"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist name and song title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yw9-3F-4Eb">
-                                                    <rect key="frame" x="256" y="12" width="328" height="23.5"/>
+                                                    <rect key="frame" x="188.5" y="15" width="202.5" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -112,7 +114,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="suI-Yn-fV6" firstAttribute="leading" secondItem="Tti-gH-ldD" secondAttribute="leading" id="4cu-gf-MYD"/>
                             <constraint firstItem="s5p-If-AlO" firstAttribute="leading" secondItem="Tti-gH-ldD" secondAttribute="leading" id="Dve-l0-dLx"/>
@@ -153,9 +155,9 @@
                         <viewControllerLayoutGuide type="bottom" id="MeC-Ko-cbO"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zza-jc-CgK">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mC4-be-wqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -168,7 +170,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8WZ-Yl-Y7o" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sk8-sa-p5c">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -185,6 +187,6 @@
         <image name="Play-104" width="52" height="52"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tjy-4Y-YkO"/>
+        <segue reference="UCa-OR-Krh"/>
     </inferredMetricsTieBreakers>
 </document>

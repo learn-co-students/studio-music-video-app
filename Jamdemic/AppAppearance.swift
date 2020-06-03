@@ -16,17 +16,17 @@ class AppAppearance {
     }
     
     class func setNavigationBarAppearance() {
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName : UIFont.navigationBarTitleFont()]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font : UIFont.navigationBarTitleFont()]
         UINavigationBar.appearance().tintColor = UIColor.mainAppColor()
     }
     
     class func setBarButtonItemAppearance() {
         UIBarButtonItem.appearance().setTitleTextAttributes(
-            [NSFontAttributeName: UIFont.navigationItemFont(),
-            NSForegroundColorAttributeName: UIColor.mainAppColor()],forState: .Normal)
+            [NSAttributedString.Key.font: UIFont.navigationItemFont(),
+             NSAttributedString.Key.foregroundColor: UIColor.mainAppColor()],for: .normal)
         
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.navigationItemFont(),
-            NSForegroundColorAttributeName: UIColor.lightGrayColor()], forState: .Disabled)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.navigationItemFont(),
+                                                             NSAttributedString.Key.foregroundColor: UIColor.lightGray], for: .disabled)
         
     }
     
